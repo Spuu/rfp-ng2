@@ -1,3 +1,7 @@
+global.rootRequire = function(name) {
+    return require(__dirname + '/' + name);
+};
+
 require('./database');
 
 var express = require('express');
@@ -17,11 +21,12 @@ app.set('view engine', 'jade');
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // routes
+app.use('/', require('./routes'));
 app.use('/api', require('./routes/api'));
 
 // catch 404 and forward to error handler
