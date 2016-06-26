@@ -1,9 +1,10 @@
 module.exports = function(req, res) {
 
-    var obj = new utils.model();
-    console.log(obj.constructor.modelName);
+    var obj = new this.utils.model();
 
     obj.setObject(req.body);
 
-    return utils.save(obj, res);
+    var save = this.utils.save.bind(this.utils);
+
+    return save(obj, res);
 };

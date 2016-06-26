@@ -10,13 +10,13 @@ router.get('/', function(req, res) {
     var routes = new GenericRouter(entry);
 
     router.route('/' + entry)
-        .get(routes.get)
-        .post(routes.post);
+        .get(routes.get.bind(routes))
+        .post(routes.post.bind(routes));
 
     router.route('/' + entry + '/id/:id')
-        .get(routes.get_id)
-        .put(routes.put_id)
-        .delete(routes.delete_id);
+        .get(routes.get_id.bind(routes))
+        .put(routes.put_id.bind(routes))
+        .delete(routes.delete_id.bind(routes));
 });
 
 module.exports = router;

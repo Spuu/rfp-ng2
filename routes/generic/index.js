@@ -1,13 +1,15 @@
-function GenericRouter(modelName) {
+var Utils = function (modelName) {
 
     this.model_name = modelName;
+    this.save       = require('./save');
+    this.model      = rootRequire('models/' + this.model_name);
+    this.error      = rootRequire('utils/errors');
+};
 
-    utils = {
-        save: GenericRouter.prototype.save,
-        model: rootRequire('models/' + this.model_name),
-        error: rootRequire('utils/errors')
-    };
-}
+var GenericRouter = function (modelName) {
+
+    this.utils = new Utils(modelName);
+};
 
 GenericRouter.prototype.save        = require('./save');
 GenericRouter.prototype.get         = require('./get');

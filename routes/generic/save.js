@@ -1,11 +1,13 @@
 module.exports = function (model, res) {
 
+    var model_name = this.model_name;
+
     model.save(function (err) {
         if (err)
-            return utils.error(res, 400, err);
+            return this.error(res, 400, err);
 
         var jsonVal = {};
-        jsonVal[this.model_name] = model;
+        jsonVal[model_name] = model;
         res.json(jsonVal);
     });
 };

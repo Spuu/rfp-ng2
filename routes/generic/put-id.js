@@ -1,11 +1,11 @@
 module.exports = function(req, res) {
 
-    utils.model.findById(req.params.id, function(err, obj) {
+    this.utils.model.findById(req.params.id, function(err, obj) {
         if (err)
-            return utils.error(res, 400, err);
+            return this.utils.error(res, 400, err);
 
         obj.setObject(req.body);
 
-        return utils.save(obj, res);
+        this.utils.save(obj, res).bind(this.utils);
     });
 };
