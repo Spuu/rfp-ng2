@@ -1,21 +1,44 @@
-var Utils = function (modelName) {
+"use strict"
 
-    this.model_name = modelName;
-    this.save       = require('./save');
-    this.model      = rootRequire('models/' + this.model_name);
-    this.error      = rootRequire('utils/errors');
+class ModelInfo {
+    constructor(modelName) {
+        this.model_name = modelName;
+    }
+
+    model() {
+        return rootRequire('models/' + this.model_name);
+    }
 };
 
-var GenericRouter = function (modelName) {
+class GenericRouter {
 
-    this.utils = new Utils(modelName);
+    constructor(modelName) {
+        this.model_info = new ModelInfo(modelName);
+    }
+
+    list(req, res) {
+        return require('./list').bind(this)(req, res);
+    }
+
+    show(req, res) {
+        return require('./show').bind(this)(req, res);
+    }
+
+    remove(req, res) {
+        return require('./remove').bind(this)(req, res);
+    }
+
+    update(req, res) {
+        return require('./update').bind(this)(req, res);
+    }
+
+    create(req, res) {
+        return require('./create').bind(this)(req, res);
+    }
+
+    save(obj, res) {
+        return require('./save').bind(this)(obj, res);
+    }
 };
-
-GenericRouter.prototype.save        = require('./save');
-GenericRouter.prototype.get         = require('./get');
-GenericRouter.prototype.delete_id   = require('./delete-id');
-GenericRouter.prototype.get_id      = require('./get-id');
-GenericRouter.prototype.post        = require('./post');
-GenericRouter.prototype.put_id      = require('./put-id');
 
 module.exports = GenericRouter;

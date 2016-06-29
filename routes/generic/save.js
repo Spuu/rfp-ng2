@@ -1,13 +1,15 @@
-module.exports = function (model, res) {
+var Utils = rootRequire('utils/errors');
 
-    var model_name = this.model_name;
+module.exports = function (obj, res) {
 
-    model.save(function (err) {
+    var model_name = this.model_info.model_name;
+
+    obj.save(function (err) {
         if (err)
-            return this.error(res, 400, err);
+            return Utils.error(res, 400, err);
 
         var jsonVal = {};
-        jsonVal[model_name] = model;
+        jsonVal[model_name] = obj;
         res.json(jsonVal);
     });
 };

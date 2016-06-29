@@ -1,10 +1,12 @@
+var Utils = rootRequire('utils/errors');
+
 module.exports = function(req, res) {
 
-    utils.model.remove({
+    this.model_info.model().remove({
         _id: req.params.id
     }, function(err, obj) {
         if(err)
-            return utils.error(res, 400, err);
+            return Utils.error(res, 400, err);
 
         res.json(obj);
     });
