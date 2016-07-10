@@ -1,19 +1,17 @@
 var should = require('should');
 var request = require('supertest');
-var config = require('../../config');
+var config = require('../../../config');
 
-var TestManager = require('../TestManager');
+var TestManager = require('../../modules/TestManager');
 
 module.exports = function (done) {
     var obj = {
-        _cpty: TestManager.getId('cpty'),
-        name: 'Faktura 1234',
-        _store: TestManager.getId('store'),
-        documentDate: new Date('2016-01-01')
+        name: 'Faktura 123456',
+        type: 'Sell'
     };
 
     request(config.api_url)
-        .post('/invoice')
+        .put('/invoice/id/' + TestManager.getId('invoice'))
         .send(obj)
         .expect(200)
         .end(function (err, res) {
@@ -22,13 +20,12 @@ module.exports = function (done) {
             }
 
             res.body.invoice.should.have.property('_id');
-            res.body.invoice.name.should.equal('Faktura 1234');
+            res.body.invoice.name.should.equal('Faktura 123456');
             res.body.invoice._cpty.should.equal(TestManager.getId('cpty'));
             res.body.invoice._store.should.equal(TestManager.getId('store'));
-            res.body.invoice.type.should.equal('Buy');
+            res.body.invoice.type.should.equal('Sell');
             res.body.invoice.creationDate.should.greaterThan(res.body.invoice.documentDate);
-
-            TestManager.setId('invoice', res.body.invoice._id);
+            res.body.invoice.creationDate.should.lessThan(res.body.invoice.lastModifDate);
 
             done();
         });

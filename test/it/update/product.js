@@ -1,20 +1,19 @@
 var should = require('should');
 var request = require('supertest');
-var config = require('../../config');
+var config = require('../../../config');
 
-var TestManager = require('../TestManager');
+var TestManager = require('../../modules/TestManager');
+var Product = require('../../../models/product');
 
 module.exports = function (done) {
     var obj = {
-        cash_register_name: 'Prod 1',
-        ean: '1234567890',
-        name: 'Produkt pierwszy',
-        pih_amount: 123,
-        pih_unit: 'g'
+        cash_register_name: 'Prod 12',
+        name: 'Produkt pierwszy poprawiony',
+        pih_amount: 1234,
     };
 
     request(config.api_url)
-        .post('/product')
+        .put('/product/id/' + TestManager.getId('product'))
         .send(obj)
         .expect(200)
         .end(function (err, res) {
@@ -23,16 +22,15 @@ module.exports = function (done) {
             }
 
             res.body.product.should.have.property('_id');
-            res.body.product.name.should.equal('Produkt pierwszy');
+            res.body.product.status.should.equal(Product.statusVal().updated);
+            res.body.product.name.should.equal('Produkt pierwszy poprawiony');
             res.body.product.cash_register_rate.should.equal(1);
-            res.body.product.cash_register_name.should.equal('Prod 1');
+            res.body.product.cash_register_name.should.equal('Prod 12');
             res.body.product.ean.should.equal('1234567890');
-            res.body.product.pih_amount.should.equal(123);
+            res.body.product.pih_amount.should.equal(1234);
             res.body.product.pih_unit.should.equal('g');
             res.body.product.sell_unit.should.equal('szt');
             res.body.product.default_quantity_rate.should.equal(1);
-
-            TestManager.setId('product', res.body.product._id);
 
             done();
         });

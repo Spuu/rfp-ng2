@@ -1,4 +1,4 @@
-var Utils = rootRequire('utils/errors');
+var Utils = require('../../utils/GenericUtils');
 
 module.exports = function(req, res) {
 
@@ -8,7 +8,7 @@ module.exports = function(req, res) {
         if (err)
             return Utils.error(res, 400, err);
 
-        obj.setObject(req.body);
+        Utils.setObject(obj, req.body);
 
         return save_func(obj, res);
     });

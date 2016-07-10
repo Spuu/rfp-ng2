@@ -1,4 +1,4 @@
-var Utils = rootRequire('utils/errors');
+var Utils = require('../../utils/GenericUtils');
 
 module.exports = function (obj, res) {
 

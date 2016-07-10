@@ -1,5 +1,3 @@
-'use strict'
-
 var mongoose     = require('mongoose');
 var Schema       = mongoose.Schema;
 
@@ -13,7 +11,8 @@ var ProductSchema = new Schema({
     name                    : { type: String, required: true },
     pih_amount              : { type: Number, default: 0 },
     pih_unit                : { type: String, default: 'szt' },
-    sell_unit               : { type: String, default: 'szt' }
+    sell_unit               : { type: String, default: 'szt' },
+    status                  : { type: String, enum: ['New', 'Updated', 'Ok'], default: 'New' }
 });
 
 ProductSchema.pre('save', function(next) {
@@ -22,5 +21,17 @@ ProductSchema.pre('save', function(next) {
         this.cash_register_name = this.name;
     next();
 });
+
+ProductSchema.methods.isOk = function() {
+    return status === 'Ok';
+};
+
+ProductSchema.statics.statusVal = function () {
+    return {
+        new: 'New',
+        updated: 'Updated',
+        ok: 'Ok'
+    }
+};
 
 module.exports = mongoose.model('Product', ProductSchema);
