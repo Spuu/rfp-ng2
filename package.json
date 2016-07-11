@@ -1,6 +1,6 @@
 {
   "name": "ReksFaktPro",
-  "version": "0.0.0",
+  "version": "2.0.0",
   "private": true,
   "scripts": {
     "start": "tsc && concurrently \"npm run tsc:w\" \"npm run lite\" \"supervisor -i ./app ./bin/www\" ",
