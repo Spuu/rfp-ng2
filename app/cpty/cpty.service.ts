@@ -9,7 +9,7 @@ import { ICpty } from './cpty';
 
 @Injectable()
 export class CptyService {
-    private _cptyUrl = 'app/cpty/test.json';
+    private _cptyUrl = 'api/cpty';
 
     constructor(private _http: Http) { }
 
@@ -17,7 +17,7 @@ export class CptyService {
         return this._http.get(this._cptyUrl)
             .map((response: Response) => <ICpty[]> response.json())
             .do(data => console.log('All: ' +  JSON.stringify(data)))
-            // .catch(this.handleError);
+            .catch(this.handleError);
     }
 
     getCpty(id: string): Observable<ICpty> {

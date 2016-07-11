@@ -17,13 +17,13 @@ require('rxjs/add/operator/catch');
 var CptyService = (function () {
     function CptyService(_http) {
         this._http = _http;
-        this._cptyUrl = 'app/cpty/test.json';
+        this._cptyUrl = 'api/cpty';
     }
     CptyService.prototype.getCpties = function () {
         return this._http.get(this._cptyUrl)
             .map(function (response) { return response.json(); })
-            .do(function (data) { return console.log('All: ' + JSON.stringify(data)); });
-        // .catch(this.handleError);
+            .do(function (data) { return console.log('All: ' + JSON.stringify(data)); })
+            .catch(this.handleError);
     };
     CptyService.prototype.getCpty = function (id) {
         return this.getCpties()
