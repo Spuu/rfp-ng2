@@ -3,6 +3,8 @@ import { HTTP_PROVIDERS } from '@angular/http';
 import { ROUTER_DIRECTIVES } from '@angular/router';
 
 import {CptyService} from "./cpty/cpty.service";
+import {CptyListComponent} from "./cpty/cpty-list.component";
+import {CptyDetailFormComponent} from "./cpty/cpty-detail-form.component";
 
 @Component({
     selector: 'my-app',
@@ -23,7 +25,9 @@ import {CptyService} from "./cpty/cpty.service";
      `,
     directives: [ROUTER_DIRECTIVES],
     providers: [CptyService,
-                HTTP_PROVIDERS]
+                HTTP_PROVIDERS],
+    precompile: [CptyListComponent,
+                CptyDetailFormComponent]
 })
 export class AppComponent {
     pageTitle: string = "ReksFaktPro v2.0.0"

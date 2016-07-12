@@ -6,21 +6,21 @@
     <!-- Filter the Products   -->
     <div class='panel-body'>
         <!--<div class='row'>-->
-            <!--<div class='col-md-2'>Filter by:</div>-->
-            <!--<div class='col-md-4'>-->
-                <!--<input type='text' [(ngModel)]='listFilter' />-->
-            <!--</div>-->
+        <!--<div class='col-md-2'>Filter by:</div>-->
+        <!--<div class='col-md-4'>-->
+        <!--<input type='text' [(ngModel)]='listFilter' />-->
+        <!--</div>-->
         <!--</div>-->
         <!--<div class='row' *ngIf='listFilter'>-->
-            <!--<div class='col-md-6'>-->
-                <!--<h3>Filtered by: {{listFilter}} </h3>-->
-            <!--</div>-->
+        <!--<div class='col-md-6'>-->
+        <!--<h3>Filtered by: {{listFilter}} </h3>-->
+        <!--</div>-->
         <!--</div>-->
 
         <div class='has-error' *ngIf='errorMessage'>{{errorMessage}}</div>
 
         <div class='table-responsive'>
-            <table class='table' *ngIf='cpties && cpties.length'>
+            <table class='table table-hover' *ngIf='cpties && cpties.length'>
                 <thead>
                 <tr>
                     <th>ID</th>
@@ -29,7 +29,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor='#cpty of cpties'>
+                <tr *ngFor='let cpty of cpties' (click)="onSelect(cpty)">
                     <td>{{ cpty._id }}</td>
                     <td>{{ cpty.name }}</td>
                     <td>{{ cpty.long_name }}</td>

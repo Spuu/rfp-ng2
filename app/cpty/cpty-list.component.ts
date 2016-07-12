@@ -1,19 +1,21 @@
 import { Component, OnInit }  from '@angular/core';
-import { ROUTER_DIRECTIVES } from '@angular/router';
+import { Router } from '@angular/router';
 
-import { ICpty } from './cpty';
-import { CptyService } from './cpty.service';
+import {ICpty} from './cpty';
+import {CptyService} from './cpty.service';
+import {Logger} from "angular2-logger/core";
 
 @Component({
-    templateUrl: 'app/cpty/cpty-list.component.html',
-    directives: [ROUTER_DIRECTIVES]
+    templateUrl: 'app/cpty/cpty-list.component.html'
 })
 export class CptyListComponent implements OnInit {
     pageTitle: string = 'Kontrahenci';
     cpties: ICpty[];
     errorMessage: string;
 
-    constructor(private _cptyService: CptyService) {
+    constructor(private _cptyService: CptyService,
+                private _router: Router,
+                private _logger: Logger) {
 
     }
 
@@ -22,5 +24,9 @@ export class CptyListComponent implements OnInit {
             .subscribe(
                 cpties => this.cpties = cpties,
                 error =>  this.errorMessage = <any>error);
+    }
+
+    onSelect(cpty: ICpty) {
+        this._router.navigate(['/cpty', cpty._id]);
     }
 }

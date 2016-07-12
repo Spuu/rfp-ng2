@@ -7,9 +7,7 @@ module.exports = function (obj, res) {
     obj.save(function (err) {
         if (err)
             return Utils.error(res, 400, err);
-
-        var jsonVal = {};
-        jsonVal[model_name] = obj;
-        res.json(jsonVal);
+        
+        res.json(obj);
     });
 };
