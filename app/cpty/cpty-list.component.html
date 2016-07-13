@@ -1,23 +1,32 @@
 <div class='panel panel-primary'>
     <div class='panel-heading'>
-        {{pageTitle}}
+        <div>
+            {{pageTitle}}
+            <button type="button" class="btn btn-default col-sm-offset-1" (click)="showNewForm=true">Dodaj</button>
+        </div>
     </div>
 
-    <!-- Filter the Products   -->
     <div class='panel-body'>
-        <!--<div class='row'>-->
-        <!--<div class='col-md-2'>Filter by:</div>-->
-        <!--<div class='col-md-4'>-->
-        <!--<input type='text' [(ngModel)]='listFilter' />-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--<div class='row' *ngIf='listFilter'>-->
-        <!--<div class='col-md-6'>-->
-        <!--<h3>Filtered by: {{listFilter}} </h3>-->
-        <!--</div>-->
-        <!--</div>-->
-
         <div class='has-error' *ngIf='errorMessage'>{{errorMessage}}</div>
+
+        <form (ngSubmit)="onSubmit()" #cptyForm="ngForm" [hidden]="!showNewForm">
+            <div class="form-group">
+                <label for="name">Nazwa</label>
+                <input type="text" class="form-control" required
+                       [(ngModel)]="model.name"
+                       name="name" #name="ngModel">
+                <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+                    Name is required
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="long_name">Pełna nazwa</label>
+                <textarea class="form-control" rows="3"
+                          [(ngModel)]="model.long_name"
+                          name="long_name"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" [disabled]="!cptyForm.form.valid">Zapisz</button>
+        </form>
 
         <div class='table-responsive'>
             <table class='table table-hover' *ngIf='cpties && cpties.length'>
@@ -29,10 +38,11 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor='let cpty of cpties' (click)="onSelect(cpty)">
+                <tr *ngFor='let cpty of cpties'>
                     <td>{{ cpty._id }}</td>
                     <td>{{ cpty.name }}</td>
                     <td>{{ cpty.long_name }}</td>
+                    <button type="button" class="btn btn-default" (click)="onSelect(cpty)">Edycja</button>
                 </tr>
                 </tbody>
             </table>

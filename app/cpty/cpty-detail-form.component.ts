@@ -1,7 +1,7 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {ROUTER_DIRECTIVES, Router, ActivatedRoute} from '@angular/router';
 
-import {ICpty} from './cpty';
+import {Cpty} from './cpty';
 import {CptyService} from './cpty.service';
 
 @Component({
@@ -10,7 +10,7 @@ import {CptyService} from './cpty.service';
 })
 export class CptyDetailFormComponent implements OnInit, OnDestroy {
     pageTitle:string = 'Dane kontrahenta';
-    cpty:ICpty;
+    cpty:Cpty;
     errorMessage:string;
 
     private sub:any;
@@ -44,7 +44,7 @@ export class CptyDetailFormComponent implements OnInit, OnDestroy {
         this._router.navigate(['/cpty']);
     }
 
-    putCpty(cpty:ICpty) {
+    putCpty(cpty:Cpty) {
         this._cptyService.putCpty(cpty)
             .subscribe(
                 cpty => this.cpty = cpty,
@@ -52,7 +52,21 @@ export class CptyDetailFormComponent implements OnInit, OnDestroy {
             );
     }
 
+    delCpty(id:string) {
+        this._cptyService.delCpty(id)
+            .subscribe(
+                data => {},
+                error => this.errorMessage = <any>error,
+                _ => this.gotoCpties()
+            );
+    }
+
     onSubmit() {
         this.putCpty(this.cpty);
+    }
+
+    onDelete() {
+        this.delCpty(this.cpty._id);
+        this.gotoCpties();
     }
 }

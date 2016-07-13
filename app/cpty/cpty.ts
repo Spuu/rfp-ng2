@@ -1,5 +1,7 @@
-export interface ICpty {
-    _id: string;
-    name: string;
-    long_name: string;
+export class Cpty {
+    constructor(public _id: string = '',
+                public name: string = '',
+                public long_name: string = '') {
+
+    }
 }
