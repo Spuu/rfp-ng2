@@ -5,6 +5,8 @@ import {StoreListComponent} from "./store/store-list.component";
 import {StoreDetailFormComponent} from "./store/store-detail-form.component";
 import {ProductListComponent} from "./product/product-list.component";
 import {ProductDetailFormComponent} from "./product/product-detail-form.component";
+import {InvoiceListComponent} from "./invoice/invoice-list.component";
+import {InvoiceDetailFormComponent} from "./invoice/invoice-detail-form.component";
 
 export const routes: RouterConfig = [
     { path: '', component: CptyListComponent },
@@ -14,6 +16,8 @@ export const routes: RouterConfig = [
     { path: 'store/:id', component: StoreDetailFormComponent },
     { path: 'product', component: ProductListComponent },
     { path: 'product/:id', component: ProductDetailFormComponent },
+    { path: 'invoice', component: InvoiceListComponent },
+    { path: 'invoice/:id', component: InvoiceDetailFormComponent },
     { path: '*', component: CptyListComponent }
 ];
 

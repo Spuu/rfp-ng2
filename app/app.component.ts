@@ -11,6 +11,9 @@ import {StoreService} from "./store/store.service";
 import {ProductListComponent} from "./product/product-list.component";
 import {ProductDetailFormComponent} from "./product/product-detail-form.component";
 import {ProductService} from "./product/product.service";
+import {InvoiceService} from "./invoice/invoice.service";
+import {InvoiceListComponent} from "./invoice/invoice-list.component";
+import {InvoiceDetailFormComponent} from "./invoice/invoice-detail-form.component";
 
 @Component({
     selector: 'my-app',
@@ -23,6 +26,7 @@ import {ProductService} from "./product/product.service";
                     <li><a [routerLink]="['/cpty']">Kontrahenci</a></li>
                     <li><a [routerLink]="['/store']">Sklepy</a></li>
                     <li><a [routerLink]="['/product']">Produkty</a></li>
+                    <li><a [routerLink]="['/invoice']">Faktury</a></li>
                 </ul>
             </div>
         </nav>
@@ -35,13 +39,16 @@ import {ProductService} from "./product/product.service";
     providers: [CptyService,
                 StoreService,
                 ProductService,
+                InvoiceService,
                 HTTP_PROVIDERS],
     precompile: [CptyListComponent,
                 CptyDetailFormComponent,
                 StoreListComponent,
                 StoreDetailFormComponent,
                 ProductListComponent,
-                ProductDetailFormComponent]
+                ProductDetailFormComponent,
+                InvoiceListComponent,
+                InvoiceDetailFormComponent]
 })
 export class AppComponent {
     pageTitle: string = "ReksFaktPro v2.0.0"

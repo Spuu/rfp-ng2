@@ -1,0 +1,47 @@
+<div class='panel panel-primary'>
+    <div class='panel-heading'>
+        <div>
+            {{pageTitle}}
+            <button type="button" class="btn btn-default col-sm-offset-1" (click)="showNewForm=true">Dodaj</button>
+        </div>
+    </div>
+
+    <div class='panel-body'>
+        <div class='has-error' *ngIf='errorMessage'>{{errorMessage}}</div>
+
+        <form (ngSubmit)="onSubmit()" #invoiceForm="ngForm" [hidden]="!showNewForm">
+            <div class="form-group">
+                <label for="name">Nazwa</label>
+                <input type="text" class="form-control" required
+                       [(ngModel)]="model.name"
+                       name="name" #name="ngModel">
+                <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+                    Name is required
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary" [disabled]="!invoiceForm.form.valid">Zapisz</button>
+        </form>
+
+        <div class='table-responsive'>
+            <table class='table table-hover' *ngIf='invoices && invoices.length'>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nazwa</th>
+                    <th>Data utworzenia</th>
+                    <th>Data dokumentu</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor='let invoice of invoices'>
+                    <td>{{ invoice._id }}</td>
+                    <td>{{ invoice.name }}</td>
+                    <td>{{ invoice.creationDate | date:"dd-MM-yyyy hh:mm:ss" }}</td>
+                    <td>{{ invoice.documentDate | date:"dd-MM-yyyy"}}</td>
+                    <button type="button" class="btn btn-default" (click)="onSelect(invoice)">Edycja</button>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
