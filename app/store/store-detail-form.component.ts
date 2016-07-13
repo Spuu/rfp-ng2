@@ -1,21 +1,21 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {ROUTER_DIRECTIVES, Router, ActivatedRoute} from '@angular/router';
 
-import {Cpty} from './cpty';
-import {CptyService} from './cpty.service';
+import {Store} from './store';
+import {StoreService} from './store.service';
 
 @Component({
-    templateUrl: 'app/cpty/cpty-detail-form.component.html',
+    templateUrl: 'app/store/store-detail-form.component.html',
     directives: [ROUTER_DIRECTIVES]
 })
-export class CptyDetailFormComponent implements OnInit, OnDestroy {
-    pageTitle:string = 'Dane kontrahenta';
-    cpty:Cpty;
-    errorMessage:string;
+export class StoreDetailFormComponent implements OnInit, OnDestroy {
+    pageTitle: string = 'Dane Sklepu';
+    store: Store;
+    errorMessage: string;
 
     private sub:any;
 
-    constructor(private _cptyService:CptyService,
+    constructor(private _storeService:StoreService,
                 private _router:Router,
                 private _route:ActivatedRoute) {
     }
@@ -24,7 +24,7 @@ export class CptyDetailFormComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.sub = this._route.params.subscribe(params => {
             let id = params['id'];
-            this.getCpty(id);
+            this.getStore(id);
         });
     }
 
@@ -32,41 +32,41 @@ export class CptyDetailFormComponent implements OnInit, OnDestroy {
         this.sub.unsubscribe();
     }
 
-    getCpty(id:string) {
-        this._cptyService.getCpty(id)
+    getStore(id:string) {
+        this._storeService.getStore(id)
             .subscribe(
-                cpty => this.cpty = cpty,
+                store => this.store = store,
                 error => this.errorMessage = <any>error
             );
     }
 
-    gotoCpties() {
-        this._router.navigate(['/cpty']);
+    gotoStores() {
+        this._router.navigate(['/store']);
     }
 
-    putCpty(cpty:Cpty) {
-        this._cptyService.putCpty(cpty)
+    putStore(store:Store) {
+        this._storeService.putStore(store)
             .subscribe(
-                cpty => this.cpty = cpty,
+                store => this.store = store,
                 error => this.errorMessage = <any>error
             );
     }
 
-    delCpty(id:string) {
-        this._cptyService.delCpty(id)
+    delStore(id:string) {
+        this._storeService.delStore(id)
             .subscribe(
                 data => {},
                 error => this.errorMessage = <any>error,
-                () => this.gotoCpties()
+                () => this.gotoStores()
             );
     }
 
     onSubmit() {
-        this.putCpty(this.cpty);
+        this.putStore(this.store);
     }
 
     onDelete() {
-        this.delCpty(this.cpty._id);
-        this.gotoCpties();
+        this.delStore(this.store._id);
+        this.gotoStores();
     }
 }
