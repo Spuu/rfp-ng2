@@ -8,6 +8,9 @@ import {CptyDetailFormComponent} from "./cpty/cpty-detail-form.component";
 import {StoreListComponent} from "./store/store-list.component";
 import {StoreDetailFormComponent} from "./store/store-detail-form.component";
 import {StoreService} from "./store/store.service";
+import {ProductListComponent} from "./product/product-list.component";
+import {ProductDetailFormComponent} from "./product/product-detail-form.component";
+import {ProductService} from "./product/product.service";
 
 @Component({
     selector: 'my-app',
@@ -19,6 +22,7 @@ import {StoreService} from "./store/store.service";
                 <ul class='nav navbar-nav'>
                     <li><a [routerLink]="['/cpty']">Kontrahenci</a></li>
                     <li><a [routerLink]="['/store']">Sklepy</a></li>
+                    <li><a [routerLink]="['/product']">Produkty</a></li>
                 </ul>
             </div>
         </nav>
@@ -30,11 +34,14 @@ import {StoreService} from "./store/store.service";
     directives: [ROUTER_DIRECTIVES],
     providers: [CptyService,
                 StoreService,
+                ProductService,
                 HTTP_PROVIDERS],
     precompile: [CptyListComponent,
                 CptyDetailFormComponent,
                 StoreListComponent,
-                StoreDetailFormComponent]
+                StoreDetailFormComponent,
+                ProductListComponent,
+                ProductDetailFormComponent]
 })
 export class AppComponent {
     pageTitle: string = "ReksFaktPro v2.0.0"

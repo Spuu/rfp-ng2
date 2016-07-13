@@ -21,14 +21,14 @@ module.exports = function (done) {
                 throw err;
             }
 
-            res.body.invoice.should.have.property('_id');
-            res.body.invoice.name.should.equal('Faktura 1234');
-            res.body.invoice._cpty.should.equal(TestManager.getId('cpty'));
-            res.body.invoice._store.should.equal(TestManager.getId('store'));
-            res.body.invoice.type.should.equal('Buy');
-            res.body.invoice.creationDate.should.greaterThan(res.body.invoice.documentDate);
+            res.body.should.have.property('_id');
+            res.body.name.should.equal('Faktura 1234');
+            res.body._cpty.should.equal(TestManager.getId('cpty'));
+            res.body._store.should.equal(TestManager.getId('store'));
+            res.body.type.should.equal('Buy');
+            res.body.creationDate.should.greaterThan(res.body.documentDate);
 
-            TestManager.setId('invoice', res.body.invoice._id);
+            TestManager.setId('invoice', res.body._id);
 
             done();
         });

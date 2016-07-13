@@ -18,10 +18,10 @@ module.exports = function (done) {
                 throw err;
             }
 
-            res.body.store.should.have.property('_id');
-            res.body.store.name.should.equal('Czołgistów');
+            res.body.should.have.property('_id');
+            res.body.name.should.equal('Czołgistów');
 
-            TestManager.setId('store', res.body.store._id);
+            TestManager.setId('store', res.body._id);
 
             done();
         });

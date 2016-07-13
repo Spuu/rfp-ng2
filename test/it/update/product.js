@@ -21,16 +21,16 @@ module.exports = function (done) {
                 throw err;
             }
 
-            res.body.product.should.have.property('_id');
-            res.body.product.status.should.equal(Product.statusVal().updated);
-            res.body.product.name.should.equal('Produkt pierwszy poprawiony');
-            res.body.product.cash_register_rate.should.equal(1);
-            res.body.product.cash_register_name.should.equal('Prod 12');
-            res.body.product.ean.should.equal('1234567890');
-            res.body.product.pih_amount.should.equal(1234);
-            res.body.product.pih_unit.should.equal('g');
-            res.body.product.sell_unit.should.equal('szt');
-            res.body.product.default_quantity_rate.should.equal(1);
+            res.body.should.have.property('_id');
+            res.body.status.should.equal(Product.statusVal().updated);
+            res.body.name.should.equal('Produkt pierwszy poprawiony');
+            res.body.cash_register_rate.should.equal(1);
+            res.body.cash_register_name.should.equal('Prod 12');
+            res.body.ean.should.equal('1234567890');
+            res.body.pih_amount.should.equal(1234);
+            res.body.pih_unit.should.equal('g');
+            res.body.sell_unit.should.equal('szt');
+            res.body.default_quantity_rate.should.equal(1);
 
             done();
         });

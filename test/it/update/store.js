@@ -18,8 +18,8 @@ module.exports = function (done) {
                 throw err;
             }
 
-            res.body.store.should.have.property('_id');
-            res.body.store.name.should.equal('Czołgistów 23');
+            res.body.should.have.property('_id');
+            res.body.name.should.equal('Czołgistów 23');
 
             done();
         });
