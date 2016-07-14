@@ -1,9 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Http, Response, Headers, RequestOptions} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
-import 'rxjs/add/operator/map'
-import 'rxjs/add/operator/do'
-import 'rxjs/add/operator/catch'
+import 'rxjs/Rx'
 
 import {Cpty} from './cpty';
 import {Logger} from "angular2-logger/core";
@@ -60,9 +58,6 @@ export class CptyService {
     }
 
     private handleError(error:Response) {
-        // in a real world app, we may send the server to some remote logging infrastructure
-        // instead of just logging it to the console
-        console.error(error);
-        return Observable.throw(error.json().error || 'Server error');
+        return Observable.throw(JSON.stringify(error.json().error) || 'Server error');
     }
 }

@@ -4,9 +4,11 @@ import {Router} from '@angular/router';
 import {Invoice} from './invoice';
 import {InvoiceService} from './invoice.service';
 import {Logger} from "angular2-logger/core";
+import {InvoiceNewFormComponent} from "./invoice-new-form.component";
 
 @Component({
-    templateUrl: 'app/invoice/invoice-list.component.html'
+    templateUrl: 'app/invoice/invoice-list.component.html',
+    directives: [InvoiceNewFormComponent]
 })
 export class InvoiceListComponent implements OnInit {
     pageTitle:string = 'Faktury';
@@ -18,7 +20,6 @@ export class InvoiceListComponent implements OnInit {
     constructor(private _invoiceService:InvoiceService,
                 private _router:Router,
                 private _logger:Logger) {
-
     }
 
     ngOnInit():void {
@@ -32,13 +33,7 @@ export class InvoiceListComponent implements OnInit {
         this._router.navigate(['/invoice', invoice._id]);
     }
 
-    onSubmit() {
-        this._invoiceService.postInvoice(this.model).subscribe(
-            invoice => {
-                this.invoices.push(invoice);
-                this.model = new Invoice();
-                this.showNewForm = false;
-            },
-            error => this.errorMessage = <any>error);
+    onSubmit(invoice:Invoice) {
+        this.invoices.push(invoice);
     }
 }

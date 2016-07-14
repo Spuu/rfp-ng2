@@ -1,9 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Http, Response, Headers, RequestOptions} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
-import 'rxjs/add/operator/map'
-import 'rxjs/add/operator/do'
-import 'rxjs/add/operator/catch'
+import 'rxjs/Rx'
 
 import {Invoice} from './invoice';
 import {Logger} from "angular2-logger/core";
@@ -12,8 +10,8 @@ import {Logger} from "angular2-logger/core";
 export class InvoiceService {
     private _url = 'api/invoice';
 
-    constructor(private _http: Http,
-                private _logger: Logger) {
+    constructor(private _http:Http,
+                private _logger:Logger) {
     }
 
     getInvoices():Observable<Invoice[]> {
@@ -42,7 +40,13 @@ export class InvoiceService {
     }
 
     postInvoice(invoice:Invoice):Observable<Invoice> {
-        let body = JSON.stringify({name: invoice.name});
+        let body = JSON.stringify({
+            name: invoice.name,
+            documentDate: invoice.documentDate,
+            type: invoice.type,
+            _cpty: invoice._cpty,
+            _store: invoice._store
+        });
         let headers = new Headers({'Content-Type': 'application/json'});
         let options = new RequestOptions({headers: headers});
 
@@ -60,9 +64,6 @@ export class InvoiceService {
     }
 
     private handleError(error:Response) {
-        // in a real world app, we may send the server to some remote logging infrastructure
-        // instead of just logging it to the console
-        console.error(error);
-        return Observable.throw(error.json().error || 'Server error');
+        return Observable.throw(JSON.stringify(error.json().error) || 'Server error');
     }
 }
