@@ -44,7 +44,12 @@ export abstract class GenericService<T extends Model> {
     }
 
     post(model:T):Observable<T> {
-        delete model._id;
+
+        for(let key in model) {
+            if(!model[key] && key.startsWith('_'))
+                delete model[key];
+        }
+
         let body = JSON.stringify(model);
         let headers = new Headers({'Content-Type': 'application/json'});
         let options = new RequestOptions({headers: headers});
