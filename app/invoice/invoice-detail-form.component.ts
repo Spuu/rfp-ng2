@@ -33,7 +33,7 @@ export class InvoiceDetailFormComponent implements OnInit, OnDestroy {
     }
 
     getInvoice(id:string) {
-        this._invoiceService.getInvoice(id)
+        this._invoiceService.get(id)
             .subscribe(
                 invoice => this.invoice = invoice,
                 error => this.errorMessage = <any>error
@@ -45,7 +45,7 @@ export class InvoiceDetailFormComponent implements OnInit, OnDestroy {
     }
 
     putInvoice(invoice:Invoice) {
-        this._invoiceService.putInvoice(invoice)
+        this._invoiceService.put(invoice)
             .subscribe(
                 invoice => this.invoice = invoice,
                 error => this.errorMessage = <any>error
@@ -53,7 +53,7 @@ export class InvoiceDetailFormComponent implements OnInit, OnDestroy {
     }
 
     delInvoice(id:string) {
-        this._invoiceService.delInvoice(id)
+        this._invoiceService.del(id)
             .subscribe(
                 data => {},
                 error => this.errorMessage = <any>error,

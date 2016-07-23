@@ -33,7 +33,7 @@ export class CptyDetailFormComponent implements OnInit, OnDestroy {
     }
 
     getCpty(id:string) {
-        this._cptyService.getCpty(id)
+        this._cptyService.get(id)
             .subscribe(
                 cpty => this.cpty = cpty,
                 error => this.errorMessage = <any>error
@@ -45,7 +45,7 @@ export class CptyDetailFormComponent implements OnInit, OnDestroy {
     }
 
     putCpty(cpty:Cpty) {
-        this._cptyService.putCpty(cpty)
+        this._cptyService.put(cpty)
             .subscribe(
                 cpty => this.cpty = cpty,
                 error => this.errorMessage = <any>error
@@ -53,7 +53,7 @@ export class CptyDetailFormComponent implements OnInit, OnDestroy {
     }
 
     delCpty(id:string) {
-        this._cptyService.delCpty(id)
+        this._cptyService.del(id)
             .subscribe(
                 data => {},
                 error => this.errorMessage = <any>error,

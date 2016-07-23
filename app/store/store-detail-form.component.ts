@@ -33,7 +33,7 @@ export class StoreDetailFormComponent implements OnInit, OnDestroy {
     }
 
     getStore(id:string) {
-        this._storeService.getStore(id)
+        this._storeService.get(id)
             .subscribe(
                 store => this.store = store,
                 error => this.errorMessage = <any>error
@@ -45,7 +45,7 @@ export class StoreDetailFormComponent implements OnInit, OnDestroy {
     }
 
     putStore(store:Store) {
-        this._storeService.putStore(store)
+        this._storeService.put(store)
             .subscribe(
                 store => this.store = store,
                 error => this.errorMessage = <any>error
@@ -53,7 +53,7 @@ export class StoreDetailFormComponent implements OnInit, OnDestroy {
     }
 
     delStore(id:string) {
-        this._storeService.delStore(id)
+        this._storeService.del(id)
             .subscribe(
                 data => {},
                 error => this.errorMessage = <any>error,

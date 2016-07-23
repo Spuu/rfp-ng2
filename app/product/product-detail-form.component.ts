@@ -33,7 +33,7 @@ export class ProductDetailFormComponent implements OnInit, OnDestroy {
     }
 
     getProduct(id:string) {
-        this._productService.getProduct(id)
+        this._productService.get(id)
             .subscribe(
                 product => this.product = product,
                 error => this.errorMessage = <any>error
@@ -45,7 +45,7 @@ export class ProductDetailFormComponent implements OnInit, OnDestroy {
     }
 
     putProduct(product:Product) {
-        this._productService.putProduct(product)
+        this._productService.put(product)
             .subscribe(
                 product => this.product = product,
                 error => this.errorMessage = <any>error
@@ -53,7 +53,7 @@ export class ProductDetailFormComponent implements OnInit, OnDestroy {
     }
 
     delProduct(id:string) {
-        this._productService.delProduct(id)
+        this._productService.del(id)
             .subscribe(
                 data => {},
                 error => this.errorMessage = <any>error,

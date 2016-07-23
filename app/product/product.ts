@@ -1,4 +1,6 @@
-export class Product {
+import {Model} from "../generic/model";
+
+export class Product implements Model {
     constructor(public _id:string = '',
                 public cash_register_name:string = '',
                 public cash_register_rate:string = '1',

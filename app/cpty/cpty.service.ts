@@ -1,63 +1,16 @@
 import {Injectable} from '@angular/core';
-import {Http, Response, Headers, RequestOptions} from '@angular/http';
-import {Observable} from 'rxjs/Observable';
-import 'rxjs/Rx'
+import {Http} from '@angular/http';
 
-import {Cpty} from './cpty';
 import {Logger} from "angular2-logger/core";
+import {GenericService} from "../generic/generic.service";
+import {Cpty} from "./cpty";
 
 @Injectable()
-export class CptyService {
-    private _url = 'api/cpty';
+export class CptyService extends GenericService<Cpty> {
 
-    constructor(private _http: Http,
-                private _logger: Logger) {
+    constructor(_http: Http, _logger: Logger) {
+        super(_http, _logger);
     }
 
-    getCpties():Observable<Cpty[]> {
-        return this._http.get(this._url)
-            .map((res:Response) => <Cpty[]> res.json())
-            .do(data => this._logger.debug(`GET cpties -> ${JSON.stringify(data)}`))
-            .catch(this.handleError);
-    }
-
-    getCpty(id:string):Observable<Cpty> {
-        return this._http.get(this._url + `/id/${id}`)
-            .map((res:Response) => <Cpty> res.json())
-            .do(data => this._logger.debug(`GET cpty -> ${JSON.stringify(data)}`))
-            .catch(this.handleError);
-    }
-
-    putCpty(cpty:Cpty):Observable<Cpty> {
-        let body = JSON.stringify({name: cpty.name, long_name: cpty.long_name});
-        let headers = new Headers({'Content-Type': 'application/json'});
-        let options = new RequestOptions({headers: headers});
-
-        return this._http.put(`${this._url}/id/${cpty._id}`, body, options)
-            .map((res:Response) => <Cpty> res.json())
-            .do(data => this._logger.debug(`PUT cpty -> ${JSON.stringify(data)}`))
-            .catch(this.handleError);
-    }
-
-    postCpty(cpty:Cpty):Observable<Cpty> {
-        let body = JSON.stringify({name: cpty.name, long_name: cpty.long_name});
-        let headers = new Headers({'Content-Type': 'application/json'});
-        let options = new RequestOptions({headers: headers});
-
-        return this._http.post(this._url, body, options)
-            .map((res:Response) => <Cpty> res.json())
-            .do(data => this._logger.debug(`POST cpty -> ${JSON.stringify(data)}`))
-            .catch(this.handleError);
-    }
-
-    delCpty(id:string):Observable<Response> {
-        return this._http.delete(this._url + `/id/${id}`)
-            .map((res:Response) => res.json())
-            .do(data => this._logger.debug(`DELETE cpty -> ${JSON.stringify(data)}`))
-            .catch(this.handleError);
-    }
-
-    private handleError(error:Response) {
-        return Observable.throw(JSON.stringify(error.json().error) || 'Server error');
-    }
+    protected modelName() { return 'cpty'; }
 }

@@ -22,7 +22,7 @@ export class CptyListComponent implements OnInit {
     }
 
     ngOnInit():void {
-        this._cptyService.getCpties()
+        this._cptyService.getList()
             .subscribe(
                 cpties => this.cpties = cpties,
                 error => this.errorMessage = <any>error);
@@ -33,7 +33,7 @@ export class CptyListComponent implements OnInit {
     }
 
     onSubmit() {
-        this._cptyService.postCpty(this.model).subscribe(
+        this._cptyService.post(this.model).subscribe(
             cpty => {
                 this.cpties.push(cpty);
                 this.model = new Cpty();

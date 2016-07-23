@@ -1,4 +1,6 @@
-export class Invoice {
+import {Model} from "../generic/model";
+
+export class Invoice implements Model {
     constructor(public _id: string = '',
                 public _cpty: string = '',
                 public creationDate: string = Date.now().toString(),

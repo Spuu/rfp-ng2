@@ -31,13 +31,13 @@ export class InvoiceNewFormComponent implements OnInit {
     }
 
     ngOnInit():void {
-        this._cptyService.getCpties()
+        this._cptyService.getList()
             .subscribe(
                 cpties => this.cpties = cpties,
                 error => this.errorMessage = <any>error
             );
 
-        this._storeService.getStores()
+        this._storeService.getList()
             .subscribe(
                 stores => this.stores = stores,
                 error => this.errorMessage = <any>error
@@ -47,7 +47,7 @@ export class InvoiceNewFormComponent implements OnInit {
     }
 
     onSubmit() {
-        this._invoiceService.postInvoice(this.model)
+        this._invoiceService.post(this.model)
             .subscribe(
             invoice => {
                 this.invoiceSubmitted.emit(invoice);

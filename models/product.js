@@ -10,7 +10,7 @@ var ProductSchema = new Schema({
     _father                  : { type: Schema.ObjectId, ref: 'Product' },
     name                    : { type: String, required: true },
     pih_amount              : { type: Number, default: 0 },
-    pih_unit                : { type: String, default: 'szt' },
+    pih_unit                : { type: String, default: 'kg' },
     sell_unit               : { type: String, default: 'szt' },
     status                  : { type: String, enum: ['New', 'Updated', 'Ok'], default: 'New' }
 });

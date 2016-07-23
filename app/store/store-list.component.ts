@@ -22,7 +22,7 @@ export class StoreListComponent implements OnInit {
     }
 
     ngOnInit():void {
-        this._storeService.getStores()
+        this._storeService.getList()
             .subscribe(
                 stores => this.stores = stores,
                 error => this.errorMessage = <any>error);
@@ -33,7 +33,7 @@ export class StoreListComponent implements OnInit {
     }
 
     onSubmit() {
-        this._storeService.postStore(this.model).subscribe(
+        this._storeService.post(this.model).subscribe(
             store => {
                 this.stores.push(store);
                 this.model = new Store();
