@@ -7,9 +7,10 @@ import {ProductListComponent} from "./product/product-list.component";
 import {ProductDetailFormComponent} from "./product/product-detail-form.component";
 import {InvoiceListComponent} from "./invoice/invoice-list.component";
 import {InvoiceDetailFormComponent} from "./invoice/invoice-detail-form.component";
+import {SearchProductComponent} from "./product/search-product-component";
 
 export const routes: RouterConfig = [
-    { path: '', component: CptyListComponent },
+    { path: '', component: SearchProductComponent },
     { path: 'cpty', component: CptyListComponent },
     { path: 'cpty/:id', component: CptyDetailFormComponent },
     { path: 'store', component: StoreListComponent },

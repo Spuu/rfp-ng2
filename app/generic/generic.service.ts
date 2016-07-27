@@ -11,11 +11,11 @@ export abstract class GenericService<T extends Model> {
 
     protected abstract modelName(): string;
 
-    private url = { base: `api/${this.modelName()}`,
+    protected url = { base: `api/${this.modelName()}`,
                     id: `api/${this.modelName()}/id`};
 
-    constructor(private _http: Http,
-                private _logger: Logger) {
+    constructor(protected _http: Http,
+                protected _logger: Logger) {
     }
 
     getList():Observable<T[]> {
@@ -67,7 +67,11 @@ export abstract class GenericService<T extends Model> {
             .catch(this.handleError);
     }
 
-    private handleError(error:Response) {
-        return Observable.throw(JSON.stringify(error.json().error) || 'Server error');
+    protected handleError(error:Response) {
+
+        let defaultMsg:string = 'Server error';
+        let message:string = JSON.stringify(error);// ? (error.json() ? JSON.stringify(error.json().error) : defaultMsg) : defaultMsg;
+
+        return Observable.throw(message || defaultMsg);
     }
 }

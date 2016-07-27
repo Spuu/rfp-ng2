@@ -14,6 +14,7 @@ import {ProductService} from "./product/product.service";
 import {InvoiceService} from "./invoice/invoice.service";
 import {InvoiceListComponent} from "./invoice/invoice-list.component";
 import {InvoiceDetailFormComponent} from "./invoice/invoice-detail-form.component";
+import {SearchProductComponent} from "./product/search-product-component";
 
 @Component({
     selector: 'my-app',
@@ -48,7 +49,8 @@ import {InvoiceDetailFormComponent} from "./invoice/invoice-detail-form.componen
                 ProductListComponent,
                 ProductDetailFormComponent,
                 InvoiceListComponent,
-                InvoiceDetailFormComponent]
+                InvoiceDetailFormComponent,
+    SearchProductComponent]
 })
 export class AppComponent {
     pageTitle: string = "ReksFaktPro v2.0.0"
