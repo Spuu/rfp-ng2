@@ -18,9 +18,9 @@ module.exports = function (done) {
                 throw err;
             }
 
-            res.body.cpty.should.have.property('_id');
-            res.body.cpty.name.should.equal('Arti');
-            res.body.cpty.long_name.should.equal('Bardzo fajna Arti firma');
+            res.body.should.have.property('_id');
+            res.body.name.should.equal('Arti');
+            res.body.long_name.should.equal('Bardzo fajna Arti firma');
             
             done();
         });

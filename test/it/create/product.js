@@ -23,18 +23,18 @@ module.exports = function (done) {
                 throw err;
             }
 
-            res.body.product.should.have.property('_id');
-            res.body.product.status.should.equal(Product.statusVal().new);
-            res.body.product.name.should.equal('Produkt pierwszy');
-            res.body.product.cash_register_rate.should.equal(1);
-            res.body.product.cash_register_name.should.equal('Prod 1');
-            res.body.product.ean.should.equal('1234567890');
-            res.body.product.pih_amount.should.equal(123);
-            res.body.product.pih_unit.should.equal('g');
-            res.body.product.sell_unit.should.equal('szt');
-            res.body.product.default_quantity_rate.should.equal(1);
+            res.body.should.have.property('_id');
+            res.body.status.should.equal(Product.statusVal().new);
+            res.body.name.should.equal('Produkt pierwszy');
+            res.body.cash_register_rate.should.equal(1);
+            res.body.cash_register_name.should.equal('Prod 1');
+            res.body.ean.should.equal('1234567890');
+            res.body.pih_amount.should.equal(123);
+            res.body.pih_unit.should.equal('g');
+            res.body.sell_unit.should.equal('szt');
+            res.body.default_quantity_rate.should.equal(1);
 
-            TestManager.setId('product', res.body.product._id);
+            TestManager.setId('product', res.body._id);
 
             done();
         });

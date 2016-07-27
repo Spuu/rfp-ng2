@@ -1,0 +1,51 @@
+<div class='has-error' *ngIf='errorMessage'>{{errorMessage}}</div>
+
+<div class="container" *ngIf='cpty'>
+    <div>
+        <h1>{{pageTitle + ': ' + cpty.name }}</h1>
+        <form (ngSubmit)="onSubmit()" #cptyForm="ngForm">
+            <div class="form-group">
+                <label for="name">Nazwa</label>
+                <input type="text" class="form-control" required
+                       [(ngModel)]="cpty.name"
+                       name="name" #name="ngModel">
+                <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+                    Name is required
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="long_name">Pełna nazwa</label>
+                <textarea class="form-control" rows="3"
+                       [(ngModel)]="cpty.long_name"
+                       name="long_name"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" [disabled]="!cptyForm.form.valid">Zapisz</button>
+            <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#deleteModal">Usuń</button>
+            <!-- Modal -->
+            <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel">Usunąć {{ cpty.name }}?</h4>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Nie</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="onDelete()">Tak</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="container" *ngIf='!cpty'>
+    {{'Coś się zepsuło i nie ma kontrahenta :('}}
+</div>
+<div class='panel-footer'>
+    <a class='btn btn-default' (click)='gotoCpties()' style='width:80px'>
+        <i class='glyphicon glyphicon-chevron-left'></i> Cofnij
+    </a>
+</div>

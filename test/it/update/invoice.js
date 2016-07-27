@@ -19,13 +19,13 @@ module.exports = function (done) {
                 throw err;
             }
 
-            res.body.invoice.should.have.property('_id');
-            res.body.invoice.name.should.equal('Faktura 123456');
-            res.body.invoice._cpty.should.equal(TestManager.getId('cpty'));
-            res.body.invoice._store.should.equal(TestManager.getId('store'));
-            res.body.invoice.type.should.equal('Sell');
-            res.body.invoice.creationDate.should.greaterThan(res.body.invoice.documentDate);
-            res.body.invoice.creationDate.should.lessThan(res.body.invoice.lastModifDate);
+            res.body.should.have.property('_id');
+            res.body.name.should.equal('Faktura 123456');
+            res.body._cpty.should.equal(TestManager.getId('cpty'));
+            res.body._store.should.equal(TestManager.getId('store'));
+            res.body.type.should.equal('Sell');
+            res.body.creationDate.should.greaterThan(res.body.documentDate);
+            res.body.creationDate.should.lessThan(res.body.lastModifDate);
 
             done();
         });

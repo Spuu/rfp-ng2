@@ -22,17 +22,17 @@ module.exports = function (done) {
                 throw err;
             }
 
-            res.body.position.should.have.property('_id');
-            res.body.position.buy_netto_price.should.equal(12.345);
-            res.body.position.ean.should.equal('1234567890');
-            res.body.position._invoice.should.equal(TestManager.getId('invoice'));
-            res.body.position.index.should.equal(0);
-            res.body.position.quantity.should.equal(13.12345678);
-            res.body.position._product.should.equal(TestManager.getId('product'));
-            res.body.position.retail_rate.should.equal(2);
-            res.body.position.sell_brutto_price.should.equal(25.5);
-            res.body.position._store.should.equal(TestManager.getId('store'));
-            res.body.position.vat.should.equal(8);
+            res.body.should.have.property('_id');
+            res.body.buy_netto_price.should.equal(12.345);
+            res.body.ean.should.equal('1234567890');
+            res.body._invoice.should.equal(TestManager.getId('invoice'));
+            res.body.index.should.equal(0);
+            res.body.quantity.should.equal(13.12345678);
+            res.body._product.should.equal(TestManager.getId('product'));
+            res.body.retail_rate.should.equal(2);
+            res.body.sell_brutto_price.should.equal(25.5);
+            res.body._store.should.equal(TestManager.getId('store'));
+            res.body.vat.should.equal(8);
             done();
         });
 };

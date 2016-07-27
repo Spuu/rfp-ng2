@@ -1,0 +1,45 @@
+<div class='has-error' *ngIf='errorMessage'>{{errorMessage}}</div>
+
+<div class="container" *ngIf='invoice'>
+    <div>
+        <h1>{{pageTitle + ': ' + invoice.name }}</h1>
+        <form (ngSubmit)="onSubmit()" #invoiceForm="ngForm">
+            <div class="form-group">
+                <label for="name">Nazwa</label>
+                <input type="text" class="form-control" required
+                       [(ngModel)]="invoice.name"
+                       name="name" #name="ngModel">
+                <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+                    Name is required
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary" [disabled]="!invoiceForm.form.valid">Zapisz</button>
+            <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#deleteModal">Usuń</button>
+            <!-- Modal -->
+            <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel">Usunąć {{ invoice.name }}?</h4>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Nie</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="onDelete()">Tak</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="container" *ngIf='!invoice'>
+    {{'Coś się zepsuło i nie ma faktury :('}}
+</div>
+<div class='panel-footer'>
+    <a class='btn btn-default' (click)='gotoInvoices()' style='width:80px'>
+        <i class='glyphicon glyphicon-chevron-left'></i> Cofnij
+    </a>
+</div>
