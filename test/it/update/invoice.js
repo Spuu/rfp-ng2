@@ -24,8 +24,8 @@ module.exports = function (done) {
             res.body._cpty.should.equal(TestManager.getId('cpty'));
             res.body._store.should.equal(TestManager.getId('store'));
             res.body.type.should.equal('Sell');
-            res.body.creationDate.should.greaterThan(res.body.documentDate);
-            res.body.creationDate.should.lessThan(res.body.lastModifDate);
+            res.body.creation_date.should.greaterThan(res.body.document_date);
+            res.body.creation_date.should.lessThan(res.body.last_modif_date);
 
             done();
         });

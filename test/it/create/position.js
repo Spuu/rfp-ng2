@@ -7,7 +7,6 @@ var TestManager = require('../../modules/TestManager');
 module.exports = function (done) {
     var obj = {
         buy_netto_price: 12.34,
-        ean: '1234567890',
         _invoice: TestManager.getId('invoice'),
         index: 0,
         quantity: 3.12345678,
@@ -29,7 +28,6 @@ module.exports = function (done) {
 
             res.body.should.have.property('_id');
             res.body.buy_netto_price.should.equal(12.34);
-            res.body.ean.should.equal('1234567890');
             res.body._invoice.should.equal(TestManager.getId('invoice'));
             res.body.index.should.equal(0);
             res.body.quantity.should.equal(3.12345678);

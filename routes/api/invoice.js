@@ -11,7 +11,7 @@ var put_with_last_modif_date = function (req, res) {
             return Utils.error(res, 400, err);
 
         Utils.setObject(obj, req.body);
-        obj.lastModifDate = Date.now();
+        obj.last_modif_date = Date.now();
 
         return save_func(obj, res);
     });

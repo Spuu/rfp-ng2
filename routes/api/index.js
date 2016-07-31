@@ -5,7 +5,7 @@ router.get('/', function(req, res) {
     res.json({ message: 'RFP v1.0' });
 });
 
-['cpty', 'position', 'store'].forEach(function(entry) {
+['cpty', 'position', 'store', 'product-history'].forEach(function(entry) {
     var GenericRouter = rootRequire('routes/generic');
     var routes = new GenericRouter(entry);
 

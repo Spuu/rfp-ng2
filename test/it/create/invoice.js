@@ -9,7 +9,7 @@ module.exports = function (done) {
         _cpty: TestManager.getId('cpty'),
         name: 'Faktura 1234',
         _store: TestManager.getId('store'),
-        documentDate: new Date('2016-01-01')
+        document_date: new Date('2016-01-01')
     };
 
     request(config.api_url)
@@ -26,7 +26,7 @@ module.exports = function (done) {
             res.body._cpty.should.equal(TestManager.getId('cpty'));
             res.body._store.should.equal(TestManager.getId('store'));
             res.body.type.should.equal('Buy');
-            res.body.creationDate.should.greaterThan(res.body.documentDate);
+            res.body.creation_date.should.greaterThan(res.body.document_date);
 
             TestManager.setId('invoice', res.body._id);
 
