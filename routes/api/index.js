@@ -5,7 +5,7 @@ router.get('/', function(req, res) {
     res.json({ message: 'RFP v1.0' });
 });
 
-['cpty', 'position', 'store', 'product-history'].forEach(function(entry) {
+[, 'position', 'store', 'product-history'].forEach(function(entry) {
     var GenericRouter = rootRequire('routes/generic');
     var routes = new GenericRouter(entry);
 
@@ -19,6 +19,7 @@ router.get('/', function(req, res) {
         .delete(routes.remove.bind(routes));
 });
 
+router.use('/cpty', require('./cpty'));
 router.use('/', require('./invoice'));
 router.use('/', require('./product'));
 

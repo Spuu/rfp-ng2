@@ -20,11 +20,17 @@ export class SearchProductComponent {
     public isLoading:boolean = false;
     public noResults:boolean = false;
 
-    private getAsyncSelected = function() { return this.asyncSelected; };
+    private getAsyncSelected = function () {
+        return this.asyncSelected;
+    };
 
     constructor(private _productService:ProductService) {
         this.dataSource = Observable.create((observer:any) => {
-            this._productService.search(this.getAsyncSelected(), 5).subscribe(p => observer.next(p));
+            this._productService.search(this.getAsyncSelected(), 5)
+                .subscribe(p => {
+                    Product.setDisplayNameOnArray(p);
+                    observer.next(p);
+                });
         });
     }
 
