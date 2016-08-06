@@ -10,7 +10,7 @@ module.exports = function (done) {
     };
 
     request(config.api_url)
-        .put('/store/id/' + TestManager.getId('store'))
+        .put('/store/' + TestManager.getId('store'))
         .send(obj)
         .expect(200)
         .end(function (err, res) {

@@ -20,7 +20,7 @@ export class ProductService extends GenericService<Product> {
 
     search(query:string, limit?:number):Observable<Product[]> {
 
-        var search_url = `${this.url.base}/search/${query}`;
+        var search_url = `${this.url}/search/${query}`;
         if (limit)
             search_url += `/${limit}`;
 

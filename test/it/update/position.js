@@ -14,7 +14,7 @@ module.exports = function (done) {
     };
 
     request(config.api_url)
-        .put('/position/id/' + TestManager.getId('position'))
+        .put('/position/' + TestManager.getId('position'))
         .send(obj)
         .expect(200)
         .end(function (err, res) {

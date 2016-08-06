@@ -11,7 +11,7 @@ module.exports = function (done) {
     };
 
     request(config.api_url)
-        .put('/invoice/id/' + TestManager.getId('invoice'))
+        .put('/invoice/' + TestManager.getId('invoice'))
         .send(obj)
         .expect(200)
         .end(function (err, res) {

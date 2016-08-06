@@ -13,7 +13,7 @@ module.exports = function (done) {
     };
 
     request(config.api_url)
-        .put('/product/id/' + TestManager.getId('product'))
+        .put('/product/' + TestManager.getId('product'))
         .send(obj)
         .expect(200)
         .end(function (err, res) {
