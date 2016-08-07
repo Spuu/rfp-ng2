@@ -20,9 +20,13 @@ router.get('/search/:query/:limit?', function(req, res) {
     controller.ean_name_search(req, res);
 });
 
-// router.get('/:id_f/add_child/:id_c', function(req, res) {
-//     controller.add_child(req, res);
-// });
+router.get('/:id_f/add_child/:id_c', function(req, res) {
+    controller.add_child(req, res);
+});
+
+router.get('/:id_f/remove_child/:id_c', function(req, res) {
+    controller.remove_child(req, res);
+});
 
 /*
  * POST
