@@ -13,7 +13,7 @@ module.exports = function (done) {
     };
 
     request(config.api_url)
-        .put('/product/id/' + TestManager.getId('product'))
+        .put('/product/' + TestManager.getId('product'))
         .send(obj)
         .expect(200)
         .end(function (err, res) {
@@ -30,7 +30,6 @@ module.exports = function (done) {
             res.body.pih_amount.should.equal(1234);
             res.body.pih_unit.should.equal('g');
             res.body.sell_unit.should.equal('szt');
-            res.body.default_quantity_rate.should.equal(1);
 
             done();
         });

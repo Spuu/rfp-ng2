@@ -1,18 +1,20 @@
 var mongoose     = require('mongoose');
+var mongooseHistory = require('mongoose-history');
 var Schema       = mongoose.Schema;
 
 var ProductSchema = new Schema({
-
     cash_register_name      : String, // set in 'pre' function
     cash_register_rate      : { type: Number, default: 1 },
-    default_quantity_rate   : { type: Number, default: 1 },
+    _children               : [{ type: Schema.ObjectId, ref: 'Product' }],
     ean                     : { type: String, required: true },
-    _father                  : { type: Schema.ObjectId, ref: 'Product' },
+    _father                 : { type: Schema.ObjectId, ref: 'Product' },
     name                    : { type: String, required: true },
     pih_amount              : { type: Number, default: 0 },
     pih_unit                : { type: String, default: 'kg' },
     sell_unit               : { type: String, default: 'szt' },
-    status                  : { type: String, enum: ['New', 'Updated', 'Ok'], default: 'New' }
+    unit_nominator          : {type: Number, default: 1},
+    unit_denominator        : {type: Number, default: 1},
+    status                  : { type: String, enum: ['New', 'Updated', 'Ok'], default: 'New' },
 });
 
 ProductSchema.pre('save', function(next) {
@@ -33,5 +35,8 @@ ProductSchema.statics.statusVal = function () {
         ok: 'Ok'
     }
 };
+
+var options = {diffOnly: true};
+ProductSchema.plugin(mongooseHistory, options);
 
 module.exports = mongoose.model('Product', ProductSchema);

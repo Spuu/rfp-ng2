@@ -14,7 +14,7 @@ module.exports = function (done) {
     };
 
     request(config.api_url)
-        .put('/position/id/' + TestManager.getId('position'))
+        .put('/position/' + TestManager.getId('position'))
         .send(obj)
         .expect(200)
         .end(function (err, res) {
@@ -24,7 +24,6 @@ module.exports = function (done) {
 
             res.body.should.have.property('_id');
             res.body.buy_netto_price.should.equal(12.345);
-            res.body.ean.should.equal('1234567890');
             res.body._invoice.should.equal(TestManager.getId('invoice'));
             res.body.index.should.equal(0);
             res.body.quantity.should.equal(13.12345678);

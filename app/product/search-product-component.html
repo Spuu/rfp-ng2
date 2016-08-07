@@ -1,13 +1,13 @@
 <div class='container-fluid'>
     <h4>Asynchronous results</h4>
-    <pre class="card card-block card-header">Model: {{asyncSelected | json}}</pre>
+    <pre class="card card-block card-header">Product: {{asyncSelected | json}}</pre>
     <input [(ngModel)]="asyncSelected"
            [typeahead]="dataSource"
            [typeaheadAsync]="true"
            [typeaheadMinLength]="3"
            [typeaheadWaitMs]="100"
            [typeaheadOptionsLimit]="5"
-           [typeaheadOptionField]="'name'"
+           [typeaheadOptionField]="'disp_name'"
            (typeaheadLoading)="changeLoading($event)"
            (typeaheadNoResults)="changeNoResults($event)"
            (typeaheadOnSelect)="onSelect($event)"

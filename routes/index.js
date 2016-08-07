@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var path = require('path');
 
-router.use('/api', require('./api'));
+router.use('/api', require('./api_v1'));
 
 // leave rest for angular
 router.all('/*', function(req, res, next) {
