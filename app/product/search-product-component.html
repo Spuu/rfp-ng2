@@ -1,6 +1,4 @@
 <div class='container-fluid'>
-    <h4>Asynchronous results</h4>
-    <pre class="card card-block card-header">Product: {{asyncSelected | json}}</pre>
     <input [(ngModel)]="asyncSelected"
            [typeahead]="dataSource"
            [typeaheadAsync]="true"
