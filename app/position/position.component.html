@@ -1,8 +1,11 @@
-<div class="container-fluid" *ngIf="position">
-    <span>{{position._id}}</span>
-    <span>||</span>
-    <span>{{position.product.ean}}</span>
-    <span>||</span>
-    <span>{{position.product.name}}</span>
-    <span>{{position._product}}</span>
+<div class="row">
+    <input class="col-narrow" readonly type="text" [value]="position.index">
+    <input class="col-xs-3" readonly type="text" [value]="position._id">
+    <input class="col-xs-4" readonly type="text" [value]="position.product.name">
+    <input class="col-narrow" type="number"  [value]="position.vat">
+    <input class="col-narrow" type="number" step="1" [value]="position.quantity">
+    <input class="col-xs-1" type="number" step="0.01" [value]="position.buy_netto_price">
+    <input class="col-xs-1" type="number" step="0.01" [value]="position.sell_brutto_price">
+    <input class="col-narrow" type="number" step="1" [value]="position.discount">
+    <input class="col-narrow" type="number" step="0.01" [value]="position.retail_rate">
 </div>

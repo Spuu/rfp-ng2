@@ -69,7 +69,8 @@ export class PositionListComponent implements OnInit {
     }
 
     save() {
-        for (var pos of this.positions) {
+        for (let i in this.positions) {
+            let pos = this.positions[i];
             if (pos._id) {
                 this._positionService.put(pos)
                     .subscribe(

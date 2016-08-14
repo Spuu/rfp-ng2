@@ -45,6 +45,7 @@ export class SearchProductComponent {
 
     public onSelect(e:any):void {
         this.productSelected.emit(e.item);
+        this.asyncSelected = '';
     }
 }
 
