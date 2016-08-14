@@ -10,10 +10,10 @@ import {ProductService} from "./product.service";
 })
 export class ProductRelationsComponent {
     @Input()
-    father:string;
+    fatherId:string;
 
     @Input()
-    child:string;
+    childId:string;
 
     @Output()
     onClose = new EventEmitter();
@@ -22,27 +22,36 @@ export class ProductRelationsComponent {
     isChildSet:boolean = false;
 
     constructor(private _productService:ProductService) {
-        if (this.father)
+        if (this.fatherId)
             this.isFatherSet = true;
 
-        if (this.child)
+        if (this.childId)
             this.isChildSet = true;
     }
 
     public onLink():void {
-        this._productService.add_child(this.father, this.child)
-            .subscribe(
-                p => this.onClose.emit(true),
-                err => console.log("ProductRelationsComponent error: " + err)
-            );
+        if (this.fatherId && this.childId) {
+            this._productService.add_child(this.fatherId, this.childId)
+                .subscribe(
+                    p => this.onClose.emit(true),
+                    err => console.log("ProductRelationsComponent error: " + err)
+                );
+        } else {
+            console.log("Link: data not ready.");
+        }
     }
 
     public onUnlink():void {
-        this._productService.remove_child(this.father, this.child)
-            .subscribe(
-                p => this.onClose.emit(true),
-                err => console.log("ProductRelationsComponent error: " + err)
-            );
+
+        if (this.fatherId && this.childId) {
+            this._productService.remove_child(this.fatherId, this.childId)
+                .subscribe(
+                    p => this.onClose.emit(true),
+                    err => console.log("ProductRelationsComponent error: " + err)
+                );
+        } else {
+            console.log("Unlink: data not ready.");
+        }
     }
 
     public onCancel():void {
@@ -50,6 +59,3 @@ export class ProductRelationsComponent {
     }
 }
 
-/**
- * Created by spuu on 31.07.16.
- */

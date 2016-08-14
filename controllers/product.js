@@ -110,7 +110,6 @@ module.exports = {
                 }
 
                 data.child._father = undefined;
-                console.log(data.child);
                 data.father._children.splice(child_index, 1);
 
                 data.child.save(function (err) {

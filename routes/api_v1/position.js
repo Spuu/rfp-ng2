@@ -16,6 +16,10 @@ router.get('/:id', function(req, res) {
     controller.show(req, res);
 });
 
+router.get('/search/:product_id/:store_id?', function(req, res) {
+   controller.search(req, res);
+});
+
 /*
  * POST
  */

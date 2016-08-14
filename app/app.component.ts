@@ -15,6 +15,9 @@ import {InvoiceService} from "./invoice/invoice.service";
 import {InvoiceListComponent} from "./invoice/invoice-list.component";
 import {InvoiceDetailFormComponent} from "./invoice/invoice-detail-form.component";
 import {SearchProductComponent} from "./product/search-product-component";
+import {PositionComponent} from "./position/position.component";
+import {PositionService} from "./position/position.service";
+import {DummyComponent} from "./dummy.component";
 
 @Component({
     selector: 'my-app',
@@ -41,6 +44,7 @@ import {SearchProductComponent} from "./product/search-product-component";
                 StoreService,
                 ProductService,
                 InvoiceService,
+                PositionService,
                 HTTP_PROVIDERS],
     precompile: [CptyListComponent,
                 CptyDetailFormComponent,
@@ -50,7 +54,9 @@ import {SearchProductComponent} from "./product/search-product-component";
                 ProductDetailFormComponent,
                 InvoiceListComponent,
                 InvoiceDetailFormComponent,
-    SearchProductComponent]
+                SearchProductComponent,
+                PositionComponent,
+                DummyComponent]
 })
 export class AppComponent {
     pageTitle: string = "ReksFaktPro v2.0.0"
