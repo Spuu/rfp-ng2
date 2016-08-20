@@ -13,8 +13,7 @@ module.exports = function (done) {
         _product: TestManager.getId('product'),
         retail_rate: 1.8,
         sell_brutto_price: 25,
-        _store: TestManager.getId('store'),
-        vat: 23
+        _store: TestManager.getId('store')
     };
 
     request(config.api_url)
@@ -35,7 +34,6 @@ module.exports = function (done) {
             res.body.retail_rate.should.equal(1.8);
             res.body.sell_brutto_price.should.equal(25);
             res.body._store.should.equal(TestManager.getId('store'));
-            res.body.vat.should.equal(23);
 
             TestManager.setId('position', res.body._id);
 

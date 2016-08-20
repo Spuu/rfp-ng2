@@ -1,4 +1,4 @@
-import {Component, Input, Output, EventEmitter} from '@angular/core';
+import {Component, Input, Output, OnInit, EventEmitter} from '@angular/core';
 
 import {SearchProductComponent} from "./search-product-component";
 import {ProductService} from "./product.service";
@@ -8,12 +8,15 @@ import {ProductService} from "./product.service";
     directives: [SearchProductComponent],
     templateUrl: 'app/product/product-relations.component.html'
 })
-export class ProductRelationsComponent {
+export class ProductRelationsComponent implements OnInit {
     @Input()
     fatherId:string;
 
     @Input()
     childId:string;
+
+    @Input()
+    displayName:string;
 
     @Output()
     onClose = new EventEmitter();
@@ -22,6 +25,9 @@ export class ProductRelationsComponent {
     isChildSet:boolean = false;
 
     constructor(private _productService:ProductService) {
+    }
+
+    ngOnInit() {
         if (this.fatherId)
             this.isFatherSet = true;
 

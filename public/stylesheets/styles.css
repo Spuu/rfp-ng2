@@ -14,13 +14,28 @@ h1 {
   font-size: 250%;
 }
 
-.col-narrow {
-  width: 4%;
+.col-narrow, .col-ean {
   position: relative;
   min-height: 1px;
   padding-right: 5px;
   padding-left: 5px;
   float: left;
+}
+
+.col-narrow {
+  width: 50px;
+}
+
+.col-ean {
+  width: 120px;
+}
+
+.dropdown {
+  float: left;
+}
+
+input {
+  padding: 5px;
 }
 
 input::-webkit-outer-spin-button,

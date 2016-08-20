@@ -11,8 +11,7 @@ var PositionSchema = new Schema({
     sell_brutto_price   : {type: Number, default: 0},
     quantity            : {type: Number, default: 1},
     discount            : {type: Number, default: 0},
-    retail_rate         : {type: Number, default: 1},
-    vat                 : {type: Number, default: 0}
+    retail_rate         : {type: Number, default: 1}
 });
 
 module.exports = mongoose.model('Position', PositionSchema);

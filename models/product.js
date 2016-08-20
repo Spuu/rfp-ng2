@@ -15,6 +15,7 @@ var ProductSchema = new Schema({
     unit_nominator          : {type: Number, default: 1},
     unit_denominator        : {type: Number, default: 1},
     status                  : { type: String, enum: ['New', 'Updated', 'Ok'], default: 'New' },
+    vat                     : {type: Number, default: 0}
 });
 
 ProductSchema.pre('save', function(next) {

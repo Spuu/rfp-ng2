@@ -60,7 +60,6 @@ export class PositionListComponent implements OnInit {
                         newPosition.sell_brutto_price = p.sell_brutto_price;
                         newPosition.discount = p.discount;
                         newPosition.retail_rate = p.retail_rate;
-                        newPosition.vat = p.vat;
                     }
                     this.positions.push(newPosition);
                 },

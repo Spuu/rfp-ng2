@@ -11,7 +11,8 @@ module.exports = function (done) {
         ean: '1234567890',
         name: 'Produkt pierwszy',
         pih_amount: 123,
-        pih_unit: 'g'
+        pih_unit: 'g',
+        vat: 23
     };
 
     request(config.api_url)
@@ -32,6 +33,7 @@ module.exports = function (done) {
             res.body.pih_amount.should.equal(123);
             res.body.pih_unit.should.equal('g');
             res.body.sell_unit.should.equal('szt');
+            res.body.vat.should.equal(23);
 
             TestManager.setId('product', res.body._id);
 

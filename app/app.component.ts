@@ -34,7 +34,7 @@ import {DummyComponent} from "./dummy.component";
                 </ul>
             </div>
         </nav>
-        <div class='container'>
+        <div class='container-fluid'>
             <router-outlet></router-outlet>
         </div>
      </div>

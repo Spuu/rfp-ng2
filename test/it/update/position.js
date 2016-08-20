@@ -9,8 +9,7 @@ module.exports = function (done) {
         buy_netto_price: 12.345,
         quantity: 13.12345678,
         retail_rate: 2,
-        sell_brutto_price: 25.5,
-        vat: 8
+        sell_brutto_price: 25.5
     };
 
     request(config.api_url)
@@ -31,7 +30,6 @@ module.exports = function (done) {
             res.body.retail_rate.should.equal(2);
             res.body.sell_brutto_price.should.equal(25.5);
             res.body._store.should.equal(TestManager.getId('store'));
-            res.body.vat.should.equal(8);
             done();
         });
 };

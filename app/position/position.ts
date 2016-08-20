@@ -11,8 +11,7 @@ export class Position implements Model {
                 public sell_brutto_price: number = 0.0,
                 public quantity: number = 0.0,
                 public discount: number = 0,
-                public retail_rate: number = 0,
-                public vat: number = 0) {
+                public retail_rate: number = 0) {
     }
 
     setInputs(product:string, invoice:string, store:string) {

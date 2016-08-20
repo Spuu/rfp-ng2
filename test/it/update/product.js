@@ -10,6 +10,7 @@ module.exports = function (done) {
         cash_register_name: 'Prod 12',
         name: 'Produkt pierwszy poprawiony',
         pih_amount: 1234,
+        vat: 8
     };
 
     request(config.api_url)
@@ -30,6 +31,7 @@ module.exports = function (done) {
             res.body.pih_amount.should.equal(1234);
             res.body.pih_unit.should.equal('g');
             res.body.sell_unit.should.equal('szt');
+            res.body.vat.should.equal(8);
 
             done();
         });

@@ -10,7 +10,8 @@ export class Product implements Model {
                 public pih_amount:string = '0',
                 public pih_unit:string = 'szt',
                 public sell_unit:string = 'szt',
-                public status:string = 'New') {
+                public status:string = 'New',
+                public vat: number = 0) {
     }
 
     public static setDisplayName(obj) {
