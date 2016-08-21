@@ -1,7 +1,10 @@
 <div class="container-fluid">
     <search-product (productSelected)="addPosition($event)"></search-product>
     <hr>
-    <position-component *ngFor="let pos of positions" [position]="pos" [stores]="getStores()"></position-component>
+    <div *ngFor="let pos of positions">
+        <position-component *ngIf="!pos.toDelete" [position]="pos" [stores]="getStores()"
+                            (onDelete)="delete(pos)" (onClone)="clone(pos)"></position-component>
+    </div>
     <hr>
     <button class="btn btn-success" (click)="save()">Save</button>
 </div>

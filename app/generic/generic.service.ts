@@ -12,12 +12,12 @@ import {Model} from "./model";
 @Injectable()
 export abstract class GenericService<T extends Model> {
 
-    protected abstract modelName(): string;
+    protected abstract modelName():string;
 
     protected url = `api/${this.modelName()}`;
 
-    constructor(protected _http: Http,
-                protected _logger: Logger) {
+    constructor(protected _http:Http,
+                protected _logger:Logger) {
     }
 
     getList():Observable<T[]> {
@@ -47,8 +47,8 @@ export abstract class GenericService<T extends Model> {
 
     post(model:T):Observable<T> {
 
-        for(let key in model) {
-            if(!model[key] && key.startsWith('_'))
+        for (let key in model) {
+            if (!model[key] && key.startsWith('_'))
                 delete model[key];
         }
 
@@ -62,9 +62,9 @@ export abstract class GenericService<T extends Model> {
             .catch(this.handleError);
     }
 
-    del(id:string):Observable<Response> {
+    del(id:string):Observable<T> {
         return this._http.delete(`${this.url}/${id}`)
-            .map((res:Response) => res.json())
+            .map((res:Response) => <T> res.json())
             .do(data => this._logger.debug(`DELETE ${this.modelName()} -> ${JSON.stringify(data)}`))
             .catch(this.handleError);
     }

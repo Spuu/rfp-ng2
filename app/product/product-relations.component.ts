@@ -1,6 +1,6 @@
 import {Component, Input, Output, OnInit, EventEmitter} from '@angular/core';
 
-import {SearchProductComponent} from "./search-product-component";
+import {SearchProductComponent} from "./search-product.component";
 import {ProductService} from "./product.service";
 
 @Component({

@@ -3,12 +3,13 @@ import {ROUTER_DIRECTIVES, Router, ActivatedRoute} from '@angular/router';
 
 import {Product} from './product';
 import {ProductService} from './product.service';
+import {ProductDetailsComponent} from "./product-details.component";
 
 @Component({
-    templateUrl: 'app/product/product-detail-form.component.html',
-    directives: [ROUTER_DIRECTIVES]
+    templateUrl: 'app/product/product-detail-router.component.html',
+    directives: [ROUTER_DIRECTIVES, ProductDetailsComponent]
 })
-export class ProductDetailFormComponent implements OnInit, OnDestroy {
+export class ProductDetailRouterComponent implements OnInit, OnDestroy {
     pageTitle: string = 'Dane Produktu';
     product: Product;
     errorMessage: string;
@@ -44,29 +45,7 @@ export class ProductDetailFormComponent implements OnInit, OnDestroy {
         this._router.navigate(['/product']);
     }
 
-    putProduct(product:Product) {
-        this._productService.put(product)
-            .subscribe(
-                product => this.product = product,
-                error => this.errorMessage = <any>error
-            );
-    }
-
-    delProduct(id:string) {
-        this._productService.del(id)
-            .subscribe(
-                data => {},
-                error => this.errorMessage = <any>error,
-                () => this.gotoProducts()
-            );
-    }
-
-    onSubmit() {
-        this.putProduct(this.product);
-    }
-
     onDelete() {
-        this.delProduct(this.product._id);
         this.gotoProducts();
     }
 }

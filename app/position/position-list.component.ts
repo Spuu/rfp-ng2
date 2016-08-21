@@ -1,11 +1,10 @@
 import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
 
-import {Position} from "./position";
 import {PositionService} from "./position.service";
 import {Store} from "../store/store";
 import {StoreService} from "../store/store.service";
 import forEach = require("core-js/fn/array/for-each");
-import {SearchProductComponent} from "../product/search-product-component";
+import {SearchProductComponent} from "../product/search-product.component";
 import {Product} from "../product/product";
 import {PositionComponent} from "./position.component";
 import {PositionGui} from "./position-gui";
@@ -70,7 +69,16 @@ export class PositionListComponent implements OnInit {
     save() {
         for (let i in this.positions) {
             let pos = this.positions[i];
-            if (pos._id) {
+
+            if(pos.toDelete) {
+                this._positionService.del(pos._id)
+                    .subscribe(
+                        p => {
+                            console.log(`Position ${p._id} deleted.`);
+                        },
+                        err => console.log("Unsuccessful delete: " + err)
+                    )
+            } else if (pos._id) {
                 this._positionService.put(pos)
                     .subscribe(
                         p => {
@@ -89,6 +97,18 @@ export class PositionListComponent implements OnInit {
                     )
             }
         }
+    }
+    
+    delete(pos:PositionGui) {
+        pos.toDelete = true;
+    }
+
+    clone(pos:PositionGui) {
+        var index = this.positions.indexOf(pos);
+        var new_pos:PositionGui = JSON.parse(JSON.stringify(pos)); // clone position
+        delete new_pos._id;
+
+        this.positions.splice(index, 0, new_pos);
     }
 
     getStores() {

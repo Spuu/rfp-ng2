@@ -10,7 +10,7 @@ import {Product} from "./product";
 @Component({
     selector: 'search-product',
     directives: [TYPEAHEAD_DIRECTIVES, CORE_DIRECTIVES],
-    templateUrl: 'app/product/search-product-component.html'
+    templateUrl: 'app/product/search-product.component.html'
 })
 export class SearchProductComponent {
     @Output() productSelected = new EventEmitter();

@@ -9,12 +9,12 @@ import {StoreListComponent} from "./store/store-list.component";
 import {StoreDetailFormComponent} from "./store/store-detail-form.component";
 import {StoreService} from "./store/store.service";
 import {ProductListComponent} from "./product/product-list.component";
-import {ProductDetailFormComponent} from "./product/product-detail-form.component";
+import {ProductDetailRouterComponent} from "./product/product-detail-router.component";
 import {ProductService} from "./product/product.service";
 import {InvoiceService} from "./invoice/invoice.service";
 import {InvoiceListComponent} from "./invoice/invoice-list.component";
 import {InvoiceDetailFormComponent} from "./invoice/invoice-detail-form.component";
-import {SearchProductComponent} from "./product/search-product-component";
+import {SearchProductComponent} from "./product/search-product.component";
 import {PositionComponent} from "./position/position.component";
 import {PositionService} from "./position/position.service";
 import {DummyComponent} from "./dummy.component";
@@ -51,7 +51,7 @@ import {DummyComponent} from "./dummy.component";
                 StoreListComponent,
                 StoreDetailFormComponent,
                 ProductListComponent,
-                ProductDetailFormComponent,
+                ProductDetailRouterComponent,
                 InvoiceListComponent,
                 InvoiceDetailFormComponent,
                 SearchProductComponent,

@@ -1,0 +1,61 @@
+<div class="container-fluid" *ngIf='product'>
+    <div>
+        <h1>{{product.name}}</h1>
+        <form (ngSubmit)="save()" #productForm="ngForm">
+            <div class="form-group">
+                <label for="name">Nazwa</label>
+                <input type="text" class="form-control" required [(ngModel)]="product.name"
+                       name="name" #name="ngModel">
+                <div [hidden]="name.valid || name.pristine" class="alert alert-danger">Name is required</div>
+            </div>
+
+            <div class="form-group">
+                <label for="cash_register_name">Nazwa w kasie</label>
+                <input type="text" class="form-control" required [(ngModel)]="product.cash_register_name"
+                       name="cash_register_name" #cash_register_name="ngModel">
+                <div [hidden]="cash_register_name.valid || cash_register_name.pristine" class="alert alert-danger">
+                    cash_register_name is required
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="ean">Kod kreskowy</label>
+                <input type="text" class="form-control" required [(ngModel)]="product.ean" name="ean"
+                       #ean="ngModel">
+                <div [hidden]="ean.valid || ean.pristine" class="alert alert-danger">
+                    ean is required
+                </div>
+            </div>
+            <!--constructor(public _id:string = '',-->
+            <!--public cash_register_name:string = '',-->
+            <!--public cash_register_rate:string = '1',-->
+            <!--public ean:string = '',-->
+            <!--public _father:string = '',-->
+            <!--public name:string = '',-->
+            <!--public pih_amount:string = '0',-->
+            <!--public pih_unit:string = 'szt',-->
+            <!--public sell_unit:string = 'szt',-->
+            <!--public status:string = 'New',-->
+            <!--public vat: number = 0) {-->
+            <!--<div class="row">-->
+            <!--<input class="col-narrow" readonly type="text" [value]="position.index">-->
+            <!--<input class="col-ean" readonly type="text" [value]="position.product.ean">-->
+            <!--<input class="col-xs-4" readonly type="text" [value]="position.product.name">-->
+            <!--<input class="col-narrow" type="number" [value]="position.product.vat">-->
+            <!--<input class="col-narrow" type="number" step="1" [value]="position.quantity">-->
+            <!--<input class="col-xs-1" type="number" step="0.01" [value]="position.buy_netto_price">-->
+            <!--<input class="col-xs-1" type="number" step="0.01" [value]="position.sell_brutto_price">-->
+            <!--<input class="col-narrow" type="number" step="1" [value]="position.discount">-->
+            <!--<input class="col-narrow" type="number" step="0.01" [value]="position.retail_rate">-->
+            <!--<input class="col-xs-1" readonly type="text" [value]="action">-->
+            <!--</div>-->
+            <button type="submit" class="btn btn-primary" [disabled]="!productForm.form.valid">Zapisz</button>
+            <modal-confirm-button title="Usunąć produkt?" (onConfirm)="modalConfirmation()">Usuń</modal-confirm-button>
+            <a href="#" (click)="cancel()">Cancel</a>
+        </form>
+    </div>
+</div>
+<div class="container-fluid" *ngIf='!product'>
+    {{'Coś się zepsuło i nie ma produktu :('}}
+</div>
+
