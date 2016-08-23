@@ -46,7 +46,6 @@ export abstract class GenericService<T extends Model> {
     }
 
     post(model:T):Observable<T> {
-
         for (let key in model) {
             if (!model[key] && key.startsWith('_'))
                 delete model[key];

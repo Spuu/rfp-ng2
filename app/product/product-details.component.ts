@@ -39,15 +39,27 @@ export class ProductDetailsComponent implements OnInit {
     }
 
     save() {
-        this._productService.put(this.product)
-            .subscribe(
-                product => {
-                    this.product = product;
-                    this.onSave.emit(true);
-                    this.productChange.emit(this.product);
-                },
-                error => console.log('ProductDetailsComp err: ' + error)
-            );
+        if(!!this.product._id) {
+            this._productService.put(this.product)
+                .subscribe(
+                    product => {
+                        this.product = product;
+                        this.productChange.emit(this.product);
+                        this.onSave.emit(true);
+                    },
+                    error => console.log('ProductDetailsComp err: ' + error)
+                );
+        } else {
+            this._productService.post(this.product)
+                .subscribe(
+                    product => {
+                        this.product = product;
+                        this.productChange.emit(this.product);
+                        this.onSave.emit(true);
+                    },
+                    error => console.log('ProductDetailsComp err: ' + error)
+                );
+        }
     }
 
     modalConfirmation() {

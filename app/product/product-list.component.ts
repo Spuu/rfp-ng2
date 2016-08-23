@@ -4,9 +4,11 @@ import {Router} from '@angular/router';
 import {Product} from './product';
 import {ProductService} from './product.service';
 import {Logger} from "angular2-logger/core";
+import {ProductDetailsComponent} from "./product-details.component";
 
 @Component({
-    templateUrl: 'app/product/product-list.component.html'
+    templateUrl: 'app/product/product-list.component.html',
+    directives: [ProductDetailsComponent]
 })
 export class ProductListComponent implements OnInit {
     pageTitle:string = 'Produkty';
@@ -28,17 +30,13 @@ export class ProductListComponent implements OnInit {
                 error => this.errorMessage = <any>error);
     }
 
-    onSelect(product:Product) {
+    select(product:Product) {
         this._router.navigate(['/product', product._id]);
     }
 
-    onSubmit() {
-        this._productService.post(this.model).subscribe(
-            product => {
-                this.products.push(product);
-                this.model = new Product();
-                this.showNewForm = false;
-            },
-            error => this.errorMessage = <any>error);
+    submit() {
+        this.products.push(this.model);
+        this.model = new Product();
+        this.showNewForm = false;
     }
 }
