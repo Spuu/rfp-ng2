@@ -1,6 +1,6 @@
 import {Model} from "../generic/model";
 
-export class Invoice implements Model {
+export class Invoice extends Model {
     constructor(public _id: string = '',
                 public _cpty: string = '',
                 public creationDate: string = Date.now().toString(),
@@ -9,5 +9,6 @@ export class Invoice implements Model {
                 public lastModifDate: string = Date.now().toString(),
                 public _store: string = '',
                 public type: string = 'Buy') {
+        super();
     }
 }

@@ -11,7 +11,7 @@ import {ProductDetailsComponent} from "./product-details.component";
 })
 export class ProductDetailRouterComponent implements OnInit, OnDestroy {
     pageTitle: string = 'Dane Produktu';
-    product: Product;
+    product: Product = null;
     errorMessage: string;
 
     private sub:any;

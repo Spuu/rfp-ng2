@@ -1,17 +1,27 @@
 import {Model} from "../generic/model";
+import {Product} from "../product/product";
 
-export class Position implements Model {
-    constructor(public _id: string = '',
-                public _store: string = '',
-                public _invoice: string = '',
-                public _product: string = '',
-                public _sell_position: string = '',
-                public index: number = 0,
-                public buy_netto_price: number = 0.0,
-                public sell_brutto_price: number = 0.0,
-                public quantity: number = 0.0,
-                public discount: number = 0,
-                public retail_rate: number = 0) {
+export class Position extends Model {
+    _id:string = '';
+    _store:string = '';
+    _invoice:string = '';
+    _product:string = '';
+    _sell_position:string = '';
+    index:number = 0;
+    buy_netto_price:number = 0.0;
+    sell_brutto_price:number = 0.0;
+    quantity:number = 0.0;
+    discount:number = 0;
+    retail_rate:number = 0;
+
+    // excluded from DB
+    product:Product;
+    toDelete:boolean = false;
+
+    constructor(product:Product = null) {
+        super();
+
+        this.product = product;
     }
 
     setInputs(product:string, invoice:string, store:string) {

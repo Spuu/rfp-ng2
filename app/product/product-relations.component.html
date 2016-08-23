@@ -2,13 +2,18 @@
     <h4>Connect sub-product</h4>
     <div class="container-fluid">
         <div>Father:</div>
-        <div *ngIf="isFatherSet">{{displayName}}</div>
-        <div *ngIf="!isFatherSet"><search-product [fatherId]="fatherId" (productSelected)="fatherId=($event)._id"></search-product></div>
+        <div *ngIf="father">{{father.display_name}}</div>
+        <div *ngIf="!isFatherSet">
+            <div></div>
+            <search-product [father]="father" (productSelected)="father=($event)"></search-product>
+        </div>
     </div>
     <div class="container-fluid">
         <div>Child:</div>
-        <div *ngIf="isChildSet">{{displayName}}</div>
-        <div *ngIf="!isChildSet"><search-product [childId]="childId" (productSelected)="childId=($event)._id"></search-product></div>
+        <div *ngIf="child">{{child.display_name}}</div>
+        <div *ngIf="!isChildSet">
+            <search-product [child]="child" (productSelected)="child=($event)"></search-product>
+        </div>
     </div>
     <br>
     <div class="container-fluid">

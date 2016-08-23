@@ -3,12 +3,13 @@ var mongooseHistory = require('mongoose-history');
 var Schema       = mongoose.Schema;
 
 var ProductSchema = new Schema({
-    cash_register_name      : String, // set in 'pre' function
-    cash_register_rate      : { type: Number, default: 1 },
+    _father                 : { type: Schema.ObjectId, ref: 'Product' },
     _children               : [{ type: Schema.ObjectId, ref: 'Product' }],
     ean                     : { type: String, required: true },
-    _father                 : { type: Schema.ObjectId, ref: 'Product' },
     name                    : { type: String, required: true },
+    cash_register_name      : String, // set in 'pre' function
+    display_name            : String, // set in 'pre' function
+    cash_register_rate      : { type: Number, default: 1 },
     pih_amount              : { type: Number, default: 0 },
     pih_unit                : { type: String, default: 'kg' },
     sell_unit               : { type: String, default: 'szt' },
@@ -22,6 +23,8 @@ ProductSchema.pre('save', function(next) {
     // set default if doesn't exist
     if(typeof this.cash_register_name === 'undefined' || !this.cash_register_name)
         this.cash_register_name = this.name;
+
+    this.display_name = `${this.ean} ${this.name}`;
     next();
 });
 

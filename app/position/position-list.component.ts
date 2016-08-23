@@ -7,7 +7,7 @@ import forEach = require("core-js/fn/array/for-each");
 import {SearchProductComponent} from "../product/search-product.component";
 import {Product} from "../product/product";
 import {PositionComponent} from "./position.component";
-import {PositionGui} from "./position-gui";
+import {Position} from "./position";
 
 @Component({
     selector: 'position-list',
@@ -20,7 +20,7 @@ export class PositionListComponent implements OnInit {
     @Input()
     storeId:string;
     @Input()
-    positions:PositionGui[];
+    positions:Position[];
     stores:Store[];
 
     constructor(private _positionService:PositionService,
@@ -47,7 +47,7 @@ export class PositionListComponent implements OnInit {
     addPosition(product:Product) {
         console.log(product);
         let productId:string = product._id;
-        let newPosition:PositionGui = new PositionGui(product);
+        let newPosition:Position = new Position(product);
         newPosition.setInputs(productId, this.invoiceId, this.storeId);
 
         // search corresponding position
@@ -67,10 +67,16 @@ export class PositionListComponent implements OnInit {
     }
 
     save() {
+        // filter out deleted position that were not save
+        console.log(this.positions.length);
+        this.positions = this.positions.filter(p => !p.toDelete || !!p._id);
+        console.log(this.positions.length);
+
         for (let i in this.positions) {
             let pos = this.positions[i];
 
-            if(pos.toDelete) {
+            // delete saved positions
+            if(pos.toDelete && pos._id) {
                 this._positionService.del(pos._id)
                     .subscribe(
                         p => {
@@ -97,15 +103,28 @@ export class PositionListComponent implements OnInit {
                     )
             }
         }
+
+        // filter out deleted positions
+        console.log(this.positions.length);
+        this.positions = this.positions.filter(p => !p.toDelete);
+        console.log(this.positions.length);
+
+        for (let i in this.positions) {
+            let pos = this.positions[i];
+            pos.index = +i;
+        }
     }
     
-    delete(pos:PositionGui) {
+    delete(pos:Position) {
         pos.toDelete = true;
     }
 
-    clone(pos:PositionGui) {
+    clone(pos:Position) {
+        console.log('pos:');
+        console.log(pos);
         var index = this.positions.indexOf(pos);
-        var new_pos:PositionGui = JSON.parse(JSON.stringify(pos)); // clone position
+        var new_pos = new Position();
+        new_pos.set(pos.clone());
         delete new_pos._id;
 
         this.positions.splice(index, 0, new_pos);

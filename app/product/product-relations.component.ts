@@ -2,6 +2,7 @@ import {Component, Input, Output, OnInit, EventEmitter} from '@angular/core';
 
 import {SearchProductComponent} from "./search-product.component";
 import {ProductService} from "./product.service";
+import {Product} from "./product";
 
 @Component({
     selector: 'product-family',
@@ -10,13 +11,10 @@ import {ProductService} from "./product.service";
 })
 export class ProductRelationsComponent implements OnInit {
     @Input()
-    fatherId:string;
+    father:Product;
 
     @Input()
-    childId:string;
-
-    @Input()
-    displayName:string;
+    child:Product;
 
     @Output()
     onClose = new EventEmitter();
@@ -28,16 +26,16 @@ export class ProductRelationsComponent implements OnInit {
     }
 
     ngOnInit() {
-        if (this.fatherId)
+        if (this.father)
             this.isFatherSet = true;
 
-        if (this.childId)
+        if (this.child)
             this.isChildSet = true;
     }
 
     public onLink():void {
-        if (this.fatherId && this.childId) {
-            this._productService.add_child(this.fatherId, this.childId)
+        if (this.father && this.child) {
+            this._productService.add_child(this.father._id, this.child._id)
                 .subscribe(
                     p => this.onClose.emit(true),
                     err => console.log("ProductRelationsComponent error: " + err)
@@ -49,8 +47,8 @@ export class ProductRelationsComponent implements OnInit {
 
     public onUnlink():void {
 
-        if (this.fatherId && this.childId) {
-            this._productService.remove_child(this.fatherId, this.childId)
+        if (this.father._id && this.child._id) {
+            this._productService.remove_child(this.father._id, this.child._id)
                 .subscribe(
                     p => this.onClose.emit(true),
                     err => console.log("ProductRelationsComponent error: " + err)

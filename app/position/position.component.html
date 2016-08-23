@@ -30,9 +30,9 @@
     <product-details *ngSwitchCase="3" [(product)]="position.product" (onDelete)="delete()" (onSave)="actionChange(0)"
                      (onCancel)="actionChange(0)"></product-details>
 
-    <product-family *ngSwitchCase="4" [childId]="position.product._id"
-                    [displayName]="position.product.name"></product-family>
+    <product-family *ngSwitchCase="4" [child]="position.product"
+                    [displayName]="position.product.name" (onClose)="actionChange(0)"></product-family>
 
-    <product-family *ngSwitchCase="5" [fatherId]="position.product._id"
-                    [displayName]="position.product.name"></product-family>
+    <product-family *ngSwitchCase="5" [father]="position.product"
+                    [displayName]="position.product.name" (onClose)="actionChange(0)"></product-family>
 </div>

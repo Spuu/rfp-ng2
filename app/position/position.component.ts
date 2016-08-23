@@ -6,7 +6,6 @@ import {PositionService} from "./position.service";
 import {Store} from "../store/store";
 import {StoreService} from "../store/store.service";
 import {ProductService} from "../product/product.service";
-import {PositionGui} from "./position-gui";
 import {ProductRelationsComponent} from "../product/product-relations.component";
 import {ProductDetailsComponent} from "../product/product-details.component";
 
@@ -26,7 +25,7 @@ enum Action {
 })
 export class PositionComponent implements OnInit {
     @Input()
-    position:PositionGui;
+    position:Position;
     @Input()
     stores:Store[];
 

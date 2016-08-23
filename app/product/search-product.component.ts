@@ -28,7 +28,6 @@ export class SearchProductComponent {
         this.dataSource = Observable.create((observer:any) => {
             this._productService.search(this.getAsyncSelected(), 5)
                 .subscribe(p => {
-                    Product.setDisplayNameOnArray(p);
                     observer.next(p);
                 });
         });
