@@ -8,6 +8,7 @@ router.get('/', function(req, res) {
 router.use('/cpty', require('./cpty'));
 router.use('/store', require('./store'));
 router.use('/position', require('./position'));
+router.use('/position-sell', require('./position-sell'));
 router.use('/invoice', require('./invoice'));
 router.use('/product', require('./product'));
 

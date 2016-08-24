@@ -25,7 +25,7 @@ import {DummyComponent} from "./dummy.component";
     <div>
         <nav class='navbar navbar-default'>
             <div class='container-fluid'>
-                <a class='navbar-brand'>{{pageTitle}}</a>
+                <a [routerLink]="['/']" class='navbar-brand'>{{pageTitle}}</a>
                 <ul class='nav navbar-nav'>
                     <li><a [routerLink]="['/cpty']">Kontrahenci</a></li>
                     <li><a [routerLink]="['/store']">Sklepy</a></li>

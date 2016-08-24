@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var controller = require('../../controllers/position');
+var controller = require('../../controllers/position-sell');
 
 /*
  * GET
@@ -16,12 +16,8 @@ router.get('/:id', function(req, res) {
     controller.show(req, res);
 });
 
-router.get('/search/:product_id/:store_id?', function(req, res) {
-   controller.search(req, res);
-});
-
-router.get('/invoice/:invoice_id', function(req, res) {
-    controller.invoice(req, res);
+router.get('/search/:invoice_id', function(req, res) {
+    controller.search(req, res);
 });
 
 /*

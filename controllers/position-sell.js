@@ -1,5 +1,6 @@
 var Utils = require('../utils/GenericUtils');
-var dataModel = require('../models/position');
+var dataModel = require('../models/position-sell');
+var Position = require('../models/position');
 
 module.exports = {
 
@@ -55,37 +56,19 @@ module.exports = {
     },
 
     search: function (req, res) {
-        var product_id = req.params.product_id;
-        var store_id = req.params.store_id;
-
-        var query = {_product: product_id};
-
-        if (store_id)
-            query._store = store_id;
-
-        dataModel.findOne(query)
-            .populate({path: '_invoice', options: {sort: {'document_date': -1}}})
-            .exec(function (err, position) {
-                if (err) return Utils.error(res, 500, err.message);
-                if (position || !store_id)
-                    return res.json(position);
-
-                dataModel.findOne({_product: product_id})
-                    .populate({path: '_invoice', options: {sort: {'document_date': -1}}})
-                    .exec(function (err, position) {
-                        if (err) return Utils.error(res, 500, err.message);
-                        return res.json(position);
-                    });
-            });
-    },
-
-    invoice: function (req, res) {
         var invoice_id = req.params.invoice_id;
 
-        dataModel.find({_invoice: invoice_id})
+        Position.find({_invoice: invoice_id})
+            .select('_position')
             .exec(function (err, positions) {
                 if (err) return Utils.error(res, 500, err.message);
-                return res.json(positions);
+
+                dataModel.find({_position: { $in: positions}})
+                    .populate('_product')
+                    .exec(function (err, positions_sell) {
+                        if (err) return Utils.error(res, 500, err.message);
+                        return res.json(positions_sell);
+                    });
             });
     }
 };

@@ -1,6 +1,19 @@
 <div class="container-fluid">
     <search-product (productSelected)="addPosition($event)"></search-product>
     <hr>
+    <b>
+        <div class="col-position-action"></div>
+        <div class="col-narrow">Lp</div>
+        <div class="col-ean">EAN-13</div>
+        <div class="col-md-4">Nazwa produktu</div>
+        <div class="col-narrow">VAT</div>
+        <div class="col-narrow">Ilość</div>
+        <div class="col-md-1">Cena netto zak.</div>
+        <div class="col-md-1">Cena brutto sprz.</div>
+        <div class="col-narrow">Rabat</div>
+        <div class="col-narrow">Marża</div>
+    </b>
+    <hr>
     <div *ngFor="let pos of positions">
         <position-component *ngIf="!pos.toDelete" [position]="pos" [stores]="getStores()"
                             (onDelete)="delete(pos)" (onClone)="clone(pos)"></position-component>

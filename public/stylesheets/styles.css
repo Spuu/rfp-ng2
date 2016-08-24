@@ -1,5 +1,4 @@
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   margin: 2em;
 }
@@ -14,7 +13,7 @@ h1 {
   font-size: 250%;
 }
 
-.col-narrow, .col-ean {
+.col-narrow, .col-ean, .col-store, .col-position-action {
   position: relative;
   min-height: 1px;
   padding-right: 5px;
@@ -26,8 +25,16 @@ h1 {
   width: 50px;
 }
 
+.col-position-action {
+  width: 75px;
+}
+
 .col-ean {
   width: 140px;
+}
+
+.col-store {
+  width: 200px;
 }
 
 .dropdown {
