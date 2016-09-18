@@ -70,6 +70,17 @@ module.exports = {
         }).limit(+limit);
     },
 
+    show_children: function(req, res) {
+        var id = req.params.id;
+        dataModel.findOne({_id: id})
+            .populate('_children')
+            .exec(function(err, data) {
+                if(err) return Utils.err500(res);
+                if(!data) return Utils.err404(res);
+                return res.json(data);
+            });
+    },
+
     add_child: function (req, res) {
         var rh = new RelationHelper(req.params.id_f, req.params.id_c);
         rh.addChildObs.subscribe(

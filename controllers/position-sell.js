@@ -53,22 +53,5 @@ module.exports = {
             if (err) return Utils.err500(res);
             return res.json(data);
         });
-    },
-
-    search: function (req, res) {
-        var invoice_id = req.params.invoice_id;
-
-        Position.find({_invoice: invoice_id})
-            .select('_position')
-            .exec(function (err, positions) {
-                if (err) return Utils.error(res, 500, err.message);
-
-                dataModel.find({_position: { $in: positions}})
-                    .populate('_product')
-                    .exec(function (err, positions_sell) {
-                        if (err) return Utils.error(res, 500, err.message);
-                        return res.json(positions_sell);
-                    });
-            });
     }
 };

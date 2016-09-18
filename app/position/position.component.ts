@@ -8,6 +8,9 @@ import {StoreService} from "../store/store.service";
 import {ProductService} from "../product/product.service";
 import {ProductRelationsComponent} from "../product/product-relations.component";
 import {ProductDetailsComponent} from "../product/product-details.component";
+import {PositionSell} from "../position-sell/position-sell";
+import {Product} from "../product/product";
+import {PositionSellComponent} from "../position-sell/position-sell.component";
 
 enum Action {
     None = 0,
@@ -21,7 +24,9 @@ enum Action {
 @Component({
     selector: 'position-component',
     templateUrl: 'app/position/position.component.html',
-    directives: [NgSwitch, NgSwitchCase, NgSwitchDefault, ProductRelationsComponent, ProductDetailsComponent]
+    directives: [NgSwitch, NgSwitchCase, NgSwitchDefault,
+        ProductRelationsComponent, ProductDetailsComponent,
+        PositionSellComponent]
 })
 export class PositionComponent implements OnInit {
     @Input()
@@ -37,7 +42,9 @@ export class PositionComponent implements OnInit {
 
     action:Action = Action.None;
 
-    constructor(private _storeService:StoreService) {
+    possibleChildren:Product[] = [];
+
+    constructor(private _storeService:StoreService, private _productService:ProductService) {
     }
 
     ngOnInit() {
@@ -53,6 +60,10 @@ export class PositionComponent implements OnInit {
                     err => console.log(err)
                 );
         }
+
+        if(this.position._sell_position && this.possibleChildren.length === 0) {
+            this.refreshSubproducts();
+        }
     }
 
     actionChange(type:number) {
@@ -65,6 +76,24 @@ export class PositionComponent implements OnInit {
 
     clone() {
         this.onClone.emit(true);
+    }
+
+    addSellPosition() {
+        if (!this.position._sell_position) {
+            this.position._sell_position = new PositionSell();
+        }
+
+        this.refreshSubproducts();
+    }
+
+    refreshSubproducts() {
+        this._productService.show_children(this.position._product)
+            .subscribe(
+                c => {
+                    this.possibleChildren = c._children;
+                },
+                err => console.log(err)
+            );
     }
 }
 

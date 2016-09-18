@@ -32,6 +32,15 @@ export class ProductService extends GenericService<Product> {
             .catch(this.handleError);
     }
 
+    show_children(id:string):Observable<Product> {
+        var url = `${this.url}/${id}/show_children`;
+
+        return this._http.get(url)
+            .map((res:Response) => <Product> res.json())
+            .do(data => this._logger.debug(`GET /show_child ${this.modelName()} -> ${JSON.stringify(data)}`))
+            .catch(this.handleError);
+    }
+
     add_child(fatherId:string, childId:string):Observable<Product> {
         var url = `${this.url}/${fatherId}/add_child/${childId}`;
 

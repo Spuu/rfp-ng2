@@ -2,7 +2,6 @@ var mongoose    = require('mongoose');
 var Schema      = mongoose.Schema;
 
 var PositionSellSchema = new Schema({
-    _position           : {type: Schema.ObjectId, ref: 'Position', required: true},
     _product            : {type: Schema.ObjectId, ref: 'Product', required: true },
     buy_netto_price     : {type: Number, default: 0},
     sell_brutto_price   : {type: Number, default: 0},

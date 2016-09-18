@@ -1,22 +1,28 @@
 var Utils = require('../utils/GenericUtils');
 var dataModel = require('../models/position');
+var PositionSell = require('../models/position-sell');
+var _ = require('lodash');
 
 module.exports = {
 
     list: function (req, res) {
-        dataModel.find(function (err, data) {
-            if (err) return Utils.err500(res);
-            return res.json(data);
+        dataModel.find()
+            .populate('_sell_position')
+            .exec(function (err, data) {
+                if (err) return Utils.err500(res);
+                return res.json(data);
         });
     },
 
     show: function (req, res) {
         var id = req.params.id;
-        dataModel.findOne({_id: id}, function (err, data) {
-            if (err) return Utils.err500(res);
+        dataModel.findOne({_id: id})
+            .populate('_sell_position')
+            .exec(function (err, data) {
+                if (err) return Utils.err500(res);
 
-            if (!data) return Utils.err400(res);
-            return res.json(data);
+                if (!data) return Utils.err400(res);
+                return res.json(data);
         });
     },
 
@@ -50,6 +56,10 @@ module.exports = {
         var id = req.params.id;
         dataModel.findByIdAndRemove(id, function (err, data) {
             if (err) return Utils.err500(res);
+            if (data._sell_position)
+                PositionSell.findByIdAndRemove(data._sell_position, function (err, sell_data) {
+                    if (err) return Utils.err500(res);
+                });
             return res.json(data);
         });
     },
@@ -63,18 +73,44 @@ module.exports = {
         if (store_id)
             query._store = store_id;
 
-        dataModel.findOne(query)
-            .populate({path: '_invoice', options: {sort: {'document_date': -1}}})
+        dataModel.find(query)
+            .populate({
+                path: '_invoice _sell_position',
+                populate: { path: '_product'}})
             .exec(function (err, position) {
                 if (err) return Utils.error(res, 500, err.message);
-                if (position || !store_id)
-                    return res.json(position);
+                
+                if (position.length > 0 || !store_id) {
+                    return res.json(
+                        _.last(
+                            _.orderBy(
+                                position, function (el) {
+                                    return el._invoice.document_date;
+                                }
+                            )
+                        )
+                    )
+                }
 
-                dataModel.findOne({_product: product_id})
-                    .populate({path: '_invoice', options: {sort: {'document_date': -1}}})
+                dataModel.find({_product: product_id})
+                    .populate({
+                        path: '_invoice _sell_position',
+                        populate: { path: '_product'}})
                     .exec(function (err, position) {
                         if (err) return Utils.error(res, 500, err.message);
-                        return res.json(position);
+
+                        if(position.length > 0)
+                            return res.json(
+                            _.last(
+                                _.orderBy(
+                                    position, function (el) {
+                                        return el._invoice.document_date;
+                                    }
+                                )
+                            )
+                        );
+                        else
+                            return res.json(null);
                     });
             });
     },

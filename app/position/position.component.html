@@ -6,6 +6,8 @@
             <span class="caret"></span>
         </button>
         <ul class="dropdown-menu" aria-labelledby="actionDrop">
+            <li class="dropdown-header">Sell</li>
+            <li (click)="addSellPosition()"><a href="#">Sell</a></li>
             <li class="dropdown-header">Modify</li>
             <li (click)="clone()"><a href="#">Clone</a></li>
             <li (click)="actionChange(3)"><a href="#">Edit product</a></li>
@@ -17,19 +19,23 @@
     </div>
     <input class="col-narrow" readonly type="text" [value]="position.index">
     <input class="col-ean" readonly type="text" [value]="position.product.ean">
-    <input class="col-md-4" readonly type="text" [(value)]="position.product.name">
-    <input class="col-narrow" type="number" [value]="position.product.vat">
-    <input class="col-narrow" type="number" step="1" [value]="position.quantity">
-    <input class="col-md-1" type="number" step="0.01" [value]="position.buy_netto_price">
-    <input class="col-md-1" type="number" step="0.01" [value]="position.sell_brutto_price">
-    <input class="col-narrow" type="number" step="1" [value]="position.discount">
-    <input class="col-narrow" type="number" step="0.01" [value]="position.retail_rate">
+    <input class="col-md-4" readonly type="text" [value]="position.product.name">
+    <input class="col-narrow" readonly type="number" [value]="position.product.vat">
+    <input class="col-narrow" type="number" step="1" [(ngModel)]="position.quantity">
+    <input class="col-md-1" type="number" step="0.01" [(ngModel)]="position.buy_netto_price">
+    <input class="col-md-1" type="number" step="0.01" [(ngModel)]="position.sell_brutto_price">
+    <input class="col-narrow" type="number" step="1" [(ngModel)]="position.discount">
+    <input class="col-narrow" type="number" step="0.01" [(ngModel)]="position.retail_rate">
     <div class="col-store">
         <select class="form-control" name="position._store">
             <option *ngFor="let s of stores" value="s._id">{{s.name}}</option>
         </select>
     </div>
 </div>
+<div *ngIf="position._sell_position && possibleChildren.length > 0" class="row">
+    <position-sell [products]="possibleChildren" [positionSell]="position._sell_position" ></position-sell>
+</div>
+
 <div [ngSwitch]="action" class="row">
     <product-details *ngSwitchCase="3" [(product)]="position.product" (onDelete)="delete()" (onSave)="actionChange(0)"
                      (onCancel)="actionChange(0)"></product-details>

@@ -14,6 +14,8 @@ export class Product extends Model {
     vat:number = 0;
     display_name:string = '';
 
+    _children:Product[] = null;
+
     constructor() {
         super();
     }

@@ -18,6 +18,8 @@ import {SearchProductComponent} from "./product/search-product.component";
 import {PositionComponent} from "./position/position.component";
 import {PositionService} from "./position/position.service";
 import {DummyComponent} from "./dummy.component";
+import {PositionSellService} from "./position-sell/position-sell.service";
+import {PositionSellComponent} from "./position-sell/position-sell.component";
 
 @Component({
     selector: 'my-app',
@@ -45,6 +47,7 @@ import {DummyComponent} from "./dummy.component";
                 ProductService,
                 InvoiceService,
                 PositionService,
+                PositionSellService,
                 HTTP_PROVIDERS],
     precompile: [CptyListComponent,
                 CptyDetailFormComponent,
@@ -56,6 +59,7 @@ import {DummyComponent} from "./dummy.component";
                 InvoiceDetailFormComponent,
                 SearchProductComponent,
                 PositionComponent,
+                PositionSellComponent,
                 DummyComponent]
 })
 export class AppComponent {

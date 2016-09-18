@@ -17,14 +17,4 @@ export class PositionSellService extends GenericService<PositionSell> {
     }
 
     protected modelName() { return 'position-sell'; }
-
-    search(invoiceId:string):Observable<PositionSell> {
-
-        var url = `${this.url}/invoice/${invoiceId}`;
-
-        return this._http.get(url)
-            .map((res:Response) => <Position> res.json())
-            .do(data => this._logger.debug(`GET /search ${this.modelName()} -> ${JSON.stringify(data)}`))
-            .catch(this.handleError);
-    }
 }

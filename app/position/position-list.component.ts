@@ -8,6 +8,8 @@ import {SearchProductComponent} from "../product/search-product.component";
 import {Product} from "../product/product";
 import {PositionComponent} from "./position.component";
 import {Position} from "./position";
+import {PositionSell} from "../position-sell/position-sell";
+import {PositionSellService} from "../position-sell/position-sell.service";
 
 @Component({
     selector: 'position-list',
@@ -24,6 +26,7 @@ export class PositionListComponent implements OnInit {
     stores:Store[];
 
     constructor(private _positionService:PositionService,
+                private _positionSellService:PositionSellService,
                 private _storeService:StoreService) {
     }
 
@@ -55,14 +58,15 @@ export class PositionListComponent implements OnInit {
             .subscribe(
                 p => {
                     if (p) {
-                        newPosition.buy_netto_price = p.buy_netto_price;
-                        newPosition.sell_brutto_price = p.sell_brutto_price;
-                        newPosition.discount = p.discount;
-                        newPosition.retail_rate = p.retail_rate;
+                        newPosition.copyValues(p);
+                        
+                        if(p._sell_position) {
+                            newPosition.prepareSellPosition(p._sell_position);
+                        }
                     }
                     this.positions.push(newPosition);
                 },
-                err => console.log('Correstponding position search: ' + err)
+                err => console.log('Corresponding position search: ' + err)
             );
     }
 
@@ -85,22 +89,75 @@ export class PositionListComponent implements OnInit {
                         err => console.log("Unsuccessful delete: " + err)
                     )
             } else if (pos._id) {
-                this._positionService.put(pos)
-                    .subscribe(
-                        p => {
-                            console.log(`Position ${p._id} saved.`);
-                        },
-                        err => console.log("Unsuccessful save: " + err)
-                    )
+                if(pos._sell_position) {
+                    if(pos._sell_position._id) {
+                        this._positionSellService.put(pos._sell_position)
+                            .subscribe(
+                                p => {
+                                    pos._sell_position = p;
+                                    this._positionService.put(pos)
+                                        .subscribe(
+                                            p => {
+                                                console.log(`Position ${p._id} saved.`);
+                                            },
+                                            err => console.log("Unsuccessful save: " + err)
+                                        )
+                                },
+                                err => console.log("Unsuccessful save: " + err)
+                            )
+                    } else {
+                        this._positionSellService.post(pos._sell_position)
+                            .subscribe(
+                                p => {
+                                    pos._sell_position = p;
+                                    this._positionService.put(pos)
+                                        .subscribe(
+                                            p => {
+                                                console.log(`Position ${p._id} saved.`);
+                                            },
+                                            err => console.log("Unsuccessful save: " + err)
+                                        )
+                                },
+                                err => console.log("Unsuccessful save: " + err)
+                            )
+                    }
+                }
             } else {
-                this._positionService.post(pos)
-                    .subscribe(
-                        p => {
-                            pos._id = p._id;
-                            console.log(`Position ${p._id} saved.`);
-                        },
-                        err => console.log("Unsuccessful save: " + err)
-                    )
+                if(pos._sell_position) {
+                    if(pos._sell_position._id) {
+                        this._positionSellService.put(pos._sell_position)
+                            .subscribe(
+                                p => {
+                                    pos._sell_position = p;
+                                    this._positionService.post(pos)
+                                        .subscribe(
+                                            p => {
+                                                pos._id = p._id;
+                                                console.log(`Position ${p._id} saved.`);
+                                            },
+                                            err => console.log("Unsuccessful save: " + err)
+                                        )
+                                },
+                                err => console.log("Unsuccessful save: " + err)
+                            )
+                    } else {
+                        this._positionSellService.post(pos._sell_position)
+                            .subscribe(
+                                p => {
+                                    pos._sell_position = p,
+                                        this._positionService.post(pos)
+                                            .subscribe(
+                                                p => {
+                                                    pos._id = p._id;
+                                                    console.log(`Position ${p._id} saved.`);
+                                                },
+                                                err => console.log("Unsuccessful save: " + err)
+                                            )
+                                },
+                                err => console.log("Unsuccessful save: " + err)
+                            )
+                    }
+                }
             }
         }
 
