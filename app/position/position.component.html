@@ -32,10 +32,10 @@
         </select>
     </div>
 </div>
-<div *ngIf="position._sell_position && possibleChildren.length > 0" class="row">
-    <position-sell [products]="possibleChildren" [positionSell]="position._sell_position" ></position-sell>
-</div>
 
+<div *ngIf="showPositionSell()">
+    <position-sell [products]="subProducts" [positionSell]="position._sell_position" ></position-sell>
+</div>
 <div [ngSwitch]="action" class="row">
     <product-details *ngSwitchCase="3" [(product)]="position.product" (onDelete)="delete()" (onSave)="actionChange(0)"
                      (onCancel)="actionChange(0)"></product-details>

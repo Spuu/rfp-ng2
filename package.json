@@ -33,6 +33,7 @@
     "express": "~4.13.1",
     "jade": "~1.11.0",
     "jquery": "^2.2.0",
+    "lodash": "^4.16.0",
     "mocha": "^2.5.3",
     "mongoose": "^4.5.1",
     "mongoose-history": "^0.4.2",

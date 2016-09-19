@@ -2,7 +2,6 @@ import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
 import {NgSwitch, NgSwitchCase, NgSwitchDefault} from '@angular/common';
 
 import {Position} from "./position";
-import {PositionService} from "./position.service";
 import {Store} from "../store/store";
 import {StoreService} from "../store/store.service";
 import {ProductService} from "../product/product.service";
@@ -11,6 +10,8 @@ import {ProductDetailsComponent} from "../product/product-details.component";
 import {PositionSell} from "../position-sell/position-sell";
 import {Product} from "../product/product";
 import {PositionSellComponent} from "../position-sell/position-sell.component";
+
+import * as _ from 'lodash';
 
 enum Action {
     None = 0,
@@ -42,7 +43,7 @@ export class PositionComponent implements OnInit {
 
     action:Action = Action.None;
 
-    possibleChildren:Product[] = [];
+    subProducts:Product[] = [];
 
     constructor(private _storeService:StoreService, private _productService:ProductService) {
     }
@@ -61,7 +62,7 @@ export class PositionComponent implements OnInit {
                 );
         }
 
-        if(this.position._sell_position && this.possibleChildren.length === 0) {
+        if(this.position._sell_position) {
             this.refreshSubproducts();
         }
     }
@@ -79,21 +80,49 @@ export class PositionComponent implements OnInit {
     }
 
     addSellPosition() {
-        if (!this.position._sell_position) {
-            this.position._sell_position = new PositionSell();
-        }
-
+        this.actionChange(Action.Sell);
         this.refreshSubproducts();
+    }
+
+    createSellProduct() {
+        if(this.isSellable()) {
+            if (!this.position._sell_position) {
+                this.position._sell_position = new PositionSell();
+                this.position._sell_position._product = this.subProducts[0];
+            }
+        }
     }
 
     refreshSubproducts() {
         this._productService.show_children(this.position._product)
             .subscribe(
                 c => {
-                    this.possibleChildren = c._children;
+                    this.subProducts = c._children;
+                    this.createSellProduct();
                 },
                 err => console.log(err)
             );
+    }
+
+    isSellable():boolean {
+        if(_.isEmpty(this.subProducts))
+            return false;
+
+        return true;
+    }
+
+    isActionSell():boolean {
+        if(this.action == Action.Sell)
+            return true;
+
+        return false;
+    }
+
+    showPositionSell():boolean {
+        if(this.isActionSell() || this.position._sell_position)
+            return true;
+
+        return false;
     }
 }
 

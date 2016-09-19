@@ -1,6 +1,7 @@
 import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
 import {Product} from "../product/product";
 import {PositionSell} from "./position-sell";
+import * as _ from 'lodash'
 
 @Component({
     selector: 'position-sell',
@@ -21,7 +22,7 @@ export class PositionSellComponent implements OnInit {
     positionSellChange = new EventEmitter();
 
     ngOnInit() {
-        if (this.products.length === 0) {
+        if (!this.products || _.isEmpty(this.products)) {
             console.log('No products to choose...');
             return;
         }
@@ -32,15 +33,12 @@ export class PositionSellComponent implements OnInit {
         }
 
         if(!this.positionSell._product) {
-            this.setProduct(this.products[0]);
             this.change();
         }
     }
 
     setProduct(product:Product) {
-        console.log(this.positionSell);
         this.positionSell._product = product;
-        console.log(this.positionSell);
     }
 
     delete() {
@@ -49,7 +47,6 @@ export class PositionSellComponent implements OnInit {
 
     change() {
         this.positionSellChange.emit(this.positionSell);
-        console.log(this.positionSell)
     }
 }
 

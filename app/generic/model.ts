@@ -10,7 +10,7 @@ export class Model {
 
     clone():Model {
         let model:Model = JSON.parse(JSON.stringify(this));
-        model._id = '';
+        delete model._id;
         return model;
     }
 }
