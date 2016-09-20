@@ -6,7 +6,7 @@ export class Position extends Model {
     _id:string = '';
     _store:string = '';
     _invoice:string = '';
-    _product:string = '';
+    _product:Product = null;
     _sell_position:PositionSell = null;
     index:number = 0;
     buy_netto_price:number = 0.0;
@@ -16,17 +16,15 @@ export class Position extends Model {
     retail_rate:number = 0;
 
     // excluded from DB
-    product:Product;
     toDelete:boolean = false;
 
     constructor(product:Product = null) {
         super();
 
-        this.product = product;
+        this._product = product;
     }
 
-    setInputs(product:string, invoice:string, store:string) {
-        this._product = product;
+    setInputs(invoice:string, store:string) {
         this._invoice = invoice;
         this._store = store;
     }

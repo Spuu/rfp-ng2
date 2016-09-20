@@ -94,7 +94,7 @@ export class PositionComponent implements OnInit {
     }
 
     refreshSubproducts() {
-        this._productService.show_children(this.position._product)
+        this._productService.show_children(this.position._product._id)
             .subscribe(
                 c => {
                     this.subProducts = c._children;

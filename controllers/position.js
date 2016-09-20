@@ -7,7 +7,10 @@ module.exports = {
 
     list: function (req, res) {
         dataModel.find()
-            .populate('_sell_position')
+            .populate({
+                path: '_sell_position _product',
+                populate: { path: '_product'}
+            })
             .exec(function (err, data) {
                 if (err) return Utils.err500(res);
                 return res.json(data);
@@ -17,7 +20,10 @@ module.exports = {
     show: function (req, res) {
         var id = req.params.id;
         dataModel.findOne({_id: id})
-            .populate('_sell_position')
+            .populate({
+                path: '_sell_position _product',
+                populate: { path: '_product'}
+            })
             .exec(function (err, data) {
                 if (err) return Utils.err500(res);
 

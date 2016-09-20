@@ -20,7 +20,7 @@ export class PositionListComponent implements OnInit {
     invoiceId:string;
     @Input()
     storeId:string;
-    @Input()
+
     positions:Position[];
     stores:Store[];
 
@@ -35,8 +35,14 @@ export class PositionListComponent implements OnInit {
             return;
         }
 
-        if (!this.positions)
+        if (!this.positions) {
             this.positions = [];
+            this._positionService.getList()
+                .subscribe(
+                    p => {this.positions = p; console.log(p);},
+                    err => console.log(err)
+                );
+        }
 
         // load stores
         this._storeService.getList()
@@ -47,19 +53,17 @@ export class PositionListComponent implements OnInit {
     }
 
     addPosition(product:Product) {
-        console.log(product);
-        let productId:string = product._id;
         let newPosition:Position = new Position(product);
-        newPosition.setInputs(productId, this.invoiceId, this.storeId);
+        newPosition.setInputs(this.invoiceId, this.storeId);
 
         // search corresponding position
-        this._positionService.search(productId, this.storeId)
+        this._positionService.search(product._id, this.storeId)
             .subscribe(
                 p => {
                     if (p) {
                         newPosition.copyValues(p);
 
-                        if (p._sell_position) {
+                        if (!!p._sell_position) {
                             newPosition.prepareSellPosition(p._sell_position);
                         }
                     }

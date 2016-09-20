@@ -18,10 +18,10 @@
         </ul>
     </div>
     <input class="col-narrow" readonly type="text" [value]="position.index">
-    <input class="col-ean" readonly type="text" [value]="position.product.ean">
-    <input class="col-md-4" readonly type="text" [value]="position.product.name">
-    <input class="col-narrow" readonly type="number" [value]="position.product.vat">
-    <input class="col-narrow" type="number" step="1" [(ngModel)]="position.quantity">
+    <input class="col-ean" readonly type="text" [value]="position._product.ean">
+    <input class="col-md-4" readonly type="text" [value]="position._product.name">
+    <input class="col-narrow" readonly type="number" [value]="position._product.vat">
+    <input class="col-md-1" type="number" step="1" [(ngModel)]="position.quantity">
     <input class="col-md-1" type="number" step="0.01" [(ngModel)]="position.buy_netto_price">
     <input class="col-md-1" type="number" step="0.01" [(ngModel)]="position.sell_brutto_price">
     <input class="col-narrow" type="number" step="1" [(ngModel)]="position.discount">
@@ -37,12 +37,12 @@
     <position-sell [products]="subProducts" [positionSell]="position._sell_position" ></position-sell>
 </div>
 <div [ngSwitch]="action" class="row">
-    <product-details *ngSwitchCase="3" [(product)]="position.product" (onDelete)="delete()" (onSave)="actionChange(0)"
+    <product-details *ngSwitchCase="3" [(product)]="position._product" (onDelete)="delete()" (onSave)="actionChange(0)"
                      (onCancel)="actionChange(0)"></product-details>
 
-    <product-family *ngSwitchCase="4" [child]="position.product"
-                    [displayName]="position.product.name" (onClose)="actionChange(0)"></product-family>
+    <product-family *ngSwitchCase="4" [child]="position._product"
+                    [displayName]="position._product.name" (onClose)="actionChange(0)"></product-family>
 
     <product-family *ngSwitchCase="5" [father]="position.product"
-                    [displayName]="position.product.name" (onClose)="actionChange(0)"></product-family>
+                    [displayName]="position._product.name" (onClose)="actionChange(0)"></product-family>
 </div>
