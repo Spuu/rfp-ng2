@@ -5,44 +5,48 @@ var _ = require('lodash');
 
 module.exports = {
 
-    list: function (req, res) {
-        dataModel.find()
-            .populate({
+    populate: function (req, res) {
+        dataModel.populate(req.mydata, {
                 path: '_sell_position _product',
-                populate: { path: '_product'}
-            })
-            .exec(function (err, data) {
-                if (err) return Utils.err500(res);
+                populate: {path: '_product'}
+            },
+            function (err, data) {
                 return res.json(data);
-        });
+            })
     },
 
-    show: function (req, res) {
+    list: function (req, res, next) {
+        dataModel.find()
+            .exec(function (err, data) {
+                if (err) return Utils.err500(res);
+                req.mydata = data;
+                next();
+            });
+    },
+
+    show: function (req, res, next) {
         var id = req.params.id;
         dataModel.findOne({_id: id})
-            .populate({
-                path: '_sell_position _product',
-                populate: { path: '_product'}
-            })
             .exec(function (err, data) {
                 if (err) return Utils.err500(res);
-
                 if (!data) return Utils.err400(res);
-                return res.json(data);
-        });
+                req.mydata = data;
+                next();
+            });
     },
 
-    create: function (req, res) {
+    create: function (req, res, next) {
         var model = new dataModel();
         Utils.setObject(model, req.body);
 
         model.save(function (err, data) {
             if (err) return Utils.error(res, 500, err);
-            return res.json(data);
+            req.mydata = data;
+            next();
         });
     },
 
-    update: function (req, res) {
+    update: function (req, res, next) {
         var id = req.params.id;
         dataModel.findOne({_id: id}, function (err, data) {
             if (err) return Utils.error(res, 500, err);
@@ -53,12 +57,13 @@ module.exports = {
             data.save(function (err, data) {
                 if (err) return Utils.err500(res);
                 if (!data) return Utils.err404(res);
-                return res.json(data);
+                req.mydata = data;
+                next();
             });
         });
     },
 
-    remove: function (req, res) {
+    remove: function (req, res, next) {
         var id = req.params.id;
         dataModel.findByIdAndRemove(id, function (err, data) {
             if (err) return Utils.err500(res);
@@ -66,11 +71,12 @@ module.exports = {
                 PositionSell.findByIdAndRemove(data._sell_position, function (err, sell_data) {
                     if (err) return Utils.err500(res);
                 });
-            return res.json(data);
+            req.mydata = data;
+            next();
         });
     },
 
-    search: function (req, res) {
+    search: function (req, res, next) {
         var product_id = req.params.product_id;
         var store_id = req.params.store_id;
 
@@ -80,12 +86,10 @@ module.exports = {
             query._store = store_id;
 
         dataModel.find(query)
-            .populate({
-                path: '_invoice _sell_position',
-                populate: { path: '_product'}})
+            .populate('_invoice')
             .exec(function (err, position) {
                 if (err) return Utils.error(res, 500, err.message);
-                
+
                 if (position.length > 0 || !store_id) {
                     return res.json(
                         _.last(
@@ -99,35 +103,36 @@ module.exports = {
                 }
 
                 dataModel.find({_product: product_id})
-                    .populate({
-                        path: '_invoice _sell_position',
-                        populate: { path: '_product'}})
+                    .populate('_invoice')
                     .exec(function (err, position) {
                         if (err) return Utils.error(res, 500, err.message);
 
-                        if(position.length > 0)
-                            return res.json(
-                            _.last(
+                        if (position.length > 0) {
+                            req.mydata = _.last(
                                 _.orderBy(
                                     position, function (el) {
                                         return el._invoice.document_date;
                                     }
                                 )
-                            )
-                        );
-                        else
-                            return res.json(null);
+                            );
+                            next();
+                        }
+                        else {
+                            req.mydata = {};
+                            next();
+                        }
                     });
             });
     },
 
-    invoice: function (req, res) {
+    invoice: function (req, res, next) {
         var invoice_id = req.params.invoice_id;
 
         dataModel.find({_invoice: invoice_id})
             .exec(function (err, positions) {
                 if (err) return Utils.error(res, 500, err.message);
-                return res.json(positions);
+                req.mydata = positions;
+                next();
             });
     }
 };

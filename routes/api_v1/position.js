@@ -5,44 +5,24 @@ var controller = require('../../controllers/position');
 /*
  * GET
  */
-router.get('/', function(req, res) {
-    controller.list(req, res);
-});
-
-/*
- * GET
- */
-router.get('/:id', function(req, res) {
-    controller.show(req, res);
-});
-
-router.get('/search/:product_id/:store_id?', function(req, res) {
-   controller.search(req, res);
-});
-
-router.get('/invoice/:invoice_id', function(req, res) {
-    controller.invoice(req, res);
-});
+router.get('/', controller.list, controller.populate);
+router.get('/:id', controller.show, controller.populate);
+router.get('/search/:product_id/:store_id?', controller.search, controller.populate);
+router.get('/invoice/:invoice_id', controller.invoice, controller.populate);
 
 /*
  * POST
  */
-router.post('/', function(req, res) {
-    controller.create(req, res);
-});
+router.post('/', controller.create, controller.populate);
 
 /*
  * PUT
  */
-router.put('/:id', function(req, res) {
-    controller.update(req, res);
-});
+router.put('/:id', controller.update, controller.populate);
 
 /*
  * DELETE
  */
-router.delete('/:id', function(req, res) {
-    controller.remove(req, res);
-});
+router.delete('/:id', controller.remove, controller.populate);
 
 module.exports = router;

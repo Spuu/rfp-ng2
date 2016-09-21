@@ -30,4 +30,14 @@ export class PositionService extends GenericService<Position> {
             .do(data => this._logger.debug(`GET /search ${this.modelName()} -> ${JSON.stringify(data)}`))
             .catch(this.handleError);
     }
+
+    getInvoice(invoiceId:string):Observable<Position[]> {
+
+        var url = `${this.url}/invoice/${invoiceId}`;
+
+        return this._http.get(url)
+            .map((res:Response) => <Position[]> res.json())
+            .do(data => this._logger.debug(`GET ${this.modelName()}(s) -> ${JSON.stringify(data)}`))
+            .catch(this.handleError);
+    }
 }

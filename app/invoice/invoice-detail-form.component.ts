@@ -3,10 +3,11 @@ import {ROUTER_DIRECTIVES, Router, ActivatedRoute} from '@angular/router';
 
 import {Invoice} from './invoice';
 import {InvoiceService} from './invoice.service';
+import {PositionListComponent} from "../position/position-list.component";
 
 @Component({
     templateUrl: 'app/invoice/invoice-detail-form.component.html',
-    directives: [ROUTER_DIRECTIVES]
+    directives: [ROUTER_DIRECTIVES, PositionListComponent]
 })
 export class InvoiceDetailFormComponent implements OnInit, OnDestroy {
     pageTitle: string = 'Dane Faktury';
@@ -68,5 +69,12 @@ export class InvoiceDetailFormComponent implements OnInit, OnDestroy {
     onDelete() {
         this.delInvoice(this.invoice._id);
         this.gotoInvoices();
+    }
+
+    showItems():boolean {
+        if(this.invoice && !!this.invoice._id && !!this.invoice._store)
+            return true;
+
+        return false;
     }
 }

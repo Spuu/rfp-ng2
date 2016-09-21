@@ -37,9 +37,9 @@ export class PositionListComponent implements OnInit {
 
         if (!this.positions) {
             this.positions = [];
-            this._positionService.getList()
+            this._positionService.getInvoice(this.invoiceId)
                 .subscribe(
-                    p => {this.positions = p; console.log(p);},
+                    p => this.positions = p,
                     err => console.log(err)
                 );
         }
@@ -78,6 +78,7 @@ export class PositionListComponent implements OnInit {
             this._positionService.put(pos)
                 .subscribe(
                     p => {
+                        pos = p;
                         console.log(`Position ${p._id} saved.`);
                     },
                     err => console.log("Unsuccessful save: " + err)
@@ -86,7 +87,7 @@ export class PositionListComponent implements OnInit {
             this._positionService.post(pos)
                 .subscribe(
                     p => {
-                        pos._id = p._id;
+                        pos = p;
                         console.log(`Position ${p._id} saved.`);
                     },
                     err => console.log("Unsuccessful save: " + err)
@@ -99,7 +100,6 @@ export class PositionListComponent implements OnInit {
             this._positionSellService.put(pos._sell_position)
                 .subscribe(
                     p => {
-                        pos._sell_position = p;
                         this.savePosition(pos);
                     },
                     err => console.log("Unsuccessful save: " + err)
@@ -108,7 +108,6 @@ export class PositionListComponent implements OnInit {
             this._positionSellService.post(pos._sell_position)
                 .subscribe(
                     p => {
-                        pos._sell_position = p;
                         this.savePosition(pos);
                     },
                     err => console.log("Unsuccessful save: " + err)

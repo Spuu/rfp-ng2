@@ -38,6 +38,9 @@
 <div class="container" *ngIf='!invoice'>
     {{'Coś się zepsuło i nie ma faktury :('}}
 </div>
+<div *ngIf="showItems()">
+    <position-list [invoiceId]="invoice._id" [storeId]="invoice._store"></position-list>
+</div>
 <div class='panel-footer'>
     <a class='btn btn-default' (click)='gotoInvoices()' style='width:80px'>
         <i class='glyphicon glyphicon-chevron-left'></i> Cofnij

@@ -7,14 +7,14 @@
         </button>
         <ul class="dropdown-menu" aria-labelledby="actionDrop">
             <li class="dropdown-header">Sell</li>
-            <li (click)="addSellPosition()"><a href="#">Sell</a></li>
+            <li (click)="addSellPosition()"><a ng-href="#">Sell</a></li>
             <li class="dropdown-header">Modify</li>
-            <li (click)="clone()"><a href="#">Clone</a></li>
-            <li (click)="actionChange(3)"><a href="#">Edit product</a></li>
-            <li (click)="actionChange(4)"><a href="#">Set Father</a></li>
-            <li (click)="actionChange(5)"><a href="#">Set Child</a></li>
+            <li (click)="clone()"><a ng-href="#">Clone</a></li>
+            <li (click)="actionChange(3)"><a ng-href="#">Edit product</a></li>
+            <li (click)="actionChange(4)"><a ng-href="#">Set Father</a></li>
+            <li (click)="actionChange(5)"><a ng-href="#">Set Child</a></li>
             <li class="dropdown-header">Remove</li>
-            <li (click)="delete()"><a href="#">Remove</a></li>
+            <li (click)="delete()"><a ng-href="#">Remove</a></li>
         </ul>
     </div>
     <input class="col-narrow" readonly type="text" [value]="position.index">
@@ -43,6 +43,6 @@
     <product-family *ngSwitchCase="4" [child]="position._product"
                     [displayName]="position._product.name" (onClose)="actionChange(0)"></product-family>
 
-    <product-family *ngSwitchCase="5" [father]="position.product"
+    <product-family *ngSwitchCase="5" [father]="position._product"
                     [displayName]="position._product.name" (onClose)="actionChange(0)"></product-family>
 </div>
