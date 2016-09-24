@@ -41,8 +41,8 @@
                      (onCancel)="actionChange(0)"></product-details>
 
     <product-family *ngSwitchCase="4" [child]="position._product"
-                    [displayName]="position._product.name" (onClose)="actionChange(0)"></product-family>
+                    (onClose)="actionChange(0)"></product-family>
 
     <product-family *ngSwitchCase="5" [father]="position._product"
-                    [displayName]="position._product.name" (onClose)="actionChange(0)"></product-family>
+                    (onClose)="actionChange(0)"></product-family>
 </div>

@@ -5,8 +5,7 @@ import * as _ from 'lodash'
 
 @Component({
     selector: 'position-sell',
-    templateUrl: 'app/position-sell/position-sell.component.html',
-    directives: []
+    templateUrl: 'app/position-sell/position-sell.component.html'
 })
 export class PositionSellComponent implements OnInit {
     @Input()

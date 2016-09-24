@@ -5,14 +5,14 @@
         <div *ngIf="father">{{father.display_name}}</div>
         <div *ngIf="!isFatherSet">
             <div></div>
-            <search-product [father]="father" (productSelected)="father=($event)"></search-product>
+            <search-product (productSelected)="father=($event)"></search-product>
         </div>
     </div>
     <div class="container-fluid">
         <div>Child:</div>
         <div *ngIf="child">{{child.display_name}}</div>
         <div *ngIf="!isChildSet">
-            <search-product [child]="child" (productSelected)="child=($event)"></search-product>
+            <search-product (productSelected)="child=($event)"></search-product>
         </div>
     </div>
     <br>

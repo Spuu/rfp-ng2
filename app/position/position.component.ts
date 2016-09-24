@@ -24,10 +24,7 @@ enum Action {
 
 @Component({
     selector: 'position-component',
-    templateUrl: 'app/position/position.component.html',
-    directives: [NgSwitch, NgSwitchCase, NgSwitchDefault,
-        ProductRelationsComponent, ProductDetailsComponent,
-        PositionSellComponent]
+    templateUrl: 'app/position/position.component.html'
 })
 export class PositionComponent implements OnInit {
     @Input()

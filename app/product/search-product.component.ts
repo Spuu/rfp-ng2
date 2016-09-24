@@ -1,15 +1,12 @@
 import {Component, Output, EventEmitter} from '@angular/core';
-import {CORE_DIRECTIVES} from '@angular/common';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 
-import {TYPEAHEAD_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
 import {ProductService} from "./product.service";
 import {Product} from "./product";
 
 @Component({
     selector: 'search-product',
-    directives: [TYPEAHEAD_DIRECTIVES, CORE_DIRECTIVES],
     templateUrl: 'app/product/search-product.component.html'
 })
 export class SearchProductComponent {

@@ -1,13 +1,11 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import {ROUTER_DIRECTIVES, Router, ActivatedRoute} from '@angular/router';
+import {Router, ActivatedRoute} from '@angular/router';
 
 import {Product} from './product';
 import {ProductService} from './product.service';
-import {ProductDetailsComponent} from "./product-details.component";
 
 @Component({
-    templateUrl: 'app/product/product-detail-router.component.html',
-    directives: [ROUTER_DIRECTIVES, ProductDetailsComponent]
+    templateUrl: 'app/product/product-detail-router.component.html'
 })
 export class ProductDetailRouterComponent implements OnInit, OnDestroy {
     pageTitle: string = 'Dane Produktu';

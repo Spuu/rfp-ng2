@@ -91,37 +91,36 @@ module.exports = {
                 if (err) return Utils.error(res, 500, err.message);
 
                 if (position.length > 0 || !store_id) {
-                    return res.json(
-                        _.last(
-                            _.orderBy(
-                                position, function (el) {
-                                    return el._invoice.document_date;
-                                }
-                            )
+                    req.mydata = _.last(
+                        _.orderBy(
+                            position, function (el) {
+                                return el._invoice.document_date;
+                            }
                         )
-                    )
+                    );
+                    next();
+                } else {
+                    dataModel.find({_product: product_id})
+                        .populate('_invoice')
+                        .exec(function (err, position) {
+                            if (err) return Utils.error(res, 500, err.message);
+
+                            if (position.length > 0) {
+                                req.mydata = _.last(
+                                    _.orderBy(
+                                        position, function (el) {
+                                            return el._invoice.document_date;
+                                        }
+                                    )
+                                );
+                                next();
+                            }
+                            else {
+                                req.mydata = {};
+                                next();
+                            }
+                        });
                 }
-
-                dataModel.find({_product: product_id})
-                    .populate('_invoice')
-                    .exec(function (err, position) {
-                        if (err) return Utils.error(res, 500, err.message);
-
-                        if (position.length > 0) {
-                            req.mydata = _.last(
-                                _.orderBy(
-                                    position, function (el) {
-                                        return el._invoice.document_date;
-                                    }
-                                )
-                            );
-                            next();
-                        }
-                        else {
-                            req.mydata = {};
-                            next();
-                        }
-                    });
             });
     },
 

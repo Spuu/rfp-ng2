@@ -4,11 +4,9 @@ import {Router} from '@angular/router';
 import {Product} from './product';
 import {ProductService} from './product.service';
 import {Logger} from "angular2-logger/core";
-import {ProductDetailsComponent} from "./product-details.component";
 
 @Component({
-    templateUrl: 'app/product/product-list.component.html',
-    directives: [ProductDetailsComponent]
+    templateUrl: 'app/product/product-list.component.html'
 })
 export class ProductListComponent implements OnInit {
     pageTitle:string = 'Produkty';

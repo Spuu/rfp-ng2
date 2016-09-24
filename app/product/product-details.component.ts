@@ -2,12 +2,10 @@ import {Component, Input, Output, OnInit, EventEmitter} from '@angular/core';
 
 import {Product} from './product';
 import {ProductService} from './product.service';
-import {ModalConfirmationButton} from "../generic/modal-confirmation-button.component";
 
 @Component({
     selector: 'product-details',
-    templateUrl: 'app/product/product-details.component.html',
-    directives: [ModalConfirmationButton]
+    templateUrl: 'app/product/product-details.component.html'
 })
 export class ProductDetailsComponent implements OnInit {
     @Input()

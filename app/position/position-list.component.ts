@@ -4,16 +4,13 @@ import {PositionService} from "./position.service";
 import {Store} from "../store/store";
 import {StoreService} from "../store/store.service";
 import forEach = require("core-js/fn/array/for-each");
-import {SearchProductComponent} from "../product/search-product.component";
 import {Product} from "../product/product";
-import {PositionComponent} from "./position.component";
 import {Position} from "./position";
 import {PositionSellService} from "../position-sell/position-sell.service";
 
 @Component({
     selector: 'position-list',
-    templateUrl: 'app/position/position-list.component.html',
-    directives: [SearchProductComponent, PositionComponent]
+    templateUrl: 'app/position/position-list.component.html'
 })
 export class PositionListComponent implements OnInit {
     @Input()

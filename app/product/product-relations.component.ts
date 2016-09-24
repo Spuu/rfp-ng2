@@ -1,12 +1,10 @@
 import {Component, Input, Output, OnInit, EventEmitter} from '@angular/core';
 
-import {SearchProductComponent} from "./search-product.component";
 import {ProductService} from "./product.service";
 import {Product} from "./product";
 
 @Component({
     selector: 'product-family',
-    directives: [SearchProductComponent],
     templateUrl: 'app/product/product-relations.component.html'
 })
 export class ProductRelationsComponent implements OnInit {

@@ -1,12 +1,11 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import {ROUTER_DIRECTIVES, Router, ActivatedRoute} from '@angular/router';
+import {Router, ActivatedRoute} from '@angular/router';
 
 import {Cpty} from './cpty';
 import {CptyService} from './cpty.service';
 
 @Component({
-    templateUrl: 'app/cpty/cpty-detail-form.component.html',
-    directives: [ROUTER_DIRECTIVES]
+    templateUrl: 'app/cpty/cpty-detail-form.component.html'
 })
 export class CptyDetailFormComponent implements OnInit, OnDestroy {
     pageTitle:string = 'Dane kontrahenta';
@@ -43,6 +42,8 @@ export class CptyDetailFormComponent implements OnInit, OnDestroy {
     gotoCpties() {
         this._router.navigate(['/cpty']);
     }
+
+
 
     putCpty(cpty:Cpty) {
         this._cptyService.put(cpty)

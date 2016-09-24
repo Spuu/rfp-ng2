@@ -1,13 +1,12 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import {ROUTER_DIRECTIVES, Router, ActivatedRoute} from '@angular/router';
+import {Router, ActivatedRoute} from '@angular/router';
 
 import {Invoice} from './invoice';
 import {InvoiceService} from './invoice.service';
 import {PositionListComponent} from "../position/position-list.component";
 
 @Component({
-    templateUrl: 'app/invoice/invoice-detail-form.component.html',
-    directives: [ROUTER_DIRECTIVES, PositionListComponent]
+    templateUrl: 'app/invoice/invoice-detail-form.component.html'
 })
 export class InvoiceDetailFormComponent implements OnInit, OnDestroy {
     pageTitle: string = 'Dane Faktury';

@@ -1,12 +1,11 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import {ROUTER_DIRECTIVES, Router, ActivatedRoute} from '@angular/router';
+import {Router, ActivatedRoute} from '@angular/router';
 
 import {Store} from './store';
 import {StoreService} from './store.service';
 
 @Component({
-    templateUrl: 'app/store/store-detail-form.component.html',
-    directives: [ROUTER_DIRECTIVES]
+    templateUrl: 'app/store/store-detail-form.component.html'
 })
 export class StoreDetailFormComponent implements OnInit, OnDestroy {
     pageTitle: string = 'Dane Sklepu';

@@ -7,8 +7,7 @@ import {Logger} from "angular2-logger/core";
 import {InvoiceNewFormComponent} from "./invoice-new-form.component";
 
 @Component({
-    templateUrl: 'app/invoice/invoice-list.component.html',
-    directives: [InvoiceNewFormComponent]
+    templateUrl: 'app/invoice/invoice-list.component.html'
 })
 export class InvoiceListComponent implements OnInit {
     pageTitle:string = 'Faktury';
