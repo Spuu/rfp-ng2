@@ -7,7 +7,7 @@ import {PositionListComponent} from "./position-list.component";
 import {StoreModule} from "../store/store.module";
 import {ProductModule} from "../product/product.module";
 import {PositionService} from "./position.service";
-import {PositionSellModule} from "../position-sell/position-sell.module";
+import {SubPositionModule} from "../sub-position/sub-position.module";
 import {GenericModule} from "../generic/generic.module";
 
 @NgModule({
@@ -17,7 +17,7 @@ import {GenericModule} from "../generic/generic.module";
         FormsModule,
         GenericModule,
         ProductModule,
-        PositionSellModule
+        SubPositionModule
     ],
     declarations: [
         PositionComponent,

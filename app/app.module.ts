@@ -12,7 +12,7 @@ import {StoreModule} from "./store/store.module";
 import {InvoiceModule} from "./invoice/invoice.module";
 import {ProductModule} from "./product/product.module";
 import {PositionModule} from "./position/position.module";
-import {PositionSellModule} from "./position-sell/position-sell.module";
+import {SubPositionModule} from "./sub-position/sub-position.module";
 import {GenericModule} from "./generic/generic.module";
 
 @NgModule({
@@ -26,7 +26,7 @@ import {GenericModule} from "./generic/generic.module";
         InvoiceModule,
         ProductModule,
         PositionModule,
-        PositionSellModule,
+        SubPositionModule,
         GenericModule
     ],
     declarations: [

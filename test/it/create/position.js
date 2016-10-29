@@ -30,7 +30,7 @@ module.exports = function (done) {
             res.body._invoice.should.equal(TestManager.getId('invoice'));
             res.body.index.should.equal(0);
             res.body.quantity.should.equal(3.12345678);
-            res.body._product.should.equal(TestManager.getId('product'));
+            res.body._product._id.should.equal(TestManager.getId('product'));
             res.body.retail_rate.should.equal(1.8);
             res.body.sell_brutto_price.should.equal(25);
             res.body._store.should.equal(TestManager.getId('store'));

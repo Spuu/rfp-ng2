@@ -1,6 +1,5 @@
 var Utils = require('../utils/GenericUtils');
-var dataModel = require('../models/position-sell');
-var Position = require('../models/position');
+var dataModel = require('../models/sub-position');
 
 module.exports = {
 

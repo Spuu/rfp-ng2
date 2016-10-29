@@ -6,8 +6,8 @@
             <span class="caret"></span>
         </button>
         <ul class="dropdown-menu" aria-labelledby="actionDrop">
-            <li class="dropdown-header">Sell</li>
-            <li (click)="addSellPosition()"><a ng-href="#">Sell</a></li>
+            <li class="dropdown-header">Sub-product</li>
+            <li (click)="addSubPosition()"><a ng-href="#">Sub</a></li>
             <li class="dropdown-header">Modify</li>
             <li (click)="clone()"><a ng-href="#">Clone</a></li>
             <li (click)="actionChange(3)"><a ng-href="#">Edit product</a></li>
@@ -33,8 +33,8 @@
     </div>
 </div>
 
-<div *ngIf="showPositionSell()">
-    <position-sell [products]="subProducts" [positionSell]="position._sell_position" ></position-sell>
+<div *ngIf="showSubPosition()">
+    <sub-position [products]="subProducts" [subPosition]="position._sub_position" ></sub-position>
 </div>
 <div [ngSwitch]="action" class="row">
     <product-details *ngSwitchCase="3" [(product)]="position._product" (onDelete)="delete()" (onSave)="actionChange(0)"

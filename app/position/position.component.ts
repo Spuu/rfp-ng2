@@ -1,22 +1,19 @@
 import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
-import {NgSwitch, NgSwitchCase, NgSwitchDefault} from '@angular/common';
 
 import {Position} from "./position";
 import {Store} from "../store/store";
 import {StoreService} from "../store/store.service";
 import {ProductService} from "../product/product.service";
-import {ProductRelationsComponent} from "../product/product-relations.component";
-import {ProductDetailsComponent} from "../product/product-details.component";
-import {PositionSell} from "../position-sell/position-sell";
+
+import {SubPosition} from "../sub-position/sub-position";
 import {Product} from "../product/product";
-import {PositionSellComponent} from "../position-sell/position-sell.component";
 
 import * as _ from 'lodash';
 
 enum Action {
     None = 0,
     Clone,
-    Sell,
+    Sub,
     Edit,
     Set_Father,
     Set_Child
@@ -59,7 +56,7 @@ export class PositionComponent implements OnInit {
                 );
         }
 
-        if(this.position._sell_position) {
+        if(this.position._sub_position) {
             this.refreshSubproducts();
         }
     }
@@ -76,16 +73,16 @@ export class PositionComponent implements OnInit {
         this.onClone.emit(true);
     }
 
-    addSellPosition() {
-        this.actionChange(Action.Sell);
+    addSubPosition() {
+        this.actionChange(Action.Sub);
         this.refreshSubproducts();
     }
 
-    createSellProduct() {
-        if(this.isSellable()) {
-            if (!this.position._sell_position) {
-                this.position._sell_position = new PositionSell();
-                this.position._sell_position._product = this.subProducts[0];
+    createSubProduct() {
+        if(this.isSubbed()) {
+            if (!this.position._sub_position) {
+                this.position._sub_position = new SubPosition();
+                this.position._sub_position._product = this.subProducts[0];
             }
         }
     }
@@ -95,28 +92,28 @@ export class PositionComponent implements OnInit {
             .subscribe(
                 c => {
                     this.subProducts = c._children;
-                    this.createSellProduct();
+                    this.createSubProduct();
                 },
                 err => console.log(err)
             );
     }
 
-    isSellable():boolean {
+    isSubbed():boolean {
         if(_.isEmpty(this.subProducts))
             return false;
 
         return true;
     }
 
-    isActionSell():boolean {
-        if(this.action == Action.Sell)
+    isActionSub():boolean {
+        if(this.action == Action.Sub)
             return true;
 
         return false;
     }
 
-    showPositionSell():boolean {
-        if(this.isActionSell() || this.position._sell_position)
+    showSubPosition():boolean {
+        if(this.isActionSub() || this.position._sub_position)
             return true;
 
         return false;

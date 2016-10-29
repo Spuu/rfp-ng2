@@ -1,13 +1,13 @@
 import {Model} from "../generic/model";
 import {Product} from "../product/product";
-import {PositionSell} from "../position-sell/position-sell";
+import {SubPosition} from "../sub-position/sub-position";
 
 export class Position extends Model {
     _id:string = '';
     _store:string = '';
     _invoice:string = '';
     _product:Product = null;
-    _sell_position:PositionSell = null;
+    _sub_position:SubPosition = null;
     index:number = 0;
     buy_netto_price:number = 0.0;
     sell_brutto_price:number = 0.0;
@@ -36,14 +36,14 @@ export class Position extends Model {
         this.retail_rate = pos.retail_rate;
     }
 
-    prepareSellPosition(ps:PositionSell) {
-        if(!this._sell_position) {
-            this._sell_position = new PositionSell();
-            this._sell_position._product = ps._product;
-            this._sell_position.buy_netto_price = ps.buy_netto_price;
-            this._sell_position.sell_brutto_price = ps.sell_brutto_price;
-            this._sell_position.unit_nominator = ps.unit_nominator;
-            this._sell_position.unit_denominator = ps.unit_denominator;
+    prepareSubPosition(ps:SubPosition) {
+        if(!this._sub_position) {
+            this._sub_position = new SubPosition();
+            this._sub_position._product = ps._product;
+            this._sub_position.buy_netto_price = ps.buy_netto_price;
+            this._sub_position.sell_brutto_price = ps.sell_brutto_price;
+            this._sub_position.unit_nominator = ps.unit_nominator;
+            this._sub_position.unit_denominator = ps.unit_denominator;
         }
     }
 }

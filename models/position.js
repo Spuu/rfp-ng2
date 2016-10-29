@@ -5,7 +5,7 @@ var PositionSchema = new Schema({
     _store              : {type: Schema.ObjectId, ref: 'Store', required: true },
     _invoice            : {type: Schema.ObjectId, ref: 'Invoice', required: true },
     _product            : {type: Schema.ObjectId, ref: 'Product', required: true },
-    _sell_position      : {type: Schema.ObjectId, ref: 'PositionSell'},
+    _sub_position       : {type: Schema.ObjectId, ref: 'SubPosition'},
     index               : {type: Number, default: 1},
     buy_netto_price     : {type: Number, default: 0},
     sell_brutto_price   : {type: Number, default: 0},

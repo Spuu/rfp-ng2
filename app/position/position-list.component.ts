@@ -6,7 +6,7 @@ import {StoreService} from "../store/store.service";
 import forEach = require("core-js/fn/array/for-each");
 import {Product} from "../product/product";
 import {Position} from "./position";
-import {PositionSellService} from "../position-sell/position-sell.service";
+import {SubPositionService} from "../sub-position/sub-position.service";
 
 @Component({
     selector: 'position-list',
@@ -22,7 +22,7 @@ export class PositionListComponent implements OnInit {
     stores:Store[];
 
     constructor(private _positionService:PositionService,
-                private _positionSellService:PositionSellService,
+                private _subPositionService:SubPositionService,
                 private _storeService:StoreService) {
     }
 
@@ -60,8 +60,8 @@ export class PositionListComponent implements OnInit {
                     if (p) {
                         newPosition.copyValues(p);
 
-                        if (!!p._sell_position) {
-                            newPosition.prepareSellPosition(p._sell_position);
+                        if (!!p._sub_position) {
+                            newPosition.prepareSubPosition(p._sub_position);
                         }
                     }
                     this.positions.push(newPosition);
@@ -92,9 +92,9 @@ export class PositionListComponent implements OnInit {
         }
     }
 
-    saveSellPosition(pos:Position) {
-        if (pos._sell_position._id) {
-            this._positionSellService.put(pos._sell_position)
+    saveSubPosition(pos:Position) {
+        if (pos._sub_position._id) {
+            this._subPositionService.put(pos._sub_position)
                 .subscribe(
                     p => {
                         this.savePosition(pos);
@@ -102,7 +102,7 @@ export class PositionListComponent implements OnInit {
                     err => console.log("Unsuccessful save: " + err)
                 )
         } else {
-            this._positionSellService.post(pos._sell_position)
+            this._subPositionService.post(pos._sub_position)
                 .subscribe(
                     p => {
                         this.savePosition(pos);
@@ -146,8 +146,8 @@ export class PositionListComponent implements OnInit {
         for (let i in this.positions) {
             let pos = this.positions[i];
 
-            if (pos._sell_position)
-                this.saveSellPosition(pos);
+            if (pos._sub_position)
+                this.saveSubPosition(pos);
             else
                 this.savePosition(pos);
         }

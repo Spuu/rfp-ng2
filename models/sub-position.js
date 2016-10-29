@@ -1,7 +1,7 @@
 var mongoose    = require('mongoose');
 var Schema      = mongoose.Schema;
 
-var PositionSellSchema = new Schema({
+var SubPositionSchema = new Schema({
     _product            : {type: Schema.ObjectId, ref: 'Product', required: true },
     buy_netto_price     : {type: Number, default: 0},
     sell_brutto_price   : {type: Number, default: 0},
@@ -9,4 +9,4 @@ var PositionSellSchema = new Schema({
     unit_denominator    : {type: Number, default: 1}
 });
 
-module.exports = mongoose.model('PositionSell', PositionSellSchema);
+module.exports = mongoose.model('SubPosition', SubPositionSchema);

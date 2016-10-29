@@ -1,8 +1,7 @@
 import {Model} from "../generic/model";
 import {Product} from "../product/product";
-import {Invoice} from "../invoice/invoice";
 
-export class PositionSell extends Model {
+export class SubPosition extends Model {
     _id:string = '';
     _product:Product = null;
     buy_netto_price:number = 0.0;

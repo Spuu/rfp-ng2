@@ -2,8 +2,8 @@ import { NgModule }      from '@angular/core';
 import { CommonModule }  from '@angular/common';
 import { FormsModule }   from '@angular/forms';
 
-import {PositionSellComponent} from "./position-sell.component";
-import {PositionSellService} from "./position-sell.service";
+import {SubPositionComponent} from "./sub-position.component";
+import {SubPositionService} from "./sub-position.service";
 
 @NgModule({
     imports: [
@@ -11,13 +11,13 @@ import {PositionSellService} from "./position-sell.service";
         FormsModule
     ],
     declarations: [
-        PositionSellComponent,
+        SubPositionComponent,
     ],
     exports: [
-        PositionSellComponent,
+        SubPositionComponent,
     ],
     providers: [
-        PositionSellService
+        SubPositionService
     ]
 })
-export class PositionSellModule {}
+export class SubPositionModule {}

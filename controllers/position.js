@@ -1,13 +1,13 @@
 var Utils = require('../utils/GenericUtils');
 var dataModel = require('../models/position');
-var PositionSell = require('../models/position-sell');
+var SubPosition = require('../models/sub-position');
 var _ = require('lodash');
 
 module.exports = {
 
     populate: function (req, res) {
         dataModel.populate(req.mydata, {
-                path: '_sell_position _product',
+                path: '_sub_position _product',
                 populate: {path: '_product'}
             },
             function (err, data) {
@@ -67,8 +67,8 @@ module.exports = {
         var id = req.params.id;
         dataModel.findByIdAndRemove(id, function (err, data) {
             if (err) return Utils.err500(res);
-            if (data._sell_position)
-                PositionSell.findByIdAndRemove(data._sell_position, function (err, sell_data) {
+            if (data._sub_position)
+                SubPosition.findByIdAndRemove(data._sub_position, function (err, sell_data) {
                     if (err) return Utils.err500(res);
                 });
             req.mydata = data;

@@ -1,24 +1,24 @@
 import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
 import {Product} from "../product/product";
-import {PositionSell} from "./position-sell";
+import {SubPosition} from "./sub-position";
 import * as _ from 'lodash'
 
 @Component({
-    selector: 'position-sell',
-    templateUrl: 'app/position-sell/position-sell.component.html'
+    selector: 'sub-position',
+    templateUrl: 'app/sub-position/sub-position.component.html'
 })
-export class PositionSellComponent implements OnInit {
+export class SubPositionComponent implements OnInit {
     @Input()
     products:Product[] = [];
 
     @Input()
-    positionSell:PositionSell;
+    subPosition:SubPosition;
 
     @Output()
     onDelete = new EventEmitter();
 
     @Output()
-    positionSellChange = new EventEmitter();
+    subPositionChange = new EventEmitter();
 
     ngOnInit() {
         if (!this.products || _.isEmpty(this.products)) {
@@ -26,18 +26,18 @@ export class PositionSellComponent implements OnInit {
             return;
         }
 
-        if (!this.positionSell) {
-            console.log('No positionSell...');
+        if (!this.subPosition) {
+            console.log('No subPosition...');
             return;
         }
 
-        if(!this.positionSell._product) {
+        if(!this.subPosition._product) {
             this.change();
         }
     }
 
     setProduct(product:Product) {
-        this.positionSell._product = product;
+        this.subPosition._product = product;
     }
 
     delete() {
@@ -45,7 +45,7 @@ export class PositionSellComponent implements OnInit {
     }
 
     change() {
-        this.positionSellChange.emit(this.positionSell);
+        this.subPositionChange.emit(this.subPosition);
     }
 }
 

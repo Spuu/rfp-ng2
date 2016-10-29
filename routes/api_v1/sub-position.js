@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var controller = require('../../controllers/position-sell');
+var controller = require('../../controllers/sub-position');
 
 /*
  * GET
