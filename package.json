@@ -6,7 +6,7 @@
     "node": "6.6.0"
   },
   "scripts": {
-    "start": "tsc && concurrently \"npm run tsc:w\" \"supervisor ./bin/www\" ",
+    "start": "tsc && concurrently \"npm run tsc:w\" \"node ./bin/www\" ",
     "lite": "lite-server",
     "postinstall": "typings install",
     "tsc": "tsc",
