@@ -3,7 +3,6 @@ import {Router} from '@angular/router';
 
 import {Invoice} from './invoice';
 import {InvoiceService} from './invoice.service';
-import {Logger} from "angular2-logger/core";
 import {CptyService} from "../cpty/cpty.service";
 import {StoreService} from "../store/store.service";
 import {Store} from "../store/store";
@@ -26,8 +25,7 @@ export class InvoiceNewFormComponent implements OnInit {
 
     constructor(private _invoiceService:InvoiceService,
                 private _cptyService:CptyService,
-                private _storeService:StoreService,
-                private _logger:Logger) {
+                private _storeService:StoreService) {
     }
 
     ngOnInit():void {

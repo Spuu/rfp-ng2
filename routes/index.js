@@ -2,11 +2,16 @@ var express = require('express');
 var router = express.Router();
 var path = require('path');
 
+/**
+ * Back-end API
+ */
 router.use('/api', require('./api_v1'));
 
-// leave rest for angular
-router.all('/*', function(req, res, next) {
-    res.sendFile(path.join(__dirname, '../', 'index.html'));
+/**
+ * Rest are left for Angular2
+ */
+router.all('/*', function(req, res) {
+    res.sendFile(path.join(__dirname, '../index.html'));
 });
 
 module.exports = router;

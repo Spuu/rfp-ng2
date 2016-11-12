@@ -3,7 +3,6 @@ import {Router} from '@angular/router';
 
 import {Product} from './product';
 import {ProductService} from './product.service';
-import {Logger} from "angular2-logger/core";
 
 @Component({
     templateUrl: 'app/product/product-list.component.html'
@@ -16,8 +15,7 @@ export class ProductListComponent implements OnInit {
     model:Product = new Product();
 
     constructor(private _productService:ProductService,
-                private _router:Router,
-                private _logger:Logger) {
+                private _router:Router) {
 
     }
 

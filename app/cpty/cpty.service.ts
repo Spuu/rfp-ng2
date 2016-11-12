@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Http} from '@angular/http';
 
-import {Logger} from "angular2-logger/core";
+import {Logger} from "../generic/logger.service";
 import {GenericService} from "../generic/generic.service";
 import {Cpty} from "./cpty";
 

@@ -8,7 +8,7 @@ import {ProductService} from "../product/product.service";
 import {SubPosition} from "../sub-position/sub-position";
 import {Product} from "../product/product";
 
-import * as _ from 'lodash';
+import * as _ from "lodash";
 
 enum Action {
     None = 0,

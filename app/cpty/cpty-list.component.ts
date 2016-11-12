@@ -3,7 +3,7 @@ import {Router} from '@angular/router';
 
 import {Cpty} from './cpty';
 import {CptyService} from './cpty.service';
-import {Logger} from "angular2-logger/core";
+import {Logger} from "../generic/logger.service";
 
 @Component({
     templateUrl: 'app/cpty/cpty-list.component.html'

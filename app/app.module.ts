@@ -6,7 +6,6 @@ import {routing, appRoutingProviders}  from './app.routing';
 
 import {AppComponent} from './app.component';
 import {DummyComponent} from "./dummy.component";
-import {Logger} from "angular2-logger/core";
 import {CptyModule} from "./cpty/cpty.module";
 import {StoreModule} from "./store/store.module";
 import {InvoiceModule} from "./invoice/invoice.module";
@@ -14,6 +13,7 @@ import {ProductModule} from "./product/product.module";
 import {PositionModule} from "./position/position.module";
 import {SubPositionModule} from "./sub-position/sub-position.module";
 import {GenericModule} from "./generic/generic.module";
+import {Logger} from "./generic/logger.service";
 
 @NgModule({
     imports: [

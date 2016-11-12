@@ -4,6 +4,16 @@ var dataModel = require('../models/product');
 
 module.exports = {
 
+    /**
+     * @api {get} /product Request User information
+     * @apiName GetProducts
+     * @apiGroup Product
+     *
+     * @apiParam {Number} id Users unique ID.
+     *
+     * @apiSuccess {String} firstname Firstname of the User.
+     * @apiSuccess {String} lastname  Lastname of the User.
+     */
     list: function(req, res) {
         dataModel.find(function(err, data){
             if(err) return Utils.err500(res);

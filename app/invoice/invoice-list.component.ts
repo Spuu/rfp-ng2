@@ -3,7 +3,6 @@ import {Router} from '@angular/router';
 
 import {Invoice} from './invoice';
 import {InvoiceService} from './invoice.service';
-import {Logger} from "angular2-logger/core";
 import {InvoiceNewFormComponent} from "./invoice-new-form.component";
 
 @Component({
@@ -17,8 +16,7 @@ export class InvoiceListComponent implements OnInit {
     model:Invoice = new Invoice();
 
     constructor(private _invoiceService:InvoiceService,
-                private _router:Router,
-                private _logger:Logger) {
+                private _router:Router) {
     }
 
     ngOnInit():void {
