@@ -5,14 +5,12 @@ var dataModel = require('../models/product');
 module.exports = {
 
     /**
-     * @api {get} /product Request User information
+     * @api {get} /product Request Product list
      * @apiName GetProducts
      * @apiGroup Product
+     * @apiVersion 2.0.0
      *
-     * @apiParam {Number} id Users unique ID.
-     *
-     * @apiSuccess {String} firstname Firstname of the User.
-     * @apiSuccess {String} lastname  Lastname of the User.
+     * @apiSuccess {Object[]} products List of Products
      */
     list: function(req, res) {
         dataModel.find(function(err, data){
