@@ -1,4 +1,3 @@
-var should = require('should');
 var request = require('supertest');
 var config = require('../../../config');
 
@@ -14,7 +13,7 @@ module.exports = function (done) {
     var datasets = [
         {
             cash_register_name: 'Prod 1', // updated: Prod 1
-            ean: '1111111111111', // updated
+            ean: '1231111111111', // updated
             name: 'Produkt pierwszy',
             pih_amount: 123, // updated: 1234
             pih_unit: 'g',
@@ -22,7 +21,7 @@ module.exports = function (done) {
         },
         {
             cash_register_name: 'Prod 2',
-            ean: '2222222222222',
+            ean: '1232222222222',
             name: 'Produkt drugi',
             pih_amount: 222,
             pih_unit: 'kg',
@@ -30,7 +29,7 @@ module.exports = function (done) {
         },
         {
             cash_register_name: 'Prod 3',
-            ean: '3333333333333',
+            ean: '1233333333333',
             name: 'Produkt trzeci',
             pih_amount: 333,
             pih_unit: 'l',
