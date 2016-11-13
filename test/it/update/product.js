@@ -7,14 +7,14 @@ var Product = require('../../../models/product');
 
 module.exports = function (done) {
     var obj = {
-        cash_register_name: 'Prod 12',
+        cash_register_name: 'Prod 1a',
         name: 'Produkt pierwszy poprawiony',
         pih_amount: 1234,
-        vat: 8
+        vat: 23
     };
 
     request(config.api_url)
-        .put('/product/' + TestManager.getId('product'))
+        .put('/product/' + TestManager.getId('product_prod_1'))
         .send(obj)
         .expect(200)
         .end(function (err, res) {
@@ -22,16 +22,18 @@ module.exports = function (done) {
                 throw err;
             }
 
+            var data = TestManager.getData('product_1');
+
             res.body.should.have.property('_id');
             res.body.status.should.equal(Product.statusVal().updated);
-            res.body.name.should.equal('Produkt pierwszy poprawiony');
+            res.body.name.should.equal(obj.name);
             res.body.cash_register_rate.should.equal(1);
-            res.body.cash_register_name.should.equal('Prod 12');
-            res.body.ean.should.equal('1234567890');
-            res.body.pih_amount.should.equal(1234);
-            res.body.pih_unit.should.equal('g');
-            res.body.sell_unit.should.equal('szt');
-            res.body.vat.should.equal(8);
+            res.body.cash_register_name.should.equal(obj.cash_register_name);
+            res.body.ean.should.equal(data.ean);
+            res.body.pih_amount.should.equal(obj.pih_amount);
+            res.body.pih_unit.should.equal(data.pih_unit);
+            res.body.sell_unit.should.equal(data.sell_unit || 'szt');
+            res.body.vat.should.equal(obj.vat);
 
             done();
         });

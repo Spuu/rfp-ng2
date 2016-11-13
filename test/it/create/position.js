@@ -16,12 +16,15 @@ module.exports = function (done) {
             _store: TestManager.getId('store_czołgistów'),
             _product: TestManager.getId('product_prod_1'),
             index: 0,
-            buy_netto_price: 1,
-            sell_brutto_price: 2,
-            quantity: 3,
-            retail_rate: 4
+            buy_netto_price: 1, // updated: 1.5
+            sell_brutto_price: 2, // updated: 2.5
+            quantity: 3, //updated: 3.5
+            retail_rate: 4 // updated: 4.5
         }
     ];
+
+    // saved for update validation
+    TestManager.setData('position_arti_czol', arti_czol[0]);
 
     var zooleszcz_czol = [
         {
@@ -206,7 +209,6 @@ module.exports = function (done) {
             throw err;
         },
         function () {
-            TestManager.show();
             done();
         }
     );

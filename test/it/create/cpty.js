@@ -15,8 +15,11 @@ module.exports = function (done) {
      */
     var arti = {
         name: 'Arti',
-        long_name: 'Fajna Arti firma'
+        long_name: 'Fajna Arti firma' // updated
     };
+
+    // saved for update validation
+    TestManager.setData('cpty_arti', arti);
 
     var zooleszcz = {
         name: 'Zooleszcz',

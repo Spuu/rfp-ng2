@@ -13,12 +13,12 @@ module.exports = function (done) {
      */
     var datasets = [
         {
-            cash_register_name: 'Prod 1',
-            ean: '1111111111111',
+            cash_register_name: 'Prod 1', // updated: Prod 1
+            ean: '1111111111111', // updated
             name: 'Produkt pierwszy',
-            pih_amount: 123,
+            pih_amount: 123, // updated: 1234
             pih_unit: 'g',
-            vat: 23
+            vat: 8 // updated: 23
         },
         {
             cash_register_name: 'Prod 2',
@@ -45,6 +45,9 @@ module.exports = function (done) {
             vat: 0
         }
     ];
+
+    // saved for update validation
+    TestManager.setData('product_1', datasets[0]);
 
     /**
      * Request wrapper to get simpler interface

@@ -10,7 +10,7 @@ module.exports = function (done) {
     };
 
     request(config.api_url)
-        .put('/cpty/' + TestManager.getId('cpty'))
+        .put('/cpty/' + TestManager.getId('cpty_arti'))
         .send(obj)
         .expect(200)
         .end(function (err, res) {
@@ -18,10 +18,12 @@ module.exports = function (done) {
                 throw err;
             }
 
-            res.body.should.have.property('_id');
-            res.body.name.should.equal('Arti');
-            res.body.long_name.should.equal('Bardzo fajna Arti firma');
+            var data = TestManager.getData('cpty_arti');
             
+            res.body.should.have.property('_id');
+            res.body.name.should.equal(data.name);
+            res.body.long_name.should.equal(obj.long_name);
+
             done();
         });
 };

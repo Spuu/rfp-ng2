@@ -6,14 +6,14 @@ var TestManager = require('../../modules/TestManager');
 
 module.exports = function (done) {
     var obj = {
-        buy_netto_price: 12.345,
-        quantity: 13.12345678,
-        retail_rate: 2,
-        sell_brutto_price: 25.5
+        buy_netto_price: 1.5,
+        sell_brutto_price: 2.5,
+        quantity: 3.5,
+        retail_rate: 4.5
     };
 
     request(config.api_url)
-        .put('/position/' + TestManager.getId('position'))
+        .put('/position/' + TestManager.getId('position_invoice_faktura_arti_czoł_0'))
         .send(obj)
         .expect(200)
         .end(function (err, res) {
@@ -21,15 +21,17 @@ module.exports = function (done) {
                 throw err;
             }
 
+            var data = TestManager.getData('position_arti_czol');
+            
             res.body.should.have.property('_id');
-            res.body.buy_netto_price.should.equal(12.345);
-            res.body._invoice.should.equal(TestManager.getId('invoice'));
-            res.body.index.should.equal(0);
-            res.body.quantity.should.equal(13.12345678);
-            res.body._product._id.should.equal(TestManager.getId('product'));
-            res.body.retail_rate.should.equal(2);
-            res.body.sell_brutto_price.should.equal(25.5);
-            res.body._store.should.equal(TestManager.getId('store'));
+            res.body.buy_netto_price.should.equal(obj.buy_netto_price);
+            res.body._invoice.should.equal(data._invoice);
+            res.body.index.should.equal(data.index);
+            res.body.quantity.should.equal(obj.quantity);
+            res.body._product._id.should.equal(data._product);
+            res.body.retail_rate.should.equal(obj.retail_rate);
+            res.body.sell_brutto_price.should.equal(obj.sell_brutto_price);
+            res.body._store.should.equal(data._store);
             done();
         });
 };

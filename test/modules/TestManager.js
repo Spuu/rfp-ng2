@@ -3,6 +3,7 @@ var _ = require('lodash');
 var TestManager = function(){
 
     var idContainer = {};
+    var datasetContainer = {};
 
     /**
      * Keep id of data
@@ -26,11 +27,35 @@ var TestManager = function(){
         return _.findKey(idContainer, (v) => v === value);
     };
 
+    /**
+     * The same interface for datasets
+     */
+    var setData = function(key, value) {
+        key = key.replace(/ /g, '_').toLowerCase();
+        datasetContainer[key] = value;
+    };
+
+    var getData = function(key) {
+        return datasetContainer[key];
+    };
+
+    var showData = function() {
+        console.log(datasetContainer);
+    };
+
+    var findDataKey = function(value) {
+        return _.findKey(datasetContainer, (v) => v === value);
+    };
+
     return {
         setId: setId,
         getId: getId,
         show: show,
-        findKey: findKey
+        findKey: findKey,
+        setData: setData,
+        getData: getData,
+        showData: showData,
+        findDataKey: findDataKey
     }
 };
 

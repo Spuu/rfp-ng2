@@ -17,6 +17,7 @@ module.exports = function (done) {
             name: 'Faktura Arti Czoł',
             _store: TestManager.getId('store_czołgistów'),
             document_date: new Date('2016-01-01')
+            // updated type: 'Sell'
         },
         {
             _cpty: TestManager.getId('store_czołgistów'),
@@ -71,6 +72,9 @@ module.exports = function (done) {
             type: 'Sell'
         }
     ];
+
+    // saved for update validation
+    TestManager.setData('invoice_arti', datasets[0]);
 
     /**
      * Request wrapper to get simpler interface

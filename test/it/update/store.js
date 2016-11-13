@@ -10,7 +10,7 @@ module.exports = function (done) {
     };
 
     request(config.api_url)
-        .put('/store/' + TestManager.getId('store'))
+        .put('/store/' + TestManager.getId('store_czołgistów'))
         .send(obj)
         .expect(200)
         .end(function (err, res) {
@@ -19,7 +19,7 @@ module.exports = function (done) {
             }
 
             res.body.should.have.property('_id');
-            res.body.name.should.equal('Czołgistów 23');
+            res.body.name.should.equal(obj.name);
 
             done();
         });

@@ -6,12 +6,12 @@ var TestManager = require('../../modules/TestManager');
 
 module.exports = function (done) {
     var obj = {
-        name: 'Faktura 123456',
+        name: 'Faktura Arti CZ 123456',
         type: 'Sell'
     };
 
     request(config.api_url)
-        .put('/invoice/' + TestManager.getId('invoice'))
+        .put('/invoice/' + TestManager.getId('invoice_faktura_arti_czoł'))
         .send(obj)
         .expect(200)
         .end(function (err, res) {
@@ -19,11 +19,13 @@ module.exports = function (done) {
                 throw err;
             }
 
+            var data = TestManager.getData('invoice_arti');
+
             res.body.should.have.property('_id');
-            res.body.name.should.equal('Faktura 123456');
-            res.body._cpty.should.equal(TestManager.getId('cpty'));
-            res.body._store.should.equal(TestManager.getId('store'));
-            res.body.type.should.equal('Sell');
+            res.body.name.should.equal(obj.name);
+            res.body._cpty.should.equal(data._cpty);
+            res.body._store.should.equal(data._store);
+            res.body.type.should.equal(obj.type);
             res.body.creation_date.should.greaterThan(res.body.document_date);
             res.body.creation_date.should.lessThan(res.body.last_modif_date);
 
