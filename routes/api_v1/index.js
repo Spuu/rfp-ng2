@@ -11,5 +11,8 @@ router.use('/position', require('./position'));
 router.use('/sub-position', require('./sub-position'));
 router.use('/invoice', require('./invoice'));
 router.use('/product', require('./product'));
+router.use('/list', require('./list'));
+router.use('/list-entry', require('./list-entry'));
+router.use('/substitution', require('./substitution'));
 
 module.exports = router;
