@@ -14,5 +14,6 @@ router.use('/product', require('./product'));
 router.use('/list', require('./list'));
 router.use('/list-entry', require('./list-entry'));
 router.use('/substitution', require('./substitution'));
+router.use('/category', require('./category'));
 
 module.exports = router;

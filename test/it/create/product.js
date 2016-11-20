@@ -48,6 +48,11 @@ module.exports = function (done) {
     // saved for update validation
     TestManager.setData('product_1', datasets[0]);
 
+    // saved for list entry
+    TestManager.setData('product_2', datasets[1]);
+    TestManager.setData('product_3', datasets[2]);
+    TestManager.setData('product_4', datasets[3]);
+
     /**
      * Request wrapper to get simpler interface
      * @param data Cpty dataset

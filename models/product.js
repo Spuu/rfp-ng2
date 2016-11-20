@@ -5,6 +5,7 @@ var Schema       = mongoose.Schema;
 var ProductSchema = new Schema({
     _father                 : { type: Schema.ObjectId, ref: 'Product' },
     _children               : [{ type: Schema.ObjectId, ref: 'Product' }],
+    is_barcode              : { type: Boolean, default: false },
     ean                     : { type: String, required: true },
     name                    : { type: String, required: true },
     cash_register_name      : String, // set in 'pre' function

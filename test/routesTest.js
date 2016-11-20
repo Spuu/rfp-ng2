@@ -59,6 +59,19 @@ describe('Routes (CRUD)', function () {
             it('GET add_child  1 <- 3', require('./it/product/relate_1_3'));
     });
 
+    describe('Create lists and list-entry', function() {
+            it('POST create lists', require('./it/create/list')),
+            it('POST create lists-entry', require('./it/create/list-entry'));
+    });
+
+    describe('Create categories', function() {
+            it('POST create category', require('./it/create/category'));
+    });
+
+    describe('Create substitutions', function() {
+        it('POST create substitution', require('./it/create/substitution'));
+    });
+
     describe('Deleting objects', function () {
 
     });
