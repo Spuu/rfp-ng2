@@ -5,52 +5,41 @@ var controller = require('../../controllers/product');
 /*
  * GET
  */
-router.get('/', function(req, res) {
-    controller.list(req, res);
-});
+router.get('/', controller.list);
 
 /*
  * GET
  */
-router.get('/:id', function(req, res) {
-    controller.show(req, res);
-});
+router.get('/:id', controller.show);
 
-router.get('/search/:query/:limit?', function(req, res) {
-    controller.ean_name_search(req, res);
-});
+router.get('/search/:query/:limit?', controller.ean_name_search);
 
-router.get('/:id/show_children', function(req, res) {
-    controller.show_children(req, res);
-});
+router.get('/:id/show_children', controller.show_children);
 
-router.get('/:id_f/add_child/:id_c', function(req, res) {
-    controller.add_child(req, res);
-});
+router.get('/:id_f/add_child/:id_c', controller.add_child);
 
-router.get('/:id_f/remove_child/:id_c', function(req, res) {
-    controller.remove_child(req, res);
-});
+router.get('/:id_f/remove_child/:id_c', controller.remove_child);
 
 /*
  * POST
  */
-router.post('/', function(req, res) {
-    controller.create(req, res);
-});
+router.post('/', controller.create);
+
+/*
+    Creates product as barcode and joins it with father
+ */
+router.post('/:id_f/barcodes/add/', controller.create_barcode, controller.add_child);
+
+router.post('/barcodes/add/', controller.find_id_father_from_ean, controller.create_barcode, controller.add_child);
 
 /*
  * PUT
  */
-router.put('/:id', function(req, res) {
-    controller.update(req, res);
-});
+router.put('/:id', controller.update);
 
 /*
  * DELETE
  */
-router.delete('/:id', function(req, res) {
-    controller.remove(req, res);
-});
+router.delete('/:id', controller.remove);
 
 module.exports = router;

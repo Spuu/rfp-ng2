@@ -72,6 +72,11 @@ describe('Routes (CRUD)', function () {
         it('POST create substitution', require('./it/create/substitution'));
     });
 
+    describe('Barcodes', function() {
+        it('POST create barcode', require('./it/product/barcodes'));
+        it('POST create barcode from EAN', require('./it/product/barcodes_ean'));
+    });
+
     describe('Deleting objects', function () {
 
     });

@@ -2,6 +2,7 @@ var Utils = function(){
 
 
     var error = function (res, status, message) {
+        console.log('Status: ' + status + ', message: ', message);
         return res.status(status).json({ error : message });
     };
 

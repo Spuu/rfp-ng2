@@ -89,6 +89,47 @@ module.exports = {
             });
     },
 
+    /*
+        Creates product (marking it as barcode)
+        Sets params for add_child route
+     */
+    create_barcode : function(req, res, next) {
+        req.body.is_barcode = true;
+        req.params.return_child = true;
+
+        /* ugly creational copy-paste */
+        var model = new dataModel();
+        Utils.setObject(model, req.body);
+
+        model.save(function(err, data){
+            if(err) return Utils.error(res, 500, err.message);
+
+            req.params.id_c = data._id;
+            next();
+        });
+    },
+
+    /*
+     Creates product (marking it as barcode)
+     Sets params for add_child route
+     */
+    find_id_father_from_ean : function(req, res, next) {
+
+        if(!req.query.ean)
+            return Utils.error(res, 500, "No EAN provided.");
+
+        dataModel.findOne({ean: req.query.ean}, function(err, data) {
+            if(err)
+                return Utils.error(res, 500, err.message);
+
+            if(!data)
+                return Utils.error(res, 500, "No EAN found.");
+
+            req.params.id_f = data._id;
+            next();
+        })
+    },
+
     add_child: function (req, res) {
         var rh = new RelationHelper(req.params.id_f, req.params.id_c);
         rh.addChildObs.subscribe(
@@ -97,12 +138,20 @@ module.exports = {
                 data.father._children.push(data.child);
                 
                 data.child.save(function (err) {
-                    if (err) return Utils.error(res, 500, err.message);
+                    if(err)
+                        return Utils.error(res, 500, err.message);
+
+                    if(req.params.return_child)
+                        return res.json(data.child);
+
                 });
 
                 data.father.save(function (err) {
-                    if (err) return Utils.error(res, 500, err.message);
-                    return res.json(data.father);
+                    if(err)
+                        return Utils.error(res, 500, err.message);
+
+                    if(!req.params.return_child)
+                        return res.json(data.father);
                 });
             },
             function (err) {

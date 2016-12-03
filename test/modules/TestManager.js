@@ -16,6 +16,7 @@ var TestManager = function(){
     };
 
     var getId = function(key) {
+        key = key.replace(/ /g, '_').toLowerCase();
         return idContainer[key];
     };
 

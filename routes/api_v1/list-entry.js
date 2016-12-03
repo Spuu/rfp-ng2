@@ -5,36 +5,26 @@ var controller = require('../../controllers/list-entry');
 /*
  * GET
  */
-router.get('/', function(req, res) {
-    controller.list(req, res);
-});
+router.get('/', controller.list);
 
 /*
  * GET
  */
-router.get('/:id', function(req, res) {
-    controller.show(req, res);
-});
+router.get('/:id', controller.show);
 
 /*
  * POST
  */
-router.post('/', function(req, res) {
-    controller.create(req, res);
-});
+router.post('/', controller.create);
 
 /*
  * PUT
  */
-router.put('/:id', function(req, res) {
-    controller.update(req, res);
-});
+router.put('/:id', controller.update);
 
 /*
  * DELETE
  */
-router.delete('/:id', function(req, res) {
-    controller.remove(req, res);
-});
+router.delete('/:id', controller.remove);
 
 module.exports = router;
