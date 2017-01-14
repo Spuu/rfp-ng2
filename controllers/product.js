@@ -12,11 +12,12 @@ module.exports = {
      *
      * @apiSuccess {Object[]} products List of Products
      */
-    list: function(req, res) {
-        dataModel.find(function(err, data){
-            if(err) return Utils.err500(res);
-            return res.json(data);
-        });
+    list: function (req, res) {
+        dataModel.find().sort('name').exec(
+            function (err, data) {
+                if (err) return Utils.err500(res);
+                return res.json(data);
+            });
     },
 
     show: function(req, res) {

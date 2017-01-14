@@ -97,6 +97,7 @@ export class PositionListComponent implements OnInit {
             this._subPositionService.put(pos._sub_position)
                 .subscribe(
                     p => {
+                        pos._sub_position._id = p._id;
                         this.savePosition(pos);
                     },
                     err => console.log("Unsuccessful save: " + err)
@@ -105,6 +106,7 @@ export class PositionListComponent implements OnInit {
             this._subPositionService.post(pos._sub_position)
                 .subscribe(
                     p => {
+                        pos._sub_position._id = p._id;
                         this.savePosition(pos);
                     },
                     err => console.log("Unsuccessful save: " + err)
