@@ -22,7 +22,7 @@ export class ProductListComponent implements OnInit {
     ngOnInit():void {
         this._productService.getList()
             .subscribe(
-                products => this.products = products,
+                products => this.products = products.slice(0, 40),
                 error => this.errorMessage = <any>error);
     }
 

@@ -8,7 +8,7 @@
         </div>
         <div class="form-group col-md-2">
             <label for="documentDate">Data</label>
-            <input type="text" class="form-control" required [(ngModel)]="model.documentDate" name="documentDate"
+            <input type="date" class="form-control date" required [(ngModel)]="model.documentDate" name="documentDate"
                    #date="ngModel">
             <div [hidden]="date.valid || date.pristine" class="alert alert-danger">Date is required</div>
         </div>

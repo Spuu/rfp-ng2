@@ -32,5 +32,6 @@ export class InvoiceListComponent implements OnInit {
 
     onSubmit(invoice:Invoice) {
         this.invoices.push(invoice);
+        this.onSelect(invoice);
     }
 }
