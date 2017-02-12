@@ -1,0 +1,30 @@
+<div class='panel panel-primary'>
+    <div class='panel-heading'>
+        <div>
+            {{pageTitle}}
+            <button type="button" class="btn btn-default col-sm-offset-1" (click)="showNewForm=true">Dodaj</button>
+        </div>
+    </div>
+
+    <div class='panel-body'>
+        <product-details [hidden]="!showNewForm" [(product)]="model" (onSave)="submit()"></product-details>
+
+        <div class='table-responsive'>
+            <table class='table table-hover' *ngIf='products && products.length'>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nazwa</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor='let product of products'>
+                    <td>{{ product._id }}</td>
+                    <td>{{ product.name }}</td>
+                    <button type="button" class="btn btn-default" (click)="select(product)">Edycja</button>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

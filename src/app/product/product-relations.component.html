@@ -1,0 +1,25 @@
+<div class='container-fluid'>
+    <h4>Connect sub-product</h4>
+    <div class="container-fluid">
+        <div>Father:</div>
+        <div *ngIf="father">{{father.display_name}}</div>
+        <div *ngIf="!isFatherSet">
+            <div></div>
+            <search-product (productSelected)="father=($event)"></search-product>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div>Child:</div>
+        <div *ngIf="child">{{child.display_name}}</div>
+        <div *ngIf="!isChildSet">
+            <search-product (productSelected)="child=($event)"></search-product>
+        </div>
+    </div>
+    <br>
+    <div class="container-fluid">
+    <button type="button" class="btn btn-primary" (click)="onLink()">Link</button>
+    <button type="button" class="btn btn-warning" (click)="onUnlink()">Unlink</button>
+    <button type="button" class="btn btn-default" (click)="onCancel()">Cancel</button>
+    </div>
+</div>
+

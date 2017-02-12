@@ -1,0 +1,48 @@
+<div class="row">
+    <div class="dropdown">
+        <button class="btn btn-default dropdown-toggle" type="button" id="actionDrop" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="true">
+            Action_
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="actionDrop">
+            <li class="dropdown-header">Sub-product</li>
+            <li (click)="addSubPosition()"><a ng-href="#">Sub</a></li>
+            <li class="dropdown-header">Modify</li>
+            <li (click)="clone()"><a ng-href="#">Clone</a></li>
+            <li (click)="actionChange(3)"><a ng-href="#">Edit product</a></li>
+            <li (click)="actionChange(4)"><a ng-href="#">Set Father</a></li>
+            <li (click)="actionChange(5)"><a ng-href="#">Set Child</a></li>
+            <li class="dropdown-header">Remove</li>
+            <li (click)="delete()"><a ng-href="#">Remove</a></li>
+        </ul>
+    </div>
+    <input class="col-narrow" readonly type="text" [value]="position.index">
+    <input class="col-ean" readonly type="text" [value]="position._product.ean">
+    <input class="col-md-4" readonly type="text" [value]="position._product.name">
+    <input class="col-narrow" readonly type="number" [value]="position._product.vat">
+    <input class="col-md-1" type="number" step="1" [(ngModel)]="position.quantity">
+    <input class="col-md-1" type="number" step="0.01" [(ngModel)]="position.buy_netto_price">
+    <input class="col-md-1" type="number" step="0.01" [(ngModel)]="position.sell_brutto_price">
+    <input class="col-narrow" type="number" step="1" [(ngModel)]="position.discount">
+    <input class="col-narrow" type="number" step="0.01" [(ngModel)]="position.retail_rate">
+    <div class="col-store">
+        <select class="form-control" name="position._store">
+            <option *ngFor="let s of stores" value="s._id">{{s.name}}</option>
+        </select>
+    </div>
+</div>
+
+<div *ngIf="showSubPosition()">
+    <sub-position [products]="subProducts" [subPosition]="position._sub_position" ></sub-position>
+</div>
+<div [ngSwitch]="action" class="row">
+    <product-details *ngSwitchCase="3" [(product)]="position._product" (onDelete)="delete()" (onSave)="actionChange(0)"
+                     (onCancel)="actionChange(0)"></product-details>
+
+    <product-family *ngSwitchCase="4" [child]="position._product"
+                    (onClose)="actionChange(0)"></product-family>
+
+    <product-family *ngSwitchCase="5" [father]="position._product"
+                    (onClose)="actionChange(0)"></product-family>
+</div>
