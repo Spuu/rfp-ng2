@@ -22,7 +22,7 @@ export class StoreListComponent implements OnInit {
     ngOnInit():void {
         this._storeService.getList()
             .subscribe(
-                stores => this.stores = stores,
+                stores => this.stores = stores.docs,
                 error => this.errorMessage = <any>error);
     }
 

@@ -8,11 +8,15 @@ import {ProductService} from './product.service';
     templateUrl: './product-list.component.html'
 })
 export class ProductListComponent implements OnInit {
-    pageTitle:string = 'Produkty';
+    pageTitle:string;
     products:Product[];
     errorMessage:string;
-    showNewForm:boolean = false;
-    model:Product = new Product();
+    showNewForm:boolean;
+    model:Product;
+
+    globalFilter:string;
+    totalRecords:number;
+    lazyPage:number;
 
     constructor(private _productService:ProductService,
                 private _router:Router) {
@@ -20,10 +24,13 @@ export class ProductListComponent implements OnInit {
     }
 
     ngOnInit():void {
-        this._productService.getList()
-            .subscribe(
-                products => this.products = products,//.slice(0, 40),
-                error => this.errorMessage = <any>error);
+        this.pageTitle = 'Produkty';
+        this.showNewForm = false;
+        this.model = new Product();
+        this.products = [];
+        this.totalRecords = 0;
+        this.lazyPage = 20;
+        this.globalFilter = '';
     }
 
     select(product:Product) {
@@ -34,5 +41,26 @@ export class ProductListComponent implements OnInit {
         this.products.push(this.model);
         this.model = new Product();
         this.showNewForm = false;
+    }
+
+    loadData(event) {
+
+        if (this.globalFilter.length < 3 && this.globalFilter.length != 0)
+            return;
+
+        let map = new Map<string, string>();
+        map.set('offset', event.first);
+        map.set('limit', event.rows);
+        map.set('sort', event.sortField);
+        map.set('order', event.sortOrder);
+        map.set('query', this.globalFilter);
+
+        this._productService.getList(map)
+            .subscribe(
+                products => {
+                    this.products = products.docs;
+                    this.totalRecords = products.total;
+                },
+                error => this.errorMessage = <any>error);
     }
 }

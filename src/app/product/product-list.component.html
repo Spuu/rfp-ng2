@@ -1,30 +1,53 @@
-<div class='panel panel-primary'>
-    <div class='panel-heading'>
-        <div>
-            {{pageTitle}}
-            <button type="button" class="btn btn-default col-sm-offset-1" (click)="showNewForm=true">Dodaj</button>
-        </div>
-    </div>
+<!--<button pButton type="button" (click)="showNewForm" label="Dodaj" />-->
 
-    <div class='panel-body'>
-        <product-details [hidden]="!showNewForm" [(product)]="model" (onSave)="submit()"></product-details>
-
-        <div class='table-responsive'>
-            <table class='table table-hover' *ngIf='products && products.length'>
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nazwa</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr *ngFor='let product of products'>
-                    <td>{{ product._id }}</td>
-                    <td>{{ product.name }}</td>
-                    <button type="button" class="btn btn-default" (click)="select(product)">Edycja</button>
-                </tr>
-                </tbody>
-            </table>
+<product-details [hidden]="!showNewForm" [(product)]="model" (onSave)="submit()"></product-details>
+<p-dataTable [value]="products" sortField="name" [sortOrder]="1"
+             [rows]="lazyPage" [lazy]="true" [paginator]="true" (onLazyLoad)="loadData($event)"
+             [totalRecords]="totalRecords" [globalFilter]="gb">
+    <p-header>
+        <div class="ui-helper-clearfix" style="width:100%">
+            <div>{{ pageTitle }} ({{ totalRecords }})</div>
+            <div style="float:left">
+                <button type="button" pButton icon="fa-plus" (click)="showNewForm=true"
+                        label="Add"></button>
+                <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                <input #gb type="text" pInputText size="50" placeholder="Global Filter" [(ngModel)]="globalFilter">
+            </div>
         </div>
-    </div>
-</div>
+    </p-header>
+    <p-column field="ean" header="EAN" [sortable]="true"></p-column>
+    <p-column field="name" header="Nazwa" [sortable]="true"></p-column>
+</p-dataTable>
+
+
+<!--<div class='panel panel-primary'>-->
+<!--<div class='panel-heading'>-->
+<!--<div>-->
+<!--{{pageTitle}}-->
+<!--<button type="button" class="btn btn-default col-sm-offset-1" (click)="showNewForm=true">Dodaj</button>-->
+<!--</div>-->
+<!--</div>-->
+
+<!--&lt;!&ndash;<div class='panel-body'>&ndash;&gt;-->
+<!--&lt;!&ndash;<product-details [hidden]="!showNewForm" [(product)]="model" (onSave)="submit()"></product-details>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<div class='table-responsive'>&ndash;&gt;-->
+<!--&lt;!&ndash;<table class='table table-hover' *ngIf='products && products.length'>&ndash;&gt;-->
+<!--&lt;!&ndash;<thead>&ndash;&gt;-->
+<!--&lt;!&ndash;<tr>&ndash;&gt;-->
+<!--&lt;!&ndash;<th>ID</th>&ndash;&gt;-->
+<!--&lt;!&ndash;<th>Nazwa</th>&ndash;&gt;-->
+<!--&lt;!&ndash;</tr>&ndash;&gt;-->
+<!--&lt;!&ndash;</thead>&ndash;&gt;-->
+<!--&lt;!&ndash;<tbody>&ndash;&gt;-->
+<!--&lt;!&ndash;<tr *ngFor='let product of products'>&ndash;&gt;-->
+<!--&lt;!&ndash;<td>{{ product._id }}</td>&ndash;&gt;-->
+<!--&lt;!&ndash;<td>{{ product.name }}</td>&ndash;&gt;-->
+<!--&lt;!&ndash;<button type="button" class="btn btn-default" (click)="select(product)">Edycja</button>&ndash;&gt;-->
+<!--&lt;!&ndash;</tr>&ndash;&gt;-->
+<!--&lt;!&ndash;</tbody>&ndash;&gt;-->
+<!--&lt;!&ndash;</table>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+<!--</div>-->
+

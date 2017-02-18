@@ -9,6 +9,7 @@ import 'rxjs/add/observable/throw'
 import {Logger} from "./logger.service";
 import {Model} from "./model";
 import {environment} from "../../environments/environment";
+import {DocumentsREST} from "./documents-rest";
 
 @Injectable()
 export abstract class GenericService<T extends Model> {
@@ -21,9 +22,25 @@ export abstract class GenericService<T extends Model> {
                 protected _logger:Logger) {
     }
 
-    getList():Observable<T[]> {
-        return this._http.get(this.url)
-            .map((res:Response) => <T[]> res.json())
+    getList(params?:Map<string,string>):Observable<DocumentsREST<T>> {
+        let newUrl = `${this.url}`;
+
+        console.log(params);
+
+        if (params) {
+            let pList = [];
+            params.forEach((value, key) => {
+                    console.log(`${key}=${value}`);
+                    pList.push(`${key}=${value}`)
+                }
+            );
+
+            if (pList.length != 0)
+                newUrl += '?' + pList.join('&');
+        }
+
+        return this._http.get(newUrl)
+            .map(res => <DocumentsREST<T>> res.json())
             .do(data => this._logger.debug(`GET ${this.modelName()}(s) -> ${JSON.stringify(data)}`))
             .catch(this.handleError);
     }

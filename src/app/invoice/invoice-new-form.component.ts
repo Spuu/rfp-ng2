@@ -31,13 +31,13 @@ export class InvoiceNewFormComponent implements OnInit {
     ngOnInit():void {
         this._cptyService.getList()
             .subscribe(
-                cpties => this.cpties = cpties,
+                cpties => this.cpties = cpties.docs,
                 error => this.errorMessage = <any>error
             );
 
         this._storeService.getList()
             .subscribe(
-                stores => this.stores = stores,
+                stores => this.stores = stores.docs,
                 error => this.errorMessage = <any>error
             );
 

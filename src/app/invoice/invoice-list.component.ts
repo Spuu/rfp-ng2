@@ -22,7 +22,7 @@ export class InvoiceListComponent implements OnInit {
     ngOnInit():void {
         this._invoiceService.getList()
             .subscribe(
-                invoices => this.invoices = invoices,
+                invoices => this.invoices = invoices.docs,
                 error => this.errorMessage = <any>error);
     }
 

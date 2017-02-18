@@ -12,6 +12,12 @@ import {ProductService} from "./product.service";
 
 import {TypeaheadModule} from 'ng2-bootstrap/ng2-bootstrap';
 
+import {AutoCompleteModule} from 'primeng/primeng';
+import {ButtonModule} from 'primeng/primeng';
+import {DataScrollerModule} from 'primeng/primeng';
+import {PanelModule} from 'primeng/primeng';
+import {DataTableModule,SharedModule} from 'primeng/primeng';
+
 import {GenericModule} from "../generic/generic.module";
 
 @NgModule({
@@ -20,7 +26,13 @@ import {GenericModule} from "../generic/generic.module";
         CommonModule,
         StoreModule,
         FormsModule,
-        GenericModule
+        GenericModule,
+        AutoCompleteModule,
+        ButtonModule,
+        DataScrollerModule,
+        PanelModule,
+        DataTableModule,
+        SharedModule
     ],
     declarations: [
         ProductDetailsComponent,

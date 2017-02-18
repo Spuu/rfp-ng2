@@ -43,7 +43,7 @@ export class PositionListComponent implements OnInit {
         // load stores
         this._storeService.getList()
             .subscribe(
-                s => this.stores = s,
+                s => this.stores = s.docs,
                 err => console.log(err)
             );
     }
