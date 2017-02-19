@@ -11,6 +11,8 @@ export class ModalConfirmationButton {
     @Output()
     onConfirm = new EventEmitter();
 
+    display:boolean = false;
+
     constructor() {
 
     }

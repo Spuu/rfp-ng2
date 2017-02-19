@@ -23,9 +23,8 @@ export abstract class GenericService<T extends Model> {
     }
 
     getList(params?:Map<string,string>):Observable<DocumentsREST<T>> {
-        let newUrl = `${this.url}`;
 
-        console.log(params);
+        let newUrl = `${this.url}`;
 
         if (params) {
             let pList = [];

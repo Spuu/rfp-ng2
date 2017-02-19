@@ -1,14 +1,11 @@
-<!--<button pButton type="button" (click)="showNewForm" label="Dodaj" />-->
-
-<product-details [hidden]="!showNewForm" [(product)]="model" (onSave)="submit()"></product-details>
-<p-dataTable [value]="products" sortField="name" [sortOrder]="1"
+<p-dataTable [value]="products" sortField="name" [sortOrder]="1" [responsive]="true" selectionMode="single" (onRowSelect)="onRowSelect($event)"
              [rows]="lazyPage" [lazy]="true" [paginator]="true" (onLazyLoad)="loadData($event)"
              [totalRecords]="totalRecords" [globalFilter]="gb">
     <p-header>
         <div class="ui-helper-clearfix" style="width:100%">
             <div>{{ pageTitle }} ({{ totalRecords }})</div>
             <div style="float:left">
-                <button type="button" pButton icon="fa-plus" (click)="showNewForm=true"
+                <button type="button" pButton icon="fa-plus" (click)="addNewProduct()"
                         label="Add"></button>
                 <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
                 <input #gb type="text" pInputText size="50" placeholder="Global Filter" [(ngModel)]="globalFilter">
@@ -17,9 +14,12 @@
     </p-header>
     <p-column field="ean" header="EAN" [sortable]="true"></p-column>
     <p-column field="name" header="Nazwa" [sortable]="true"></p-column>
+    <!--<p-column><button type="button" class="btn btn-default" (click)="select(product)">Edycja</button></p-column>-->
 </p-dataTable>
 
-
+<p-dialog header="Product Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true">
+    <product-details [hidden]="!displayDialog" [(product)]="product" (onSave)="closeDialog()" (onCancel)="closeDialog()"></product-details>
+</p-dialog>
 <!--<div class='panel panel-primary'>-->
 <!--<div class='panel-heading'>-->
 <!--<div>-->

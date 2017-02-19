@@ -14,9 +14,9 @@ import {TypeaheadModule} from 'ng2-bootstrap/ng2-bootstrap';
 
 import {AutoCompleteModule} from 'primeng/primeng';
 import {ButtonModule} from 'primeng/primeng';
-import {DataScrollerModule} from 'primeng/primeng';
 import {PanelModule} from 'primeng/primeng';
 import {DataTableModule,SharedModule} from 'primeng/primeng';
+import {DialogModule} from 'primeng/primeng';
 
 import {GenericModule} from "../generic/generic.module";
 
@@ -29,10 +29,10 @@ import {GenericModule} from "../generic/generic.module";
         GenericModule,
         AutoCompleteModule,
         ButtonModule,
-        DataScrollerModule,
         PanelModule,
         DataTableModule,
-        SharedModule
+        SharedModule,
+        DialogModule
     ],
     declarations: [
         ProductDetailsComponent,

@@ -1,19 +1,24 @@
-<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#confirmModal">
+<button type="button" class="btn btn-secondary" (click)="display=true">
     <ng-content></ng-content>
 </button>
-<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <h4 class="modal-title" id="myModalLabel">{{title}}</h4>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Nie</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="confirm()">Tak</button>
-            </div>
-        </div>
-    </div>
-</div>
+<!--<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">-->
+    <!--<div class="modal-dialog" role="document">-->
+        <!--<div class="modal-content">-->
+            <!--<div class="modal-header">-->
+                <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+                    <!--<span aria-hidden="true">&times;</span>-->
+                <!--</button>-->
+                <!--<h4 class="modal-title" id="myModalLabel">{{title}}</h4>-->
+            <!--</div>-->
+            <!--<div class="modal-footer">-->
+                <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Nie</button>-->
+                <!--<button type="button" class="btn btn-primary" data-dismiss="modal" (click)="confirm()">Tak</button>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
+
+
+<p-dialog header="Title" [(visible)]="display" [modal]="true">
+    Content
+</p-dialog>

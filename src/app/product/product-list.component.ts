@@ -11,8 +11,10 @@ export class ProductListComponent implements OnInit {
     pageTitle:string;
     products:Product[];
     errorMessage:string;
-    showNewForm:boolean;
-    model:Product;
+    displayDialog:boolean;
+
+    product:Product;
+    isNewProduct:boolean;
 
     globalFilter:string;
     totalRecords:number;
@@ -25,9 +27,9 @@ export class ProductListComponent implements OnInit {
 
     ngOnInit():void {
         this.pageTitle = 'Produkty';
-        this.showNewForm = false;
-        this.model = new Product();
+        this.displayDialog = false;
         this.products = [];
+        this.product = new Product();
         this.totalRecords = 0;
         this.lazyPage = 20;
         this.globalFilter = '';
@@ -37,10 +39,25 @@ export class ProductListComponent implements OnInit {
         this._router.navigate(['/product', product._id]);
     }
 
-    submit() {
-        this.products.push(this.model);
-        this.model = new Product();
-        this.showNewForm = false;
+    addNewProduct() {
+        this.product = new Product();
+        this.isNewProduct = true;
+        this.displayDialog = true;
+    }
+
+    onRowSelect(event) {
+        this.isNewProduct = false;
+        this.product = event.data;
+        this.displayDialog = true;
+    }
+
+    /**
+     * Lazy loading takes care of refreshing data,
+     * thus no appending or updating this.products is needed.
+     */
+    closeDialog() {
+        this.displayDialog = false;
+        this.product = null;
     }
 
     loadData(event) {
@@ -51,8 +68,8 @@ export class ProductListComponent implements OnInit {
         let map = new Map<string, string>();
         map.set('offset', event.first);
         map.set('limit', event.rows);
-        map.set('sort', event.sortField);
-        map.set('order', event.sortOrder);
+        map.set('sortField', event.sortField);
+        map.set('sortOrder', event.sortOrder);
         map.set('query', this.globalFilter);
 
         this._productService.getList(map)

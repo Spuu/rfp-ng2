@@ -98,7 +98,7 @@
         <!--</div>-->
         <button type="submit" class="btn btn-primary" [disabled]="!productForm.form.valid">Zapisz</button>
         <modal-confirm-button title="Usunąć produkt?" (onConfirm)="modalConfirmation()">Usuń</modal-confirm-button>
-        <a href="#" (click)="cancel()">Cancel</a>
+        <a (click)="cancel()">Cancel</a>
     </form>
 </div>
 <div class="container-fluid" *ngIf='!product'>
