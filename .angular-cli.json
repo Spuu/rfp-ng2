@@ -16,7 +16,6 @@
             "main": "main.ts",
             "polyfills": "polyfills.ts",
             "test": "test.ts",
-            "tsconfig": "tsconfig.json",
             "prefix": "app",
             "styles": [
                 "styles.css",
@@ -26,11 +25,13 @@
                 "../node_modules/bootstrap/dist/css/bootstrap.min.css"
             ],
             "scripts": [],
+            "environmentSource": "environments/environment.ts",
             "environments": {
-                "source": "environments/environment.ts",
                 "dev": "environments/environment.ts",
                 "prod": "environments/environment.prod.ts"
-            }
+            },
+            "tsconfig": "tsconfig.app.json",
+            "testTsconfig": "tsconfig.spec.json"
         }
     ],
     "e2e": {
@@ -40,12 +41,13 @@
     },
     "lint": [
         {
-            "files": "src/**/*.ts",
-            "project": "src/tsconfig.json"
+            "project": "src/tsconfig.app.json"
         },
         {
-            "files": "e2e/**/*.ts",
-            "project": "e2e/tsconfig.json"
+            "project": "src/tsconfig.spec.json"
+        },
+        {
+            "project": "e2e/tsconfig.e2e.json"
         }
     ],
     "test": {
@@ -55,18 +57,9 @@
     },
     "defaults": {
         "styleExt": "css",
-        "prefixInterfaces": false,
-        "inline": {
-            "style": false,
-            "template": false
-        },
-        "spec": {
-            "class": false,
-            "component": true,
-            "directive": true,
-            "module": false,
-            "pipe": true,
-            "service": true
+        "component": {
+            "inlineTemplate": false,
+            "spec": true
         }
     }
 }

@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
-const { version: appVersion } = require('../../package.json');
+import info from '../../package.json';
+const appVersion = info.version;
 
 @Component({
     selector: 'app-root',
