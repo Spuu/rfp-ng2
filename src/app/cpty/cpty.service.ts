@@ -1,16 +1,16 @@
 import {Injectable} from '@angular/core';
-import {Http} from '@angular/http';
 
 import {Logger} from "../generic/logger.service";
 import {GenericService} from "../generic/generic.service";
 import {Cpty} from "./cpty";
+import {AuthHttp} from "angular2-jwt";
 
 @Injectable()
 export class CptyService extends GenericService<Cpty> {
 
-    constructor(_http: Http, _logger: Logger) {
-        super(_http, _logger);
+    constructor(http: AuthHttp, logger: Logger) {
+        super(http, logger);
     }
 
-    protected modelName() { return 'cpty'; }
+    protected modelName() { return 'counterparties'; }
 }
