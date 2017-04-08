@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Http, Response, Headers, RequestOptions} from '@angular/http';
+import {Response, Headers, RequestOptions} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/do'
 import 'rxjs/add/operator/map'
@@ -10,16 +10,17 @@ import {Logger} from "./logger.service";
 import {Model} from "./model";
 import {environment} from "../../environments/environment";
 import {DocumentsREST} from "./documents-rest";
+import {AuthHttp} from "angular2-jwt";
 
 @Injectable()
 export abstract class GenericService<T extends Model> {
 
     protected abstract modelName():string;
 
-    protected url = `${environment.apiUrl}/api/${this.modelName()}`;
+    protected url = `${environment.apiUrl}/${this.modelName()}`;
 
-    constructor(protected _http:Http,
-                protected _logger:Logger) {
+    constructor(protected http:AuthHttp,
+                protected logger:Logger) {
     }
 
     getList(params?:Map<string,string>):Observable<DocumentsREST<T>> {
@@ -38,16 +39,16 @@ export abstract class GenericService<T extends Model> {
                 newUrl += '?' + pList.join('&');
         }
 
-        return this._http.get(newUrl)
+        return this.http.get(newUrl)
             .map(res => <DocumentsREST<T>> res.json())
-            .do(data => this._logger.debug(`GET ${this.modelName()}(s) -> ${JSON.stringify(data)}`))
+            .do(data => this.logger.debug(`GET ${this.modelName()}(s) -> ${JSON.stringify(data)}`))
             .catch(this.handleError);
     }
 
     get(id:string):Observable<T> {
-        return this._http.get(`${this.url}/${id}`)
+        return this.http.get(`${this.url}/${id}`)
             .map((res:Response) => <T> res.json())
-            .do(data => this._logger.debug(`GET ${this.modelName()} -> ${JSON.stringify(data)}`))
+            .do(data => this.logger.debug(`GET ${this.modelName()} -> ${JSON.stringify(data)}`))
             .catch(this.handleError);
     }
 
@@ -56,9 +57,9 @@ export abstract class GenericService<T extends Model> {
         let headers = new Headers({'Content-Type': 'application/json'});
         let options = new RequestOptions({headers: headers});
 
-        return this._http.put(`${this.url}/${model._id}`, body, options)
+        return this.http.put(`${this.url}/${model._id}`, body, options)
             .map((res:Response) => <T> res.json())
-            .do(data => this._logger.debug(`PUT ${this.modelName()} -> ${JSON.stringify(data)}`))
+            .do(data => this.logger.debug(`PUT ${this.modelName()} -> ${JSON.stringify(data)}`))
             .catch(this.handleError);
     }
 
@@ -72,16 +73,16 @@ export abstract class GenericService<T extends Model> {
         let headers = new Headers({'Content-Type': 'application/json'});
         let options = new RequestOptions({headers: headers});
 
-        return this._http.post(this.url, body, options)
+        return this.http.post(this.url, body, options)
             .map((res:Response) => <T> res.json())
-            .do(data => this._logger.debug(`POST ${this.modelName()} -> ${JSON.stringify(data)}`))
+            .do(data => this.logger.debug(`POST ${this.modelName()} -> ${JSON.stringify(data)}`))
             .catch(this.handleError);
     }
 
     del(id:string):Observable<T> {
-        return this._http.delete(`${this.url}/${id}`)
+        return this.http.delete(`${this.url}/${id}`)
             .map((res:Response) => <T> res.json())
-            .do(data => this._logger.debug(`DELETE ${this.modelName()} -> ${JSON.stringify(data)}`))
+            .do(data => this.logger.debug(`DELETE ${this.modelName()} -> ${JSON.stringify(data)}`))
             .catch(this.handleError);
     }
 

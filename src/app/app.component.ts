@@ -1,5 +1,7 @@
 import {Component} from '@angular/core';
-const { version: appVersion } = require('../../package.json');
+import {AuthService} from "./auth/auth.service";
+import info from '../../package.json';
+const appVersion = info.version;
 
 @Component({
     selector: 'app-root',
@@ -9,4 +11,6 @@ const { version: appVersion } = require('../../package.json');
 export class AppComponent {
     title = 'ReksFaktPro';
     version = appVersion;
+
+    constructor(private auth: AuthService) {}
 }
