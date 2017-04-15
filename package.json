@@ -5,8 +5,8 @@
     "angular-cli": {},
     "scripts": {
         "ng": "ng",
-        "start": "ng serve",
-        "build": "ng build",
+        "start": "ng serve --proxy-config proxy.conf.json",
+        "build": "ng build --watch",
         "test": "ng test",
         "lint": "ng lint",
         "e2e": "ng e2e"
@@ -24,9 +24,11 @@
         "@angular/router": "^4.0.1",
         "angular2-jwt": "^0.2.0",
         "auth0-lock": "^10.14.0",
+        "axios": "^0.16.1",
         "bootstrap": "^4.0.0-alpha.6",
         "core-js": "^2.4.1",
         "font-awesome": "^4.7.0",
+        "hal-rest-client": "^0.2.0",
         "lodash": "^4.17.4",
         "ng2-bootstrap": "^1.6.1",
         "primeng": "^4.0.0-rc.2",

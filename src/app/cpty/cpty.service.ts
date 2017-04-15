@@ -1,16 +1,18 @@
 import {Injectable} from '@angular/core';
 
 import {Logger} from "../generic/logger.service";
-import {GenericService} from "../generic/generic.service";
-import {Cpty} from "./cpty";
-import {AuthHttp} from "angular2-jwt";
+import {HalResourceService} from "../resources/hal-resource.service";
+import {CounterpartyResource} from "../resources/counterparty.resource";
 
 @Injectable()
-export class CptyService extends GenericService<Cpty> {
+export class CptyService extends HalResourceService {
 
-    constructor(http: AuthHttp, logger: Logger) {
-        super(http, logger);
+    constructor(logger: Logger) {
+        super();
     }
 
-    protected modelName() { return 'counterparties'; }
+    async getCounterparties(): Promise<CounterpartyResource[]> {
+        const resources = await this.getClient().fetchArray("/counterparties", CounterpartyResource);
+        return resources;
+    }
 }

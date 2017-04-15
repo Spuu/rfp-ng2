@@ -17,6 +17,7 @@ import {Logger} from "./generic/logger.service";
 import {AuthService} from "./auth/auth.service";
 import {authFactory} from "./auth/auth.factory";
 import {AuthHttp} from "angular2-jwt";
+import {HalResourceService} from "./resources/hal-resource.service";
 
 @NgModule({
     declarations: [
@@ -39,6 +40,7 @@ import {AuthHttp} from "angular2-jwt";
     providers: [
         appRoutingProviders,
         AuthService,
+        HalResourceService,
         Logger,
         {
             provide: AuthHttp,
