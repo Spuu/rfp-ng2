@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 
-import {Logger} from "../generic/logger.service"
+import {Logger} from "../services/logger.service"
 import {GenericService} from "../generic/generic.service";
 import {Invoice} from "./invoice";
 import {AuthHttp} from "angular2-jwt";

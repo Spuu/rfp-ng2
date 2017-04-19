@@ -3,7 +3,7 @@ import 'rxjs/add/operator/do'
 import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/catch'
 
-import {Logger} from "../generic/logger.service";
+import {Logger} from "../services/logger.service";
 import {GenericService} from "../generic/generic.service";
 import {SubPosition} from "./sub-position";
 import {AuthHttp} from "angular2-jwt";

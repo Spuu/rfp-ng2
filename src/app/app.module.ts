@@ -6,18 +6,17 @@ import {routing, appRoutingProviders}  from './app.routing';
 
 import {AppComponent} from './app.component';
 import {DummyComponent} from "./dummy.component";
-import {CptyModule} from "./cpty/cpty.module";
+import {CptyModule} from "./counterparty/counterparty.module";
 import {StoreModule} from "./store/store.module";
 import {InvoiceModule} from "./invoice/invoice.module";
 import {ProductModule} from "./product/product.module";
 import {PositionModule} from "./position/position.module";
 import {SubPositionModule} from "./sub-position/sub-position.module";
 import {GenericModule} from "./generic/generic.module";
-import {Logger} from "./generic/logger.service";
+import {Logger} from "./services/logger.service";
 import {AuthService} from "./auth/auth.service";
-import {authFactory} from "./auth/auth.factory";
-import {AuthHttp} from "angular2-jwt";
-import {HalResourceService} from "./resources/hal-resource.service";
+import {HashService} from "./services/hash.service";
+import {HalResourceService} from "./services/hal-resource.service";
 
 @NgModule({
     declarations: [
@@ -40,13 +39,9 @@ import {HalResourceService} from "./resources/hal-resource.service";
     providers: [
         appRoutingProviders,
         AuthService,
-        HalResourceService,
         Logger,
-        {
-            provide: AuthHttp,
-            useFactory: authFactory,
-            deps: [Http, RequestOptions]
-        }
+        HashService,
+        HalResourceService
     ],
     bootstrap: [AppComponent]
 })

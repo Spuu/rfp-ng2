@@ -2,8 +2,8 @@ import { ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import {DummyComponent} from "./dummy.component";
-import {CptyListComponent} from "./cpty/cpty-list.component";
-import {CptyDetailFormComponent} from "./cpty/cpty-detail-form.component";
+import {CounterpartyListComponent} from "./counterparty/counterparty-list.component";
+import {CptyDetailFormComponent} from "./counterparty/counterparty-detail-form.component";
 import {StoreListComponent} from "./store/store-list.component";
 import {StoreDetailFormComponent} from "./store/store-detail-form.component";
 import {ProductListComponent} from "./product/product-list.component";
@@ -13,8 +13,8 @@ import {InvoiceDetailFormComponent} from "./invoice/invoice-detail-form.componen
 
 const appRoutes: Routes = [
     { path: '', component: DummyComponent },
-    { path: 'cpty', component: CptyListComponent },
-    { path: 'cpty/:id', component: CptyDetailFormComponent },
+    { path: 'counterparty', component: CounterpartyListComponent },
+    { path: 'counterparty/:id', component: CptyDetailFormComponent },
     { path: 'store', component: StoreListComponent },
     { path: 'store/:id', component: StoreDetailFormComponent },
     { path: 'product', component: ProductListComponent },

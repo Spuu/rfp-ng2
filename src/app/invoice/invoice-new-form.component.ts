@@ -3,10 +3,10 @@ import {Router} from '@angular/router';
 
 import {Invoice} from './invoice';
 import {InvoiceService} from './invoice.service';
-import {CptyService} from "../cpty/cpty.service";
+import {CounterpartyService} from "../counterparty/counterparty.service";
 import {StoreService} from "../store/store.service";
 import {Store} from "../store/store";
-import {Cpty} from "../cpty/cpty";
+import {CounterpartyResource} from "../counterparty/counterparty.resource";
 
 @Component({
     selector: 'invoice-new-form',
@@ -18,22 +18,22 @@ export class InvoiceNewFormComponent implements OnInit {
     active: boolean = true;
     model: Invoice;
     stores: Store[];
-    cpties: Cpty[];
+    counterparties: CounterpartyResource[];
 
     @Input() type: string = 'Buy';
     @Output() invoiceSubmitted: EventEmitter<Invoice> = new EventEmitter<Invoice>();
 
     constructor(private _invoiceService:InvoiceService,
-                private _cptyService:CptyService,
+                private _cptyService:CounterpartyService,
                 private _storeService:StoreService) {
     }
 
     ngOnInit():void {
-        this._cptyService.getList()
+        /*this._cptyService.getList()
             .subscribe(
                 cpties => this.cpties = cpties.docs,
                 error => this.errorMessage = <any>error
-            );
+            );*/
 
         this._storeService.getList()
             .subscribe(
