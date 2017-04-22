@@ -21,7 +21,6 @@ export class CptyDetailFormComponent implements OnInit, OnDestroy {
                 private hashService: HashService) {
     }
 
-
     ngOnInit() {
         this.sub = this.route.params.subscribe(params => {
             let url = this.hashService.unhash(params['id']);
@@ -38,33 +37,17 @@ export class CptyDetailFormComponent implements OnInit, OnDestroy {
         this.counterparty = await this.cptyService.get(url);
     }
 
+    async onSubmit() {
+        await this.counterparty.update();
+    }
+
+    async onDelete() {
+        this.counterparty.delete();
+        this.counterparty = null;
+        this.gotoCpties();
+    }
+
     gotoCpties() {
         this.router.navigate(['/counterparty']);
-    }
-
-
-
-    async putCounterparty(cpty:CounterpartyResource) {
-        this.counterparty = await cpty.update();
-    }
-
-    delCpty(cpty:CounterpartyResource) {
-        cpty.delete();
-        this.counterparty = null;
-        /*this._cptyService.del(id)
-            .subscribe(
-                data => {},
-                error => this.errorMessage = <any>error,
-                () => this.gotoCpties()
-            );*/
-    }
-
-    onSubmit() {
-        this.putCounterparty(this.counterparty);
-    }
-
-    onDelete() {
-        this.delCpty(this.counterparty);
-        this.gotoCpties();
     }
 }

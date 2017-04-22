@@ -5,11 +5,15 @@ import { FormsModule }   from '@angular/forms';
 import {CounterpartyListComponent} from "./counterparty-list.component";
 import {CptyDetailFormComponent} from "./counterparty-detail-form.component";
 import {CounterpartyService} from "./counterparty.service";
+import {DialogModule} from 'primeng/primeng';
+import {GenericModule} from "../generic/generic.module";
 
 @NgModule({
     imports: [
+        GenericModule,
         CommonModule,
         FormsModule,
+        DialogModule
     ],
     declarations: [
         CounterpartyListComponent,
