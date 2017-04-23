@@ -19,12 +19,15 @@ import {HashService} from "./services/hash.service";
 import {HalResourceService} from "./services/hal-resource.service";
 import {NavigationComponent} from "./navigation/navigation.component";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {AuthGuard} from "./services/auth.guard";
+import {PageNotFoundComponent} from "./generic/page-not-found.component";
 
 @NgModule({
     declarations: [
         AppComponent,
         DummyComponent,
-        NavigationComponent
+        NavigationComponent,
+        PageNotFoundComponent
     ],
     imports: [
         BrowserAnimationsModule,
@@ -41,6 +44,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
         GenericModule
     ],
     providers: [
+        AuthGuard,
         AuthService,
         Logger,
         HashService,

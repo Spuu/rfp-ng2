@@ -18,7 +18,6 @@
                        name="fullName"></textarea>
             </div>
             <button type="submit" class="btn btn-primary" [disabled]="!counterpartyForm.form.valid">Zapisz</button>
-            <button class="btn btn-primary" (click)="test()">Dupa test</button>
             <modal-confirm-button (onConfirm)="onDelete()" title="Usunąć {{ counterparty.name }}?">Usuń</modal-confirm-button>
         </form>
     </div>
@@ -27,7 +26,5 @@
     {{'Coś się zepsuło i nie ma kontrahenta :('}}
 </div>
 <div class='panel-footer'>
-    <a class='btn btn-default' (click)='gotoCpties()' style='width:80px'>
-        <i class='glyphicon glyphicon-chevron-left'></i> Cofnij
-    </a>
+    <button class="btn btn-secondary" (click)="gotoCpties()">Cofnij</button>
 </div>

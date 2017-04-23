@@ -32,14 +32,12 @@
             <table class='table table-hover' *ngIf='counterparties && counterparties.length'>
                 <thead>
                 <tr>
-                    <th>ID</th>
                     <th>Nazwa</th>
                     <th>Pełna nazwa</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr *ngFor='let counterparty of counterparties'>
-                    <td>{{ counterparty._id }}</td>
                     <td>{{ counterparty.name }}</td>
                     <td>{{ counterparty.fullName }}</td>
                     <button type="button" class="btn btn-default" (click)="onSelect(counterparty)">Edycja</button>

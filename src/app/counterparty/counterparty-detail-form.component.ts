@@ -39,6 +39,7 @@ export class CptyDetailFormComponent implements OnInit, OnDestroy {
 
     async onSubmit() {
         await this.counterparty.update();
+        this.gotoCpties();
     }
 
     async onDelete() {
