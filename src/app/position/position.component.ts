@@ -1,7 +1,6 @@
 import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
 
 import {Position} from "./position";
-import {Store} from "../store/store";
 import {StoreService} from "../store/store.service";
 import {ProductService} from "../product/product.service";
 
@@ -9,6 +8,7 @@ import {SubPosition} from "../sub-position/sub-position";
 import {Product} from "../product/product";
 
 import * as _ from "lodash";
+import {StoreResource} from "../store/store.resource";
 
 enum Action {
     None = 0,
@@ -27,7 +27,7 @@ export class PositionComponent implements OnInit {
     @Input()
     position:Position;
     @Input()
-    stores:Store[];
+    stores:StoreResource[];
 
     @Output()
     onDelete = new EventEmitter();
@@ -48,13 +48,13 @@ export class PositionComponent implements OnInit {
             return;
         }
 
-        if (!this.stores) {
-            this._storeService.getList()
-                .subscribe(
-                    s => this.stores = s.docs,
-                    err => console.log(err)
-                );
-        }
+        // if (!this.stores) {
+        //     this._storeService.getList()
+        //         .subscribe(
+        //             s => this.stores = s.docs,
+        //             err => console.log(err)
+        //         );
+        // }
 
         if(this.position._sub_position) {
             this.refreshSubproducts();

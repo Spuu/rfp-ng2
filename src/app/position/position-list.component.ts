@@ -1,11 +1,11 @@
 import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
 
 import {PositionService} from "./position.service";
-import {Store} from "../store/store";
 import {StoreService} from "../store/store.service";
 import {Product} from "../product/product";
 import {Position} from "./position";
 import {SubPositionService} from "../sub-position/sub-position.service";
+import {StoreResource} from "../store/store.resource";
 
 @Component({
     selector: 'position-list',
@@ -18,7 +18,7 @@ export class PositionListComponent implements OnInit {
     storeId:string;
 
     positions:Position[];
-    stores:Store[];
+    stores:StoreResource[];
 
     constructor(private _positionService:PositionService,
                 private _subPositionService:SubPositionService,
@@ -40,12 +40,12 @@ export class PositionListComponent implements OnInit {
                 );
         }
 
-        // load stores
-        this._storeService.getList()
-            .subscribe(
-                s => this.stores = s.docs,
-                err => console.log(err)
-            );
+        // // load stores
+        // this._storeService.getList()
+        //     .subscribe(
+        //         s => this.stores = s.docs,
+        //         err => console.log(err)
+        //     );
     }
 
     addPosition(product:Product) {

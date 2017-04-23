@@ -5,8 +5,8 @@ import {Invoice} from './invoice';
 import {InvoiceService} from './invoice.service';
 import {CounterpartyService} from "../counterparty/counterparty.service";
 import {StoreService} from "../store/store.service";
-import {Store} from "../store/store";
 import {CounterpartyResource} from "../counterparty/counterparty.resource";
+import {StoreResource} from "../store/store.resource";
 
 @Component({
     selector: 'invoice-new-form',
@@ -17,7 +17,7 @@ export class InvoiceNewFormComponent implements OnInit {
     errorMessage: string;
     active: boolean = true;
     model: Invoice;
-    stores: Store[];
+    stores: StoreResource[];
     counterparties: CounterpartyResource[];
 
     @Input() type: string = 'Buy';
@@ -35,11 +35,11 @@ export class InvoiceNewFormComponent implements OnInit {
                 error => this.errorMessage = <any>error
             );*/
 
-        this._storeService.getList()
-            .subscribe(
-                stores => this.stores = stores.docs,
-                error => this.errorMessage = <any>error
-            );
+        // this._storeService.getList()
+        //     .subscribe(
+        //         stores => this.stores = stores.docs,
+        //         error => this.errorMessage = <any>error
+        //     );
 
         this.model = new Invoice();
     }

@@ -24,7 +24,6 @@ export class CptyDetailFormComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.sub = this.route.params.subscribe(params => {
             let url = this.hashService.unhash(params['id']);
-            console.log(url);
             this.getCounterparty(url);
         });
     }

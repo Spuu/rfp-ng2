@@ -1,29 +1,31 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 
-import {Store} from './store';
+import {StoreResource} from './store.resource';
 import {StoreService} from './store.service';
+import {HashService} from "../services/hash.service";
 
 @Component({
     templateUrl: './store-detail-form.component.html'
 })
 export class StoreDetailFormComponent implements OnInit, OnDestroy {
     pageTitle: string = 'Dane Sklepu';
-    store: Store;
+    store: StoreResource;
     errorMessage: string;
 
     private sub:any;
 
-    constructor(private _storeService:StoreService,
-                private _router:Router,
-                private _route:ActivatedRoute) {
+    constructor(private storeService:StoreService,
+                private router:Router,
+                private route:ActivatedRoute,
+                private hashService: HashService) {
     }
 
 
     ngOnInit() {
-        this.sub = this._route.params.subscribe(params => {
-            let id = params['id'];
-            this.getStore(id);
+        this.sub = this.route.params.subscribe(params => {
+            let url = this.hashService.unhash(params['id']);
+            this.getStore(url);
         });
     }
 
@@ -31,41 +33,22 @@ export class StoreDetailFormComponent implements OnInit, OnDestroy {
         this.sub.unsubscribe();
     }
 
-    getStore(id:string) {
-        this._storeService.get(id)
-            .subscribe(
-                store => this.store = store,
-                error => this.errorMessage = <any>error
-            );
+    async getStore(url:string) {
+        this.store = await this.storeService.get(url);
     }
 
     gotoStores() {
-        this._router.navigate(['/store']);
+        this.router.navigate(['/store']);
     }
 
-    putStore(store:Store) {
-        this._storeService.put(store)
-            .subscribe(
-                store => this.store = store,
-                error => this.errorMessage = <any>error
-            );
+    async onSubmit() {
+        await this.store.update();
+        this.gotoStores();
     }
 
-    delStore(id:string) {
-        this._storeService.del(id)
-            .subscribe(
-                data => {},
-                error => this.errorMessage = <any>error,
-                () => this.gotoStores()
-            );
-    }
-
-    onSubmit() {
-        this.putStore(this.store);
-    }
-
-    onDelete() {
-        this.delStore(this.store._id);
+    async onDelete() {
+        this.store.delete();
+        this.store = null;
         this.gotoStores();
     }
 }

@@ -1,42 +1,46 @@
 import {Component, OnInit}  from '@angular/core';
 import {Router} from '@angular/router';
 
-import {Store} from './store';
+import {StoreResource} from './store.resource';
 import {StoreService} from './store.service';
+import {Logger} from "../services/logger.service";
+import {HashService} from "../services/hash.service";
 
 @Component({
     templateUrl: './store-list.component.html'
 })
 export class StoreListComponent implements OnInit {
     pageTitle:string = 'Sklepy';
-    stores:Store[];
+    stores:StoreResource[];
     errorMessage:string;
     showNewForm:boolean = false;
-    model:Store = new Store();
+    model:StoreResource;
 
-    constructor(private _storeService:StoreService,
-                private _router:Router) {
-
-    }
+    constructor(private storeService:StoreService,
+                private router:Router,
+                private logger:Logger,
+                private hashService: HashService) {}
 
     ngOnInit():void {
-        this._storeService.getList()
-            .subscribe(
-                stores => this.stores = stores.docs,
-                error => this.errorMessage = <any>error);
+        this.model = this.storeService.getEmpty();
+        this.storeService.getList().then((data) => this.stores = data);
     }
 
-    onSelect(store:Store) {
-        this._router.navigate(['/store', store._id]);
+    onSelect(store:StoreResource) {
+        this.router.navigate(['/store', this.hashService.hash(store.uri)]);
     }
 
     onSubmit() {
-        this._storeService.post(this.model).subscribe(
-            store => {
-                this.stores.push(store);
-                this.model = new Store();
-                this.showNewForm = false;
-            },
-            error => this.errorMessage = <any>error);
+        this.storeService.post(this.model)
+            .then(
+                (store) => {
+                    this.stores.push(store);
+                    this.model = this.storeService.getEmpty();
+                    this.showNewForm = false;
+                }
+            ).catch(
+            (error) =>
+                this.errorMessage = <any>error
+        );
     }
 }

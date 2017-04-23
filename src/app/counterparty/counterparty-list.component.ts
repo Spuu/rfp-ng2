@@ -27,7 +27,6 @@ export class CounterpartyListComponent implements OnInit {
     }
 
     onSelect(cpty:CounterpartyResource) {
-        console.log(cpty.uri);
         this.router.navigate(['/counterparty', this.hashService.hash(cpty.uri)]);
     }
 

@@ -1,6 +1,6 @@
 import {HalProperty, HalResource} from "hal-rest-client";
-import {StoreResource} from "./store.resource";
 import {CounterpartyResource} from "../counterparty/counterparty.resource";
+import {StoreResource} from "../store/store.resource";
 
 export class InvoiceResource extends HalResource {
     @HalProperty()
