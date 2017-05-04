@@ -11,15 +11,14 @@ import {StoreModule} from "./store/store.module";
 import {InvoiceModule} from "./invoice/invoice.module";
 import {ProductModule} from "./product/product.module";
 import {PositionModule} from "./position/position.module";
-import {SubPositionModule} from "./sub-position/sub-position.module";
 import {GenericModule} from "./generic/generic.module";
-import {Logger} from "./services/logger.service";
-import {AuthService} from "./services/auth.service";
-import {HashService} from "./services/hash.service";
-import {HalResourceService} from "./services/hal-resource.service";
+import {Logger} from "./services/common/logger.service";
+import {AuthService} from "./services/common/auth.service";
+import {HashService} from "./services/common/hash.service";
+import {HalResourceService} from "./services/core/hal-resource.service";
 import {NavigationComponent} from "./navigation/navigation.component";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {AuthGuard} from "./services/auth.guard";
+import {AuthGuard} from "./services/common/auth.guard";
 import {PageNotFoundComponent} from "./generic/page-not-found.component";
 
 @NgModule({
@@ -40,7 +39,6 @@ import {PageNotFoundComponent} from "./generic/page-not-found.component";
         InvoiceModule,
         ProductModule,
         PositionModule,
-        SubPositionModule,
         GenericModule
     ],
     providers: [

@@ -1,7 +1,7 @@
 import {Component}  from '@angular/core';
-import {AuthService} from "./services/auth.service";
-import {HalResourceService} from "./services/hal-resource.service";
-import {HashService} from "./services/hash.service";
+import {AuthService} from "./services/common/auth.service";
+import {HalResourceService} from "./services/core/hal-resource.service";
+import {HashService} from "./services/common/hash.service";
 
 @Component({
     templateUrl: './dummy.component.html'

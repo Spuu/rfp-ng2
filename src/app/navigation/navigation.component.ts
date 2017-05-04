@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {AuthService} from "../services/auth.service";
+import {AuthService} from "../services/common/auth.service";
 
 @Component({
     selector: 'navigation-bar',

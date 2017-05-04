@@ -10,7 +10,7 @@ import {ProductListComponent} from "./product/product-list.component";
 import {ProductDetailRouterComponent} from "./product/product-detail-router.component";
 import {InvoiceListComponent} from "./invoice/invoice-list.component";
 import {InvoiceDetailFormComponent} from "./invoice/invoice-detail-form.component";
-import {AuthGuard} from "./services/auth.guard";
+import {AuthGuard} from "./services/common/auth.guard";
 import {PageNotFoundComponent} from "./generic/page-not-found.component";
 
 const appRoutes: Routes = [

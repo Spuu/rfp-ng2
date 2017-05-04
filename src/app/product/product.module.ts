@@ -8,7 +8,7 @@ import {ProductRelationsComponent} from "./product-relations.component";
 import {SearchProductComponent} from "./search-product.component";
 import {ProductDetailRouterComponent} from "./product-detail-router.component";
 import {StoreModule} from "../store/store.module";
-import {ProductService} from "./product.service";
+import {ProductService} from "../services/core/product.service";
 
 import {TypeaheadModule} from 'ng2-bootstrap/ng2-bootstrap';
 

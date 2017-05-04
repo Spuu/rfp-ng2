@@ -1,16 +1,16 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 
-import {StoreResource} from './store.resource';
-import {StoreService} from './store.service';
-import {HashService} from "../services/hash.service";
+import {Store} from '../resources/store.resource';
+import {StoreService} from '../services/core/store.service';
+import {HashService} from "../services/common/hash.service";
 
 @Component({
     templateUrl: './store-detail-form.component.html'
 })
 export class StoreDetailFormComponent implements OnInit, OnDestroy {
     pageTitle: string = 'Dane Sklepu';
-    store: StoreResource;
+    store: Store;
     errorMessage: string;
 
     private sub:any;

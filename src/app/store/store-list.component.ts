@@ -1,20 +1,20 @@
 import {Component, OnInit}  from '@angular/core';
 import {Router} from '@angular/router';
 
-import {StoreResource} from './store.resource';
-import {StoreService} from './store.service';
-import {Logger} from "../services/logger.service";
-import {HashService} from "../services/hash.service";
+import {Store} from '../resources/store.resource';
+import {StoreService} from '../services/core/store.service';
+import {Logger} from "../services/common/logger.service";
+import {HashService} from "../services/common/hash.service";
 
 @Component({
     templateUrl: './store-list.component.html'
 })
 export class StoreListComponent implements OnInit {
     pageTitle:string = 'Sklepy';
-    stores:StoreResource[];
+    stores:Store[];
     errorMessage:string;
     showNewForm:boolean = false;
-    model:StoreResource;
+    model:Store;
 
     constructor(private storeService:StoreService,
                 private router:Router,
@@ -26,7 +26,7 @@ export class StoreListComponent implements OnInit {
         this.storeService.getList().then((data) => this.stores = data);
     }
 
-    onSelect(store:StoreResource) {
+    onSelect(store:Store) {
         this.router.navigate(['/store', this.hashService.hash(store.uri)]);
     }
 

@@ -4,7 +4,7 @@ import { FormsModule }   from '@angular/forms';
 
 import {CounterpartyListComponent} from "./counterparty-list.component";
 import {CptyDetailFormComponent} from "./counterparty-detail-form.component";
-import {CounterpartyService} from "./counterparty.service";
+import {CounterpartyService} from "../services/core/counterparty.service";
 import {GenericModule} from "../generic/generic.module";
 
 @NgModule({

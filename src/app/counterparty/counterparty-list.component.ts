@@ -1,20 +1,20 @@
 import {Component, OnInit}  from '@angular/core';
 import {Router} from '@angular/router';
 
-import {CounterpartyService} from './counterparty.service';
-import {Logger} from "../services/logger.service";
-import {CounterpartyResource} from "./counterparty.resource";
-import {HashService} from "../services/hash.service";
+import {CounterpartyService} from '../services/core/counterparty.service';
+import {Logger} from "../services/common/logger.service";
+import {Counterparty} from "../resources/counterparty.resource";
+import {HashService} from "../services/common/hash.service";
 
 @Component({
     templateUrl: 'counterparty-list.component.html'
 })
 export class CounterpartyListComponent implements OnInit {
     pageTitle:string = 'Kontrahenci';
-    counterparties: CounterpartyResource[];
+    counterparties: Counterparty[];
     errorMessage:string;
     showNewForm:boolean = false;
-    model:CounterpartyResource;
+    model:Counterparty;
 
     constructor(private counterpartyService:CounterpartyService,
                 private router:Router,
@@ -26,7 +26,7 @@ export class CounterpartyListComponent implements OnInit {
         this.counterpartyService.getList().then((data) => this.counterparties = data);
     }
 
-    onSelect(cpty:CounterpartyResource) {
+    onSelect(cpty:Counterparty) {
         this.router.navigate(['/counterparty', this.hashService.hash(cpty.uri)]);
     }
 

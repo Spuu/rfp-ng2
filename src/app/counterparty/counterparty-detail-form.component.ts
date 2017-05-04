@@ -1,16 +1,16 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 
-import {CounterpartyService} from './counterparty.service';
-import {HashService} from "../services/hash.service";
-import {CounterpartyResource} from "./counterparty.resource";
+import {CounterpartyService} from '../services/core/counterparty.service';
+import {HashService} from "../services/common/hash.service";
+import {Counterparty} from "../resources/counterparty.resource";
 
 @Component({
     templateUrl: 'counterparty-detail-form.component.html'
 })
 export class CptyDetailFormComponent implements OnInit, OnDestroy {
     pageTitle:string = 'Dane kontrahenta';
-    counterparty:CounterpartyResource;
+    counterparty:Counterparty;
     errorMessage:string;
 
     private sub:any;

@@ -1,8 +1,8 @@
 import {HalProperty, HalResource} from "hal-rest-client";
-import {CounterpartyResource} from "../counterparty/counterparty.resource";
-import {StoreResource} from "../store/store.resource";
+import {Counterparty} from "./counterparty.resource";
+import {Store} from "./store.resource";
 
-export class InvoiceResource extends HalResource {
+export class Invoice extends HalResource {
     @HalProperty()
     public name: string;
 
@@ -19,8 +19,8 @@ export class InvoiceResource extends HalResource {
     public lastModificationDate: Date;
 
     @HalProperty()
-    public store: StoreResource;
+    public store: Store;
 
     @HalProperty()
-    public counterparty: CounterpartyResource;
+    public counterparty: Counterparty;
 }

@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {AuthService} from "./services/auth.service";
+import {AuthService} from "./services/common/auth.service";
 import info from '../../package.json';
 const appVersion = info.version;
 

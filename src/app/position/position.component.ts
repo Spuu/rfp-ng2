@@ -1,14 +1,11 @@
 import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
 
 import {Position} from "./position";
-import {StoreService} from "../store/store.service";
-import {ProductService} from "../product/product.service";
-
-import {SubPosition} from "../sub-position/sub-position";
-import {Product} from "../product/product";
+import {StoreService} from "../services/core/store.service";
+import {ProductService} from "../services/core/product.service";
 
 import * as _ from "lodash";
-import {StoreResource} from "../store/store.resource";
+import {Store} from "../resources/store.resource";
 
 enum Action {
     None = 0,
@@ -27,7 +24,7 @@ export class PositionComponent implements OnInit {
     @Input()
     position:Position;
     @Input()
-    stores:StoreResource[];
+    stores:Store[];
 
     @Output()
     onDelete = new EventEmitter();
@@ -36,8 +33,6 @@ export class PositionComponent implements OnInit {
     onClone = new EventEmitter();
 
     action:Action = Action.None;
-
-    subProducts:Product[] = [];
 
     constructor(private _storeService:StoreService, private _productService:ProductService) {
     }
@@ -56,9 +51,9 @@ export class PositionComponent implements OnInit {
         //         );
         // }
 
-        if(this.position._sub_position) {
-            this.refreshSubproducts();
-        }
+        // if(this.position._sub_position) {
+        //     this.refreshSubproducts();
+        // }
     }
 
     actionChange(type:number) {
@@ -78,30 +73,21 @@ export class PositionComponent implements OnInit {
         this.refreshSubproducts();
     }
 
-    createSubProduct() {
-        if(this.isSubbed()) {
-            if (!this.position._sub_position) {
-                this.position._sub_position = new SubPosition();
-                this.position._sub_position._product = this.subProducts[0];
-            }
-        }
-    }
-
     refreshSubproducts() {
-        this._productService.show_children(this.position._product._id)
-            .subscribe(
-                c => {
-                    this.subProducts = c._children;
-                    this.createSubProduct();
-                },
-                err => console.log(err)
-            );
+        // this._productService.show_children(this.position._product._id)
+        //     .subscribe(
+        //         c => {
+        //             this.subProducts = c._children;
+        //             this.createSubProduct();
+        //         },
+        //         err => console.log(err)
+        //     );
     }
 
     isSubbed():boolean {
-        if(_.isEmpty(this.subProducts))
-            return false;
-
+        // if(_.isEmpty(this.subProducts))
+        //     return false;
+        //
         return true;
     }
 
@@ -113,8 +99,8 @@ export class PositionComponent implements OnInit {
     }
 
     showSubPosition():boolean {
-        if(this.isActionSub() || this.position._sub_position)
-            return true;
+        // if(this.isActionSub() || this.position._sub_position)
+        //     return true;
 
         return false;
     }

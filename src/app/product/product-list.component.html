@@ -1,5 +1,5 @@
-<p-dataTable [value]="products" sortField="name" [sortOrder]="1" [responsive]="true" selectionMode="single" (onRowSelect)="onRowSelect($event)"
-             [rows]="lazyPage" [lazy]="true" [paginator]="true" (onLazyLoad)="loadData($event)"
+<p-dataTable [value]="products" sortField="name" sortOrder="1" responsive="true" selectionMode="single" (onRowSelect)="onRowSelect($event)"
+             [rows]="pageSize" lazy="true" paginator="true" filterDelay="1000" (onLazyLoad)="loadData($event)"
              [totalRecords]="totalRecords" [globalFilter]="gb">
     <p-header>
         <div class="ui-helper-clearfix" style="width:100%">
@@ -20,34 +20,5 @@
 <p-dialog header="Product Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true">
     <product-details [hidden]="!displayDialog" [(product)]="product" (onSave)="closeDialog()" (onCancel)="closeDialog()"></product-details>
 </p-dialog>
-<!--<div class='panel panel-primary'>-->
-<!--<div class='panel-heading'>-->
-<!--<div>-->
-<!--{{pageTitle}}-->
-<!--<button type="button" class="btn btn-default col-sm-offset-1" (click)="showNewForm=true">Dodaj</button>-->
-<!--</div>-->
-<!--</div>-->
 
-<!--&lt;!&ndash;<div class='panel-body'>&ndash;&gt;-->
-<!--&lt;!&ndash;<product-details [hidden]="!showNewForm" [(product)]="model" (onSave)="submit()"></product-details>&ndash;&gt;-->
-
-<!--&lt;!&ndash;<div class='table-responsive'>&ndash;&gt;-->
-<!--&lt;!&ndash;<table class='table table-hover' *ngIf='products && products.length'>&ndash;&gt;-->
-<!--&lt;!&ndash;<thead>&ndash;&gt;-->
-<!--&lt;!&ndash;<tr>&ndash;&gt;-->
-<!--&lt;!&ndash;<th>ID</th>&ndash;&gt;-->
-<!--&lt;!&ndash;<th>Nazwa</th>&ndash;&gt;-->
-<!--&lt;!&ndash;</tr>&ndash;&gt;-->
-<!--&lt;!&ndash;</thead>&ndash;&gt;-->
-<!--&lt;!&ndash;<tbody>&ndash;&gt;-->
-<!--&lt;!&ndash;<tr *ngFor='let product of products'>&ndash;&gt;-->
-<!--&lt;!&ndash;<td>{{ product._id }}</td>&ndash;&gt;-->
-<!--&lt;!&ndash;<td>{{ product.name }}</td>&ndash;&gt;-->
-<!--&lt;!&ndash;<button type="button" class="btn btn-default" (click)="select(product)">Edycja</button>&ndash;&gt;-->
-<!--&lt;!&ndash;</tr>&ndash;&gt;-->
-<!--&lt;!&ndash;</tbody>&ndash;&gt;-->
-<!--&lt;!&ndash;</table>&ndash;&gt;-->
-<!--&lt;!&ndash;</div>&ndash;&gt;-->
-<!--&lt;!&ndash;</div>&ndash;&gt;-->
-<!--</div>-->
 
