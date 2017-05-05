@@ -16,7 +16,7 @@
         <div class="form-group col-md-2">
             <label for="_cpty">Kontrahent</label>
             <select class="form-control" required name="_cpty" [(ngModel)]="model._cpty">
-                <option *ngFor='let c of cpties' [value]="c._id">
+                <option *ngFor="let c of counterparties" [value]="c._id">
                     {{c.name}}
                 </option>
             </select>

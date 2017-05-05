@@ -1,8 +1,8 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 
-import {Product} from './product';
-import {ProductService} from './product.service';
+import {ProductService} from '../services/core/product.service';
+import {Product} from "../resources/product/product.resource";
 
 @Component({
     templateUrl: './product-detail-router.component.html'
@@ -32,11 +32,11 @@ export class ProductDetailRouterComponent implements OnInit, OnDestroy {
     }
 
     getProduct(id:string) {
-        this._productService.get(id)
-            .subscribe(
-                product => this.product = product,
-                error => this.errorMessage = <any>error
-            );
+        // this._productService.get(id)
+        //     .subscribe(
+        //         product => this.product = product,
+        //         error => this.errorMessage = <any>error
+        //     );
     }
 
     gotoProducts() {

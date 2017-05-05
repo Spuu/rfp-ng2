@@ -13,11 +13,15 @@ export class ModalConfirmationButton {
 
     display:boolean = false;
 
-    constructor() {
-
-    }
-
     confirm() {
         this.onConfirm.emit(true);
+    }
+
+    showDialog() {
+        this.display = true;
+    }
+
+    hideDialog() {
+        this.display = false;
     }
 }

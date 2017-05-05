@@ -1,22 +1,4 @@
-<nav class="navbar navbar-toggleable-md navbar-light bg-faded">
-    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-            aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <a routerLink="/" class='navbar-brand'>{{title}} v{{version}}</a>
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul *ngIf="auth.authenticated()" class="navbar-nav mr-auto">
-                <li class="nav-item"><a class="nav-link" routerLink="/cpty">Kontrahenci</a></li>
-                <li class="nav-item"><a class="nav-link" routerLink="/store">Sklepy</a></li>
-                <li class="nav-item"><a class="nav-link" routerLink="/product">Produkty</a></li>
-                <li class="nav-item"><a class="nav-link" routerLink="/invoice">Faktury</a></li>
-            </ul>
-            <button *ngIf="auth.authenticated()" class="btn btn-outline-success my-2 my-sm-0" (click)="auth.logout()">Log Out</button>
-            <button *ngIf="!auth.authenticated()" class="btn btn-outline-success my-2 my-sm-0" (click)="auth.login()">Log In</button>
-    </div>
-</nav>
+<navigation-bar [brandLogo]="brandLogo"></navigation-bar>
 <div class='container-fluid'>
     <router-outlet></router-outlet>
 </div>

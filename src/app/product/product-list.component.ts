@@ -1,8 +1,10 @@
 import {Component, OnInit}  from '@angular/core';
 import {Router} from '@angular/router';
 
-import {Product} from './product';
-import {ProductService} from './product.service';
+import {ProductService} from '../services/core/product.service';
+import {Product} from "../resources/product/product.resource";
+import {ProductQueryParamsBuilder, ProductQueryParams} from "../resources/product/product-query-params";
+import * as _ from "lodash";
 
 @Component({
     templateUrl: './product-list.component.html'
@@ -18,10 +20,12 @@ export class ProductListComponent implements OnInit {
 
     globalFilter:string;
     totalRecords:number;
-    lazyPage:number;
+    pageSize:number;
 
-    constructor(private _productService:ProductService,
-                private _router:Router) {
+    private lastQueryParams: ProductQueryParams;
+
+    constructor(private productService:ProductService,
+                private router:Router) {
 
     }
 
@@ -29,18 +33,18 @@ export class ProductListComponent implements OnInit {
         this.pageTitle = 'Produkty';
         this.displayDialog = false;
         this.products = [];
-        this.product = new Product();
+        this.product = this.productService.getEmpty();
         this.totalRecords = 0;
-        this.lazyPage = 20;
+        this.pageSize = 20;
         this.globalFilter = '';
     }
 
     select(product:Product) {
-        this._router.navigate(['/product', product._id]);
+        //this.router.navigate(['/product', product._id]);
     }
 
     addNewProduct() {
-        this.product = new Product();
+        this.product = this.productService.getEmpty();
         this.isNewProduct = true;
         this.displayDialog = true;
     }
@@ -65,19 +69,33 @@ export class ProductListComponent implements OnInit {
         if (this.globalFilter.length < 3 && this.globalFilter.length != 0)
             return;
 
-        let map = new Map<string, string>();
-        map.set('offset', event.first);
-        map.set('limit', event.rows);
-        map.set('sortField', event.sortField);
-        map.set('sortOrder', event.sortOrder);
-        map.set('query', this.globalFilter);
+        let page = Math.floor(event.first / event.rows);
 
-        this._productService.getList(map)
-            .subscribe(
-                products => {
-                    this.products = products.docs;
-                    this.totalRecords = products.total;
-                },
-                error => this.errorMessage = <any>error);
+        let queryParams = ProductQueryParamsBuilder.prodBuilder();
+        queryParams
+            .setQuery(this.globalFilter)
+            .setPage(page)
+            .setSize(this.pageSize)
+            .setSortField(event.sortField)
+            .setSortOrder(event.sortOrder);
+
+        let newQueryParams = queryParams.build();
+
+        // due to PrineNG onLazyLoad event being triggered multiple times in a row
+        // for performance reasons keep last queries
+        // if they're equal within timeout, ignore that query
+        if (_.isEqual(newQueryParams, this.lastQueryParams))
+            return;
+
+        this.lastQueryParams = newQueryParams;
+
+        this.productService.getList(newQueryParams).then((data) => {
+            this.products = data.products;
+            this.totalRecords = data.pagination.totalElements;
+        });
+
+        // reset lastQueryParams after timeout
+        setTimeout(() =>
+            this.lastQueryParams = undefined, 1000);
     }
 }

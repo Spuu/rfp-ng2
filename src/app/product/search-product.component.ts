@@ -2,8 +2,8 @@ import {Component, Output, EventEmitter} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 
-import {ProductService} from "./product.service";
-import {Product} from "./product";
+import {ProductService} from "../services/core/product.service";
+import {Product} from "../resources/product/product.resource";
 
 @Component({
     selector: 'search-product',
@@ -23,10 +23,10 @@ export class SearchProductComponent {
 
     constructor(private _productService:ProductService) {
         this.dataSource = Observable.create((observer:any) => {
-            this._productService.search(this.getAsyncSelected(), 5)
-                .subscribe(p => {
-                    observer.next(p);
-                });
+            // this._productService.search(this.getAsyncSelected(), 5)
+            //     .subscribe(p => {
+            //         observer.next(p);
+            //     });
         });
     }
 

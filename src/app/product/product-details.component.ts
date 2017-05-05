@@ -1,7 +1,7 @@
 import {Component, Input, Output, OnInit, EventEmitter} from '@angular/core';
 
-import {Product} from './product';
-import {ProductService} from './product.service';
+import {ProductService} from '../services/core/product.service';
+import {Product} from "../resources/product/product.resource";
 
 @Component({
     selector: 'product-details',
@@ -29,45 +29,45 @@ export class ProductDetailsComponent implements OnInit {
     }
 
     static clone(obj:any):any {
-        return JSON.parse(JSON.stringify(obj));
+        //return JSON.parse(JSON.stringify(obj));
     }
 
     ngOnInit() {
-        this.originalProduct = ProductDetailsComponent.clone(this.product);
+        //this.originalProduct = ProductDetailsComponent.clone(this.product);
     }
 
     save() {
-        if(!!this.product._id) {
-            this._productService.put(this.product)
-                .subscribe(
-                    product => {
-                        this.product = product;
-                        this.productChange.emit(this.product);
-                        this.onSave.emit(true);
-                    },
-                    error => console.log('ProductDetailsComp err: ' + error)
-                );
-        } else {
-            this._productService.post(this.product)
-                .subscribe(
-                    product => {
-                        this.product = product;
-                        this.productChange.emit(this.product);
-                        this.onSave.emit(true);
-                    },
-                    error => console.log('ProductDetailsComp err: ' + error)
-                );
-        }
+        // if(!!this.product._id) {
+        //     this._productService.put(this.product)
+        //         .subscribe(
+        //             product => {
+        //                 this.product = product;
+        //                 this.productChange.emit(this.product);
+        //                 this.onSave.emit(true);
+        //             },
+        //             error => console.log('ProductDetailsComp err: ' + error)
+        //         );
+        // } else {
+        //     this._productService.post(this.product)
+        //         .subscribe(
+        //             product => {
+        //                 this.product = product;
+        //                 this.productChange.emit(this.product);
+        //                 this.onSave.emit(true);
+        //             },
+        //             error => console.log('ProductDetailsComp err: ' + error)
+        //         );
+        // }
     }
 
     modalConfirmation() {
-        this._productService.del(this.product._id)
-            .subscribe(
-                data => {
-                    this.onDelete.emit(true);
-                },
-                error => console.log('ProductDetailsComp err: ' + error)
-            );
+        // this._productService.del(this.product._id)
+        //     .subscribe(
+        //         data => {
+        //             this.onDelete.emit(true);
+        //         },
+        //         error => console.log('ProductDetailsComp err: ' + error)
+        //     );
     }
 
     cancel() {

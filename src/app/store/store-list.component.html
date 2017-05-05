@@ -19,6 +19,12 @@
                     Name is required
                 </div>
             </div>
+            <div class="form-group">
+                <label for="fullName">Pełna nazwa</label>
+                <input type="text" class="form-control" required
+                       [(ngModel)]="model.fullName"
+                       name="fullName" #fullName="ngModel">
+            </div>
             <button type="submit" class="btn btn-primary" [disabled]="!storeForm.form.valid">Zapisz</button>
         </form>
 
@@ -26,14 +32,14 @@
             <table class='table table-hover' *ngIf='stores && stores.length'>
                 <thead>
                 <tr>
-                    <th>ID</th>
                     <th>Nazwa</th>
+                    <th>Pełna nazwa</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr *ngFor='let store of stores'>
-                    <td>{{ store._id }}</td>
                     <td>{{ store.name }}</td>
+                    <td>{{ store.fullName }}</td>
                     <button type="button" class="btn btn-default" (click)="onSelect(store)">Edycja</button>
                 </tr>
                 </tbody>

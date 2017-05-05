@@ -4,7 +4,7 @@ import { FormsModule }   from '@angular/forms';
 
 import {StoreListComponent} from "./store-list.component";
 import {StoreDetailFormComponent} from "./store-detail-form.component";
-import {StoreService} from "./store.service";
+import {StoreService} from "../services/core/store.service";
 import {GenericModule} from "../generic/generic.module";
 
 

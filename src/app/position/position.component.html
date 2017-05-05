@@ -33,9 +33,9 @@
     </div>
 </div>
 
-<div *ngIf="showSubPosition()">
-    <sub-position [products]="subProducts" [subPosition]="position._sub_position" ></sub-position>
-</div>
+<!--<div *ngIf="showSubPosition()">-->
+    <!--<sub-position [products]="subProducts" [subPosition]="position._sub_position" ></sub-position>-->
+<!--</div>-->
 <div [ngSwitch]="action" class="row">
     <product-details *ngSwitchCase="3" [(product)]="position._product" (onDelete)="delete()" (onSave)="actionChange(0)"
                      (onCancel)="actionChange(0)"></product-details>

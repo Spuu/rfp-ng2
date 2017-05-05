@@ -1,7 +1,7 @@
 import {Component, Input, Output, OnInit, EventEmitter} from '@angular/core';
 
-import {ProductService} from "./product.service";
-import {Product} from "./product";
+import {ProductService} from "../services/core/product.service";
+import {Product} from "../resources/product/product.resource";
 
 @Component({
     selector: 'product-family',
@@ -32,28 +32,28 @@ export class ProductRelationsComponent implements OnInit {
     }
 
     public onLink():void {
-        if (this.father && this.child) {
-            this._productService.add_child(this.father._id, this.child._id)
-                .subscribe(
-                    p => this.onClose.emit(true),
-                    err => console.log("ProductRelationsComponent error: " + err)
-                );
-        } else {
-            console.log("Link: data not ready.");
-        }
+        // if (this.father && this.child) {
+        //     this._productService.add_child(this.father._id, this.child._id)
+        //         .subscribe(
+        //             p => this.onClose.emit(true),
+        //             err => console.log("ProductRelationsComponent error: " + err)
+        //         );
+        // } else {
+        //     console.log("Link: data not ready.");
+        // }
     }
 
     public onUnlink():void {
 
-        if (this.father._id && this.child._id) {
-            this._productService.remove_child(this.father._id, this.child._id)
-                .subscribe(
-                    p => this.onClose.emit(true),
-                    err => console.log("ProductRelationsComponent error: " + err)
-                );
-        } else {
-            console.log("Unlink: data not ready.");
-        }
+        // if (this.father._id && this.child._id) {
+        //     this._productService.remove_child(this.father._id, this.child._id)
+        //         .subscribe(
+        //             p => this.onClose.emit(true),
+        //             err => console.log("ProductRelationsComponent error: " + err)
+        //         );
+        // } else {
+        //     console.log("Unlink: data not ready.");
+        // }
     }
 
     public onCancel():void {

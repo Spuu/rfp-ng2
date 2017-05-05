@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {AuthService} from "./auth/auth.service";
+import {AuthService} from "./services/common/auth.service";
 import info from '../../package.json';
 const appVersion = info.version;
 
@@ -12,5 +12,11 @@ export class AppComponent {
     title = 'ReksFaktPro';
     version = appVersion;
 
+    private brandLogo: string;
+
     constructor(private auth: AuthService) {}
+
+    ngOnInit() {
+        this.brandLogo = `${this.title} v${this.version}`;
+    }
 }

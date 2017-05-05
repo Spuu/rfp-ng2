@@ -20,29 +20,27 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="long_name">Pełna nazwa</label>
+                <label for="fullName">Pełna nazwa</label>
                 <textarea class="form-control" rows="3"
-                          [(ngModel)]="model.long_name"
-                          name="long_name"></textarea>
+                          [(ngModel)]="model.fullName"
+                          name="fullName"></textarea>
             </div>
             <button type="submit" class="btn btn-primary" [disabled]="!cptyForm.form.valid">Zapisz</button>
         </form>
 
         <div class='table-responsive'>
-            <table class='table table-hover' *ngIf='cpties && cpties.length'>
+            <table class='table table-hover' *ngIf='counterparties && counterparties.length'>
                 <thead>
                 <tr>
-                    <th>ID</th>
                     <th>Nazwa</th>
                     <th>Pełna nazwa</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor='let cpty of cpties'>
-                    <td>{{ cpty._id }}</td>
-                    <td>{{ cpty.name }}</td>
-                    <td>{{ cpty.long_name }}</td>
-                    <button type="button" class="btn btn-default" (click)="onSelect(cpty)">Edycja</button>
+                <tr *ngFor='let counterparty of counterparties'>
+                    <td>{{ counterparty.name }}</td>
+                    <td>{{ counterparty.fullName }}</td>
+                    <button type="button" class="btn btn-default" (click)="onSelect(counterparty)">Edycja</button>
                 </tr>
                 </tbody>
             </table>
