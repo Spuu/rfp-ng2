@@ -2,77 +2,138 @@ import {Component, Input, Output, OnInit, EventEmitter} from '@angular/core';
 
 import {ProductService} from '../services/core/product.service';
 import {Product} from "../resources/product/product.resource";
+import * as _ from "lodash";
+import {FormBuilder, FormGroup} from "@angular/forms";
+import {ProductStatus} from "../resources/product/product-status.enum";
 
 @Component({
     selector: 'product-details',
     templateUrl: './product-details.component.html'
 })
-export class ProductDetailsComponent implements OnInit {
+export class ProductDetailsComponent {
     @Input()
-    product:Product;
+    product: Product;
 
     @Output()
-    onSave = new EventEmitter();
+    save = new EventEmitter<void>();
 
     @Output()
-    onDelete = new EventEmitter();
+    delete = new EventEmitter<void>();
 
     @Output()
-    onCancel = new EventEmitter();
+    cancel = new EventEmitter<void>();
 
-    @Output()
-    productChange = new EventEmitter();
+    productForm: FormGroup;
 
-    originalProduct:Product;
+    constructor(private productService: ProductService,
+                private fb: FormBuilder) {
 
-    constructor(private _productService:ProductService) {
+        this.createForm();
     }
 
-    static clone(obj:any):any {
-        //return JSON.parse(JSON.stringify(obj));
+    createForm() {
+        this.productForm = this.fb.group({
+            enabled: '',
+            barcode: '',
+            ean: '',
+            name: '',
+            pihAmount: '',
+            pihUnit: '',
+            sellUnit: '',
+            vat: '',
+            status: '',
+            cashRegisterInfo: {
+                name: '',
+                price: '',
+                vat: ''
+            }
+        });
     }
 
-    ngOnInit() {
-        //this.originalProduct = ProductDetailsComponent.clone(this.product);
+    ngOnChanges() {
+        this.productForm.reset({
+            enabled: this.product.enabled,
+            barcode: this.product.barcode,
+            ean: this.product.ean,
+            name: this.product.name,
+            pihAmount: this.product.pihAmount,
+            pihUnit: this.product.pihUnit,
+            sellUnit: this.product.sellUnit,
+            vat: this.product.vat,
+            status: this.product.status,
+            cashRegisterInfo: {
+                name: this.product.cashRegisterInfo.name,
+                price: this.product.cashRegisterInfo.price,
+                vat: this.product.cashRegisterInfo.vat
+            }
+        });
     }
 
-    save() {
-        // if(!!this.product._id) {
-        //     this._productService.put(this.product)
+    async onSubmit() {
+        this.product = this.prepareSaveProduct();
+
+        if (_.isEqual(this.product.isLoaded, true))
+            await this.productService.put(this.product);
+        else
+            await this.productService.post(this.product);
+
+        this.ngOnChanges();
+        this.save.emit();
+    }
+
+    prepareSaveProduct(): Product {
+        const formModel = this.productForm.value;
+
+        this.product.enabled = formModel.enabled as boolean;
+        this.product.barcode = false;
+        this.product.ean = formModel.ean as string;
+        this.product.name = formModel.name as string;
+        this.product.pihAmount = formModel.pihAmount as number;
+        this.product.pihUnit = formModel.pihUnit as string;
+        this.product.sellUnit = formModel.sellUnit as string;
+        this.product.vat = formModel.vat as number;
+        this.product.status = ProductStatus.UPDATED;
+        this.product.cashRegisterInfo = {
+            name: formModel.cashRegisterInfo.name,
+            price: formModel.cashRegisterInfo.price,
+            vat: formModel.cashRegisterInfo.vat
+        };
+
+        return this.product;
+    }
+
+    revert() {
+        this.ngOnChanges();
+        this.cancel.emit();
+    }
+
+    // save() {
+    //     console.log(this.selectedProduct);
+        // if(!!this.selectedProduct._id) {
+        //     this._productService.put(this.selectedProduct)
         //         .subscribe(
-        //             product => {
-        //                 this.product = product;
-        //                 this.productChange.emit(this.product);
+        //             selectedProduct => {
+        //                 this.selectedProduct = selectedProduct;
+        //                 this.productChange.emit(this.selectedProduct);
         //                 this.onSave.emit(true);
         //             },
         //             error => console.log('ProductDetailsComp err: ' + error)
         //         );
         // } else {
-        //     this._productService.post(this.product)
+        //     this._productService.post(this.selectedProduct)
         //         .subscribe(
-        //             product => {
-        //                 this.product = product;
-        //                 this.productChange.emit(this.product);
+        //             selectedProduct => {
+        //                 this.selectedProduct = selectedProduct;
+        //                 this.productChange.emit(this.selectedProduct);
         //                 this.onSave.emit(true);
         //             },
         //             error => console.log('ProductDetailsComp err: ' + error)
         //         );
         // }
-    }
+    //}
 
     modalConfirmation() {
-        // this._productService.del(this.product._id)
-        //     .subscribe(
-        //         data => {
-        //             this.onDelete.emit(true);
-        //         },
-        //         error => console.log('ProductDetailsComp err: ' + error)
-        //     );
-    }
-
-    cancel() {
-        this.product = ProductDetailsComponent.clone(this.originalProduct);
-        this.onCancel.emit(true);
-        this.productChange.emit(this.product);
+        this.product.delete();
+        this.delete.emit();
     }
 }

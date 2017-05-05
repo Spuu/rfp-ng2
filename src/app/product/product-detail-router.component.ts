@@ -34,13 +34,13 @@ export class ProductDetailRouterComponent implements OnInit, OnDestroy {
     getProduct(id:string) {
         // this._productService.get(id)
         //     .subscribe(
-        //         product => this.product = product,
+        //         selectedProduct => this.selectedProduct = selectedProduct,
         //         error => this.errorMessage = <any>error
         //     );
     }
 
     gotoProducts() {
-        this._router.navigate(['/product']);
+        this._router.navigate(['/selectedProduct']);
     }
 
     onDelete() {

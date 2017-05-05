@@ -7,6 +7,7 @@ import {Product} from "../../resources/product/product.resource";
 import {ProductArray} from "../../resources/product/product-array.resource";
 import {ProductQueryParams} from "../../resources/product/product-query-params";
 import * as _ from "lodash";
+import {CashRegisterInfo} from "../../resources/product/cash-register-info";
 
 @Injectable()
 export class ProductService extends HalResourceService {
@@ -20,6 +21,9 @@ export class ProductService extends HalResourceService {
 
     getEmpty(): Product {
         const resource = createResource(this.getClient(), Product, this.url);
+        resource.cashRegisterInfo = new CashRegisterInfo();
+        resource.groupee = [];
+        resource.children = [];
         return resource;
     }
 

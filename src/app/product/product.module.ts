@@ -1,6 +1,6 @@
 import { NgModule }      from '@angular/core';
 import { CommonModule }  from '@angular/common';
-import { FormsModule }   from '@angular/forms';
+import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 
 import {ProductDetailsComponent} from "./product-details.component";
 import {ProductListComponent} from "./product-list.component";
@@ -26,6 +26,7 @@ import {GenericModule} from "../generic/generic.module";
         CommonModule,
         StoreModule,
         FormsModule,
+        ReactiveFormsModule,
         GenericModule,
         AutoCompleteModule,
         ButtonModule,

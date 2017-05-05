@@ -51,7 +51,7 @@ export class PositionListComponent implements OnInit {
         newPosition.setInputs(this.invoiceId, this.storeId);
 
         // search corresponding position
-        // this._positionService.search(product._id, this.storeId)
+        // this._positionService.search(selectedProduct._id, this.storeId)
         //     .subscribe(
         //         p => {
         //             if (p) {

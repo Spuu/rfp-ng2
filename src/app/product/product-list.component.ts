@@ -13,10 +13,8 @@ export class ProductListComponent implements OnInit {
     pageTitle:string;
     products:Product[];
     errorMessage:string;
-    displayDialog:boolean;
 
-    product:Product;
-    isNewProduct:boolean;
+    selectedProduct:Product;
 
     globalFilter:string;
     totalRecords:number;
@@ -25,34 +23,23 @@ export class ProductListComponent implements OnInit {
     private lastQueryParams: ProductQueryParams;
 
     constructor(private productService:ProductService,
-                private router:Router) {
-
-    }
+                private router:Router) {}
 
     ngOnInit():void {
         this.pageTitle = 'Produkty';
-        this.displayDialog = false;
         this.products = [];
-        this.product = this.productService.getEmpty();
+        this.selectedProduct = undefined;
         this.totalRecords = 0;
         this.pageSize = 20;
         this.globalFilter = '';
     }
 
-    select(product:Product) {
-        //this.router.navigate(['/product', product._id]);
-    }
-
     addNewProduct() {
-        this.product = this.productService.getEmpty();
-        this.isNewProduct = true;
-        this.displayDialog = true;
+        this.selectedProduct = this.productService.getEmpty();
     }
 
     onRowSelect(event) {
-        this.isNewProduct = false;
-        this.product = event.data;
-        this.displayDialog = true;
+        this.selectedProduct = event.data;
     }
 
     /**
@@ -60,8 +47,7 @@ export class ProductListComponent implements OnInit {
      * thus no appending or updating this.products is needed.
      */
     closeDialog() {
-        this.displayDialog = false;
-        this.product = null;
+        this.selectedProduct = undefined;
     }
 
     loadData(event) {
