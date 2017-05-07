@@ -5,6 +5,7 @@ import {Product} from "../resources/product/product.resource";
 import * as _ from "lodash";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {ProductStatus} from "../resources/product/product-status.enum";
+import {CashRegisterInfo} from "../resources/product/cash-register-info";
 
 @Component({
     selector: 'product-details',
@@ -42,35 +43,28 @@ export class ProductDetailsComponent {
             sellUnit: '',
             vat: '',
             status: '',
-            cashRegisterInfo: {
-                name: '',
-                price: '',
-                vat: ''
-            }
+            cashRegisterInfo: this.fb.group(new CashRegisterInfo())
         });
     }
 
     ngOnChanges() {
         this.productForm.reset({
-            enabled: this.product.enabled,
+            enabled: this.product.enabled || true,
             barcode: this.product.barcode,
             ean: this.product.ean,
             name: this.product.name,
             pihAmount: this.product.pihAmount,
             pihUnit: this.product.pihUnit,
-            sellUnit: this.product.sellUnit,
+            sellUnit: this.product.sellUnit || 'szt',
             vat: this.product.vat,
-            status: this.product.status,
-            cashRegisterInfo: {
-                name: this.product.cashRegisterInfo.name,
-                price: this.product.cashRegisterInfo.price,
-                vat: this.product.cashRegisterInfo.vat
-            }
+            status: this.product.status
         });
+
+        this.productForm.setControl('cashRegisterInfo', this.fb.group(this.product.cashRegisterInfo));
     }
 
     async onSubmit() {
-        this.product = this.prepareSaveProduct();
+        this.prepareSaveProduct();
 
         if (_.isEqual(this.product.isLoaded, true))
             await this.productService.put(this.product);
@@ -81,11 +75,11 @@ export class ProductDetailsComponent {
         this.save.emit();
     }
 
-    prepareSaveProduct(): Product {
+    prepareSaveProduct() {
         const formModel = this.productForm.value;
 
         this.product.enabled = formModel.enabled as boolean;
-        this.product.barcode = false;
+        this.product.barcode = formModel.barcode as boolean;
         this.product.ean = formModel.ean as string;
         this.product.name = formModel.name as string;
         this.product.pihAmount = formModel.pihAmount as number;
@@ -93,44 +87,15 @@ export class ProductDetailsComponent {
         this.product.sellUnit = formModel.sellUnit as string;
         this.product.vat = formModel.vat as number;
         this.product.status = ProductStatus.UPDATED;
-        this.product.cashRegisterInfo = {
-            name: formModel.cashRegisterInfo.name,
-            price: formModel.cashRegisterInfo.price,
-            vat: formModel.cashRegisterInfo.vat
-        };
 
-        return this.product;
+        const cashRegisterInfoDeepCopy = Object.assign({}, formModel.cashRegisterInfo);
+        this.product.cashRegisterInfo = cashRegisterInfoDeepCopy;
     }
 
     revert() {
         this.ngOnChanges();
         this.cancel.emit();
     }
-
-    // save() {
-    //     console.log(this.selectedProduct);
-        // if(!!this.selectedProduct._id) {
-        //     this._productService.put(this.selectedProduct)
-        //         .subscribe(
-        //             selectedProduct => {
-        //                 this.selectedProduct = selectedProduct;
-        //                 this.productChange.emit(this.selectedProduct);
-        //                 this.onSave.emit(true);
-        //             },
-        //             error => console.log('ProductDetailsComp err: ' + error)
-        //         );
-        // } else {
-        //     this._productService.post(this.selectedProduct)
-        //         .subscribe(
-        //             selectedProduct => {
-        //                 this.selectedProduct = selectedProduct;
-        //                 this.productChange.emit(this.selectedProduct);
-        //                 this.onSave.emit(true);
-        //             },
-        //             error => console.log('ProductDetailsComp err: ' + error)
-        //         );
-        // }
-    //}
 
     modalConfirmation() {
         this.product.delete();
