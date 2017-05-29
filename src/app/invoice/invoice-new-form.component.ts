@@ -23,36 +23,24 @@ export class InvoiceNewFormComponent implements OnInit {
     @Input() type: string = 'Buy';
     @Output() invoiceSubmitted: EventEmitter<Invoice> = new EventEmitter<Invoice>();
 
-    constructor(private _invoiceService:InvoiceService,
-                private _cptyService:CounterpartyService,
-                private _storeService:StoreService) {
+    constructor(private invoiceService: InvoiceService,
+                private counterpartyService: CounterpartyService,
+                private storeService: StoreService) {
     }
 
-    ngOnInit():void {
-        /*this._cptyService.getList()
-            .subscribe(
-                cpties => this.cpties = cpties.docs,
-                error => this.errorMessage = <any>error
-            );*/
+    ngOnInit(): void {
+        this.counterpartyService.getList().then((data) => this.counterparties = data);
+        this.storeService.getList().then((data) => this.stores = data);
 
-        // this._storeService.getList()
-        //     .subscribe(
-        //         stores => this.stores = stores.docs,
-        //         error => this.errorMessage = <any>error
-        //     );
-
-        this.model = this._invoiceService.getEmpty();
+        this.model = this.invoiceService.getEmpty();
     }
 
     onSubmit() {
-        // this._invoiceService.post(this.model)
-        //     .subscribe(
-        //     invoice => {
-        //         this.invoiceSubmitted.emit(invoice);
-        //         this.model = this._invoiceService.getEmpty();
-        //         this.active = false;
-        //         setTimeout(() => this.active = true, 0);
-        //     },
-        //     error => {this.errorMessage = error; console.log(error);});
+        this.invoiceService.post(this.model).then((data) => {
+            this.invoiceSubmitted.emit(data);
+            this.model = this.invoiceService.getEmpty();
+            this.active = false;
+            setTimeout(() => this.active = true, 0);
+        });
     }
 }

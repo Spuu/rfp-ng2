@@ -9,12 +9,15 @@ import {PositionModule} from "../position/position.module";
 import {GenericModule} from "../generic/generic.module";
 import {InvoiceService} from "../services/core/invoice.service";
 
+import {CalendarModule} from 'primeng/primeng';
+
 @NgModule({
     imports: [
         CommonModule,
         FormsModule,
         GenericModule,
-        PositionModule
+        PositionModule,
+        CalendarModule
     ],
     declarations: [
         InvoiceListComponent,

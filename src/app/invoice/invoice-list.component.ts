@@ -1,9 +1,9 @@
 import {Component, OnInit}  from '@angular/core';
 import {Router} from '@angular/router';
 
-import {InvoiceNewFormComponent} from "./invoice-new-form.component";
 import {Invoice} from "../resources/invoice.resource";
 import {InvoiceService} from "../services/core/invoice.service";
+import {HashService} from "../services/common/hash.service";
 
 @Component({
     templateUrl: './invoice-list.component.html'
@@ -13,18 +13,19 @@ export class InvoiceListComponent implements OnInit {
     invoices:Invoice[];
     errorMessage:string;
     showNewForm:boolean = false;
-    model:Invoice = this._invoiceService.getEmpty();
 
-    constructor(private _invoiceService:InvoiceService,
-                private _router:Router) {
+    constructor(private invoiceService:InvoiceService,
+                private router:Router,
+                private hashService: HashService) {
     }
 
     ngOnInit():void {
-        this._invoiceService.getList().then((data) => this.invoices = data.invoices);
+        this.invoiceService.getList().then((data) => this.invoices = data.invoices);
     }
 
     onSelect(invoice:Invoice) {
-        //this._router.navigate(['/invoice', invoice._id]);
+        console.log(invoice.uri);
+        this.router.navigate(['/invoice', this.hashService.hash(invoice.uri)]);
     }
 
     onSubmit(invoice:Invoice) {

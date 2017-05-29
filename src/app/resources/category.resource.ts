@@ -1,9 +1,9 @@
 import {HalResource, HalProperty} from "hal-rest-client";
 
-export class Counterparty extends HalResource {
+export class Category extends HalResource {
     @HalProperty()
     name: string;
 
     @HalProperty()
-    fullName: string;
+    type: string;
 }

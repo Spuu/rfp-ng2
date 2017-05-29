@@ -29,7 +29,7 @@
     "core-js": "2.4.1",
     "crypto-js": "3.1.9-1",
     "font-awesome": "4.7.0",
-    "hal-rest-client": "0.2.0",
+    "hal-rest-client": "0.2.2",
     "lodash": "4.17.4",
     "ng2-bootstrap": "1.6.1",
     "primeng": "4.0.0-rc.3",

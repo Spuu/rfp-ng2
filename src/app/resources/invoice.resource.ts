@@ -1,6 +1,8 @@
 import {HalProperty, HalResource} from "hal-rest-client";
 import {Counterparty} from "./counterparty.resource";
 import {Store} from "./store.resource";
+import {Position} from "./position/position.resource";
+import {Category} from "./category.resource";
 
 export class Invoice extends HalResource {
     @HalProperty()
@@ -23,4 +25,10 @@ export class Invoice extends HalResource {
 
     @HalProperty()
     public counterparty: Counterparty;
+
+    @HalProperty(Position)
+    public positions: Array<Position>;
+
+    @HalProperty(Category)
+    public categories: Array<Category>;
 }

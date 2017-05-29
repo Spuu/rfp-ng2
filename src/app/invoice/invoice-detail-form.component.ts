@@ -2,6 +2,7 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 import {Invoice} from "../resources/invoice.resource";
 import {InvoiceService} from "../services/core/invoice.service";
+import {HashService} from "../services/common/hash.service";
 
 @Component({
     templateUrl: './invoice-detail-form.component.html'
@@ -13,16 +14,17 @@ export class InvoiceDetailFormComponent implements OnInit, OnDestroy {
 
     private sub:any;
 
-    constructor(private _invoiceService:InvoiceService,
-                private _router:Router,
-                private _route:ActivatedRoute) {
+    constructor(private invoiceService:InvoiceService,
+                private router:Router,
+                private route:ActivatedRoute,
+                private hashService: HashService) {
     }
 
 
     ngOnInit() {
-        this.sub = this._route.params.subscribe(params => {
-            let id = params['id'];
-            this.getInvoice(id);
+        this.sub = this.route.params.subscribe(params => {
+            let url = this.hashService.unhash(params['id']);
+            this.getInvoice(url);
         });
     }
 
@@ -30,47 +32,34 @@ export class InvoiceDetailFormComponent implements OnInit, OnDestroy {
         this.sub.unsubscribe();
     }
 
-    getInvoice(id:string) {
-        // this._invoiceService.get(id)
-        //     .subscribe(
-        //         invoice => this.invoice = invoice,
-        //         error => this.errorMessage = <any>error
-        //     );
+    async getInvoice(url:string) {
+        this.invoice = await this.invoiceService.get(url);
+        console.log(this.invoice);
     }
 
     gotoInvoices() {
-        this._router.navigate(['/invoice']);
+        this.router.navigate(['/invoice']);
     }
 
-    putInvoice(invoice:Invoice) {
-        // this._invoiceService.put(invoice)
-        //     .subscribe(
-        //         invoice => this.invoice = invoice,
-        //         error => this.errorMessage = <any>error
-        //     );
+    async onSubmit() {
+        delete this.invoice.links['counterparty'];
+        delete this.invoice.links['store'];
+        delete this.invoice.links['invoice'];
+        delete this.invoice.links['positions'];
+        delete this.invoice.links['categories'];
+        await this.invoice.update();
+        this.gotoInvoices();
     }
 
-    delInvoice(id:string) {
-        // this._invoiceService.del(id)
-        //     .subscribe(
-        //         data => {},
-        //         error => this.errorMessage = <any>error,
-        //         () => this.gotoInvoices()
-        //     );
-    }
-
-    onSubmit() {
-        this.putInvoice(this.invoice);
-    }
-
-    onDelete() {
-        //this.delInvoice(this.invoice._id);
+    async onDelete() {
+        this.invoice.delete();
+        this.invoice = null;
         this.gotoInvoices();
     }
 
     showItems():boolean {
-        // if(this.invoice && !!this.invoice._id && !!this.invoice._store)
-        //     return true;
+        if(this.invoice && !!this.invoice.uri && !!this.invoice.store)
+            return true;
 
         return false;
     }
