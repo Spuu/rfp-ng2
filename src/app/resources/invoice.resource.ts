@@ -1,10 +1,12 @@
-import {HalProperty, HalResource} from "hal-rest-client";
+import {HalProperty, IJSONSerializer} from "hal-rest-client";
 import {Counterparty} from "./counterparty.resource";
 import {Store} from "./store.resource";
 import {Position} from "./position/position.resource";
 import {Category} from "./category.resource";
+import {HalSerializer} from "../services/hal-serializer.service";
+import {HalResourceExt} from "./common/HalResourceExt";
 
-export class Invoice extends HalResource {
+export class Invoice extends HalResourceExt {
     @HalProperty()
     public name: string;
 

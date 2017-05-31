@@ -3,6 +3,7 @@ import {Router, ActivatedRoute} from '@angular/router';
 import {Invoice} from "../resources/invoice.resource";
 import {InvoiceService} from "../services/core/invoice.service";
 import {HashService} from "../services/common/hash.service";
+import {HalSerializer} from "../services/hal-serializer.service";
 
 @Component({
     templateUrl: './invoice-detail-form.component.html'
@@ -42,11 +43,6 @@ export class InvoiceDetailFormComponent implements OnInit, OnDestroy {
     }
 
     async onSubmit() {
-        delete this.invoice.links['counterparty'];
-        delete this.invoice.links['store'];
-        delete this.invoice.links['invoice'];
-        delete this.invoice.links['positions'];
-        delete this.invoice.links['categories'];
         await this.invoice.update();
         this.gotoInvoices();
     }

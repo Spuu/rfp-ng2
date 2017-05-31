@@ -24,7 +24,6 @@ export class InvoiceListComponent implements OnInit {
     }
 
     onSelect(invoice:Invoice) {
-        console.log(invoice.uri);
         this.router.navigate(['/invoice', this.hashService.hash(invoice.uri)]);
     }
 
