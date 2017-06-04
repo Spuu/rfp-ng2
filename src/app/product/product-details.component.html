@@ -99,15 +99,15 @@
 <!--ean is required-->
 <!--</div>-->
 <!--</div>-->
-<!--<div class="form-group col-md-3">-->
+<!--<div class="invoiceForm-group col-md-3">-->
 <!--<label for="name">Nazwa</label>-->
-<!--<input type="text" class="form-control" required [(ngModel)]="selectedProduct.name"-->
+<!--<input type="text" class="invoiceForm-control" required [(ngModel)]="selectedProduct.name"-->
 <!--name="name" #name="ngModel">-->
 <!--<div [hidden]="name.valid || name.pristine" class="alert alert-danger">Name is required</div>-->
 <!--</div>-->
-<!--<div class="form-group col-md-3">-->
+<!--<div class="invoiceForm-group col-md-3">-->
 <!--<label for="cash_register_name">Nazwa w kasie</label>-->
-<!--<input type="text" class="form-control" required [(ngModel)]="selectedProduct.cash_register_name"-->
+<!--<input type="text" class="invoiceForm-control" required [(ngModel)]="selectedProduct.cash_register_name"-->
 <!--name="cash_register_name" #cash_register_name="ngModel">-->
 <!--<div [hidden]="cash_register_name.valid || cash_register_name.pristine" class="alert alert-danger">-->
 <!--cash_register_name is required-->
@@ -116,49 +116,49 @@
 <!--</div>-->
 
 <!--<div class="row">-->
-<!--<div class="form-group col-md-1">-->
+<!--<div class="invoiceForm-group col-md-1">-->
 <!--<label for="vat">Vat</label>-->
-<!--<input type="text" class="form-control" required [(ngModel)]="selectedProduct.vat"-->
+<!--<input type="text" class="invoiceForm-control" required [(ngModel)]="selectedProduct.vat"-->
 <!--name="vat" #vat="ngModel">-->
 <!--<div [hidden]="vat.valid || vat.pristine" class="alert alert-danger">-->
 <!--vat is required-->
 <!--</div>-->
 <!--</div>-->
-<!--<div class="form-group col-md-1">-->
+<!--<div class="invoiceForm-group col-md-1">-->
 <!--<label for="cash_register_rate">Wsp. w kasie</label>-->
-<!--<input type="text" class="form-control" required [(ngModel)]="selectedProduct.cash_register_rate"-->
+<!--<input type="text" class="invoiceForm-control" required [(ngModel)]="selectedProduct.cash_register_rate"-->
 <!--name="cash_register_rate" #cash_register_rate="ngModel">-->
 <!--<div [hidden]="cash_register_rate.valid || cash_register_rate.pristine" class="alert alert-danger">-->
 <!--cash_register_rate is required-->
 <!--</div>-->
 <!--</div>-->
-<!--<div class="form-group col-md-1">-->
+<!--<div class="invoiceForm-group col-md-1">-->
 <!--<label for="sell_unit">Jednostka</label>-->
-<!--<input type="text" class="form-control" required [(ngModel)]="selectedProduct.sell_unit"-->
+<!--<input type="text" class="invoiceForm-control" required [(ngModel)]="selectedProduct.sell_unit"-->
 <!--name="sell_unit" #sell_unit="ngModel">-->
 <!--<div [hidden]="sell_unit.valid || sell_unit.pristine" class="alert alert-danger">-->
 <!--sell_unit is required-->
 <!--</div>-->
 <!--</div>-->
-<!--<div class="form-group col-md-1">-->
+<!--<div class="invoiceForm-group col-md-1">-->
 <!--<label for="pih_amount">PIH wartość</label>-->
-<!--<input type="text" class="form-control" required [(ngModel)]="selectedProduct.pih_amount"-->
+<!--<input type="text" class="invoiceForm-control" required [(ngModel)]="selectedProduct.pih_amount"-->
 <!--name="pih_amount" #pih_amount="ngModel">-->
 <!--<div [hidden]="pih_amount.valid || pih_amount.pristine" class="alert alert-danger">-->
 <!--pih_amount is required-->
 <!--</div>-->
 <!--</div>-->
-<!--<div class="form-group col-md-1">-->
+<!--<div class="invoiceForm-group col-md-1">-->
 <!--<label for="pih_unit">PIH jednostka</label>-->
-<!--<input type="text" class="form-control" required [(ngModel)]="selectedProduct.pih_unit"-->
+<!--<input type="text" class="invoiceForm-control" required [(ngModel)]="selectedProduct.pih_unit"-->
 <!--name="pih_unit" #pih_unit="ngModel">-->
 <!--<div [hidden]="pih_unit.valid || pih_unit.pristine" class="alert alert-danger">-->
 <!--pih_unit is required-->
 <!--</div>-->
 <!--</div>-->
-<!--<div class="form-group col-md-1">-->
+<!--<div class="invoiceForm-group col-md-1">-->
 <!--<label for="status">Status</label>-->
-<!--<input type="text" class="form-control" readonly [(ngModel)]="selectedProduct.status"-->
+<!--<input type="text" class="invoiceForm-control" readonly [(ngModel)]="selectedProduct.status"-->
 <!--name="status" #status="ngModel">-->
 <!--<div [hidden]="status.valid || status.pristine" class="alert alert-danger">-->
 <!--status is required-->
@@ -166,10 +166,10 @@
 <!--</div>-->
 <!--</div>-->
 
-<!--<button type="submit" class="btn btn-primary" [disabled]="!productForm.form.valid">Zapisz</button>-->
+<!--<button type="submit" class="btn btn-primary" [disabled]="!productForm.invoiceForm.valid">Zapisz</button>-->
 <!--<modal-confirm-button title="Usunąć produkt?" (onConfirm)="modalConfirmation()">Usuń</modal-confirm-button>-->
 <!--<a (click)="cancel()">Cancel</a>-->
-<!--</form>-->
+<!--</invoiceForm>-->
 <!--</div>-->
 <div class="container-fluid" *ngIf='!product'>
     {{'Coś się zepsuło i nie ma produktu :('}}

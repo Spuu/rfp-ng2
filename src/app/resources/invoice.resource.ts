@@ -6,12 +6,17 @@ import {Category} from "./category.resource";
 import {HalSerializer} from "../services/hal-serializer.service";
 import {HalResourceExt} from "./common/HalResourceExt";
 
+export enum InvoiceType {
+    BUY,
+    SELL
+}
+
 export class Invoice extends HalResourceExt {
     @HalProperty()
     public name: string;
 
     @HalProperty()
-    public type: string;
+    public type: InvoiceType;
 
     @HalProperty()
     public creationDate: Date;

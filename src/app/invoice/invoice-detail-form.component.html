@@ -3,14 +3,18 @@
 <div class="container" *ngIf='invoice'>
     <div>
         <h1>{{pageTitle + ': ' + invoice.name }}</h1>
-        <form (ngSubmit)="onSubmit()" #invoiceForm="ngForm">
-            <div class="form-group">
-                <label for="name">Nazwa</label>
-                <input type="text" class="form-control" required [(ngModel)]="invoice.name" name="name" #name="ngModel">
-                <div [hidden]="name.valid || name.pristine" class="alert alert-danger">Name is required</div>
+
+        <form [formGroup]="invoiceForm" (ngSubmit)="onSubmit()" novalidate>
+            <div style="margin-bottom: 1em">
+                <button type="submit" [disabled]="invoiceForm.pristine" class="btn btn-success">Zapisz</button> &nbsp;
+                <button type="reset" (click)="revert()" [disabled]="invoiceForm.pristine" class="btn btn-danger">Reset</button>
+                <modal-confirm-button (onConfirm)="onDelete()" title="Usunąć {{ invoice.name }}?">Usuń</modal-confirm-button>
             </div>
-            <button type="submit" class="btn btn-primary" [disabled]="!invoiceForm.form.valid">Zapisz</button>
-            <modal-confirm-button (onConfirm)="onDelete()" title="Usunąć {{ invoice.name }}?">Usuń</modal-confirm-button>
+            <div class="form-group">
+                <label class="center-block">Name:
+                    <input class="form-control" formControlName="name">
+                </label>
+            </div>
         </form>
     </div>
 </div>

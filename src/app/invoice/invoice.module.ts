@@ -1,6 +1,6 @@
 import { NgModule }      from '@angular/core';
 import { CommonModule }  from '@angular/common';
-import { FormsModule }   from '@angular/forms';
+import {FormsModule, ReactiveFormsModule}   from '@angular/forms';
 
 import {InvoiceListComponent} from "./invoice-list.component";
 import {InvoiceDetailFormComponent} from "./invoice-detail-form.component";
@@ -17,7 +17,8 @@ import {CalendarModule} from 'primeng/primeng';
         FormsModule,
         GenericModule,
         PositionModule,
-        CalendarModule
+        CalendarModule,
+        ReactiveFormsModule
     ],
     declarations: [
         InvoiceListComponent,
