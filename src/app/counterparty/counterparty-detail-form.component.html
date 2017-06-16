@@ -17,7 +17,7 @@
                        [(ngModel)]="counterparty.fullName"
                        name="fullName"></textarea>
             </div>
-            <button type="submit" class="btn btn-primary" [disabled]="!counterpartyForm.invoiceForm.valid">Zapisz</button>
+            <button type="submit" class="btn btn-primary" [disabled]="!counterpartyForm.form.valid">Zapisz</button>
             <modal-confirm-button (onConfirm)="onDelete()" title="Usunąć {{ counterparty.name }}?">Usuń</modal-confirm-button>
         </form>
     </div>

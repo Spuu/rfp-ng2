@@ -17,7 +17,7 @@
                           [(ngModel)]="store.fullName"
                           name="fullName"></textarea>
             </div>
-            <button type="submit" class="btn btn-primary" [disabled]="!storeForm.invoiceForm.valid">Zapisz</button>
+            <button type="submit" class="btn btn-primary" [disabled]="!storeForm.form.valid">Zapisz</button>
             <modal-confirm-button (onConfirm)="onDelete()" title="Usunąć {{ store.name }}?">Usuń</modal-confirm-button>
         </form>
     </div>

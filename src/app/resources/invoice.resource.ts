@@ -1,9 +1,8 @@
-import {HalProperty, IJSONSerializer} from "hal-rest-client";
+import {HalProperty} from "hal-rest-client";
 import {Counterparty} from "./counterparty.resource";
 import {Store} from "./store.resource";
 import {Position} from "./position/position.resource";
 import {Category} from "./category.resource";
-import {HalSerializer} from "../services/hal-serializer.service";
 import {HalResourceExt} from "./common/HalResourceExt";
 
 export enum InvoiceType {

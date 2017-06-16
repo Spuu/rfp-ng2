@@ -20,6 +20,8 @@ import {NavigationComponent} from "./navigation/navigation.component";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {AuthGuard} from "./services/common/auth.guard";
 import {PageNotFoundComponent} from "./generic/page-not-found.component";
+import {HalSerializer} from "./services/hal-serializer.service";
+import {DbRefUpdaterService} from "./services/db-ref-updater.service";
 
 @NgModule({
     declarations: [
@@ -46,7 +48,8 @@ import {PageNotFoundComponent} from "./generic/page-not-found.component";
         AuthService,
         Logger,
         HashService,
-        HalResourceService
+        HalResourceService,
+        DbRefUpdaterService
     ],
     bootstrap: [AppComponent]
 })

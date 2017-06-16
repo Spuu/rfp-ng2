@@ -1,4 +1,5 @@
 import {IJSONSerializer} from "hal-rest-client";
+import {DbRefUpdaterService} from "./db-ref-updater.service";
 
 export class HalSerializer implements IJSONSerializer {
 
@@ -13,6 +14,6 @@ export class HalSerializer implements IJSONSerializer {
      * parse a hal-resource to server comprehensible value
      */
     public parseResource(value) {
-        return value ? { "href" : value.uri } : undefined;
+        return undefined;
     }
 }
