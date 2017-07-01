@@ -10,6 +10,7 @@ import {FormGroup, FormBuilder, Validators} from "@angular/forms";
 import {SelectItem} from "primeng/components/common/api";
 import * as moment from "moment-timezone";
 import {DbRefUpdaterService} from "../services/db-ref-updater.service";
+import {resetCache} from "hal-rest-client";
 
 @Component({
     selector: 'invoice-form',
@@ -19,6 +20,7 @@ export class InvoiceFormComponent implements OnInit, OnChanges {
     invoiceForm: FormGroup;
     stores: Store[];
     counterparties: Counterparty[];
+
     isStateful: boolean;
 
     invoiceType: SelectItem[];
@@ -63,8 +65,14 @@ export class InvoiceFormComponent implements OnInit, OnChanges {
     }
 
     async loadSatelites() {
-        this.counterpartyService.getList().then((data) => this.counterparties = data);
-        this.storeService.getList().then((data) => this.stores = data);
+        await this.counterpartyService.getList().then((data) => this.counterparties = data);
+        await this.storeService.getList().then((data) => this.stores = data);
+
+        await this.fetchSatelites();
+    }
+
+    async fetchSatelites() {
+        resetCache();
         await this.model.store.fetch();
         await this.model.counterparty.fetch();
     }
@@ -82,14 +90,10 @@ export class InvoiceFormComponent implements OnInit, OnChanges {
             store: this.model.store.uri,
             counterparty: this.model.counterparty.uri,
         });
-
-        console.log(this.invoiceForm);
     }
 
     async onSubmit() {
         await this.updateModel();
-
-        console.log("emit invoice");
         this.invoiceSubmitted.emit(this.model);
 
         if (!this.isStateful)
@@ -104,7 +108,8 @@ export class InvoiceFormComponent implements OnInit, OnChanges {
     async updateModel() {
         const formModel = this.invoiceForm.value;
 
-        this.dbRefUpdater.update(this.model.store.origUri, formModel.store);
+        await this.dbRefUpdater.update(this.model.store.origUri, formModel.store);
+        await this.dbRefUpdater.update(this.model.counterparty.origUri, formModel.counterparty);
 
         this.model.name = formModel.name;
         this.model.type = formModel.type;
@@ -112,7 +117,8 @@ export class InvoiceFormComponent implements OnInit, OnChanges {
 
         await this.model.update();
 
-        this.invoiceService.get(this.model.uri).then((data) => this.model = data);
+        this.model = await this.invoiceService.get(this.model.uri);
+        await this.fetchSatelites();
         console.log("get invoice");
     }
 

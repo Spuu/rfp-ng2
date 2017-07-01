@@ -1,5 +1,5 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
+import {Router, ActivatedRoute, Params} from '@angular/router';
 import {Invoice, InvoiceType} from "../resources/invoice.resource";
 import {InvoiceService} from "../services/core/invoice.service";
 import {HashService} from "../services/common/hash.service";
@@ -22,22 +22,18 @@ export class InvoiceDetailFormComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.sub = this.route.params.subscribe(params => {
-            let url = this.hashService.unhash(params['id']);
-            this.getInvoice(url);
-        });
-
-            // this.route.params
-            // .switchMap((params: Params) => this.heroService.getHero(+params['id']))
-            // .subscribe(hero => this.hero = hero);
+        this.route.params
+            .map((params: Params) => this.hashService.unhash(params['id']))
+            .map(url => this.invoiceService.get(url))
+            .subscribe(invoice => invoice.then((data) => this.invoice = data));
     }
 
     ngOnDestroy() {
-        this.sub.unsubscribe();
     }
 
-    async getInvoice(url:string) {
-        this.invoice = await this.invoiceService.get(url);
+    onInvoiceSubmitted(invoice: Invoice) {
+        this.invoice = invoice;
+        this.router.navigate(['/invoice']);
     }
 
     gotoInvoices() {

@@ -11,9 +11,7 @@ export class DbRefUpdaterService extends HalResourceService {
     }
 
     async update(url: string, value: string) {
-        console.log(this.getClient());
-        let client = this.getClient();//.update(url, value);
-
+        let client = this.getClient();
 
         let token = `Bearer ${localStorage.getItem('id_token')}`;
         let axios: AxiosInstance;

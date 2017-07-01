@@ -3,7 +3,7 @@
 <div class="container" *ngIf='invoice'>
     <div>
         <h1>{{pageTitle + ': ' + invoice.name }}</h1>
-        <invoice-form [model]="invoice" (invoiceSubmitted)="gotoInvoices()"></invoice-form>
+        <invoice-form [model]="invoice" (invoiceSubmitted)="onInvoiceSubmitted($event)"></invoice-form>
     </div>
 </div>
 <div class="container" *ngIf='!invoice'>
