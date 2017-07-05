@@ -18,12 +18,14 @@ import {resetCache} from "hal-rest-client";
 })
 export class InvoiceFormComponent implements OnInit, OnChanges {
     invoiceForm: FormGroup;
-    stores: Store[];
-    counterparties: Counterparty[];
+    stores: Promise<Store[]>|null = null;
+    counterparties: Promise<Counterparty[]>|null = null;
 
     isStateful: boolean;
 
     invoiceType: SelectItem[];
+
+    DATE_FORMAT: string = 'DD.MM.YYYY';
 
     @Input() model: Invoice;
     @Output() invoiceSubmitted: EventEmitter<Invoice> = new EventEmitter<Invoice>();
@@ -61,27 +63,25 @@ export class InvoiceFormComponent implements OnInit, OnChanges {
             this.model = this.invoiceService.getEmpty();
         }
 
+        this.stores = this.storeService.getList();
+        this.counterparties = this.counterpartyService.getList();
+
         this.loadSatelites().then(() => this.ngOnChanges())
     }
 
     async loadSatelites() {
-        await this.counterpartyService.getList().then((data) => this.counterparties = data);
-        await this.storeService.getList().then((data) => this.stores = data);
-
-        await this.fetchSatelites();
-    }
-
-    async fetchSatelites() {
         resetCache();
-        await this.model.store.fetch();
-        await this.model.counterparty.fetch();
+        await Promise.all([
+            this.model.store.fetch(),
+            this.model.counterparty.fetch()
+        ]);
     }
 
     ngOnChanges(): void {
-        let docDate = moment.tz("Europe/Warsaw").format('L');
+        let docDate = moment().format(this.DATE_FORMAT);
 
         if (this.model.documentDate)
-            docDate = moment.tz(this.model.documentDate, "UTC").format('L');
+            docDate = moment(this.model.documentDate).format(this.DATE_FORMAT);
 
         this.invoiceForm.reset({
             name: this.model.name,
@@ -100,7 +100,7 @@ export class InvoiceFormComponent implements OnInit, OnChanges {
             this.model = this.invoiceService.getEmpty();
     }
 
-    async onDelete() {
+    onDelete() {
         this.model.delete();
         this.model = this.invoiceService.getEmpty();
     }
@@ -108,18 +108,17 @@ export class InvoiceFormComponent implements OnInit, OnChanges {
     async updateModel() {
         const formModel = this.invoiceForm.value;
 
-        await this.dbRefUpdater.update(this.model.store.origUri, formModel.store);
-        await this.dbRefUpdater.update(this.model.counterparty.origUri, formModel.counterparty);
-
         this.model.name = formModel.name;
         this.model.type = formModel.type;
-        this.model.documentDate = new Date(formModel.documentDate);
+        this.model.documentDate = moment.tz(formModel.documentDate, this.DATE_FORMAT, "UTC"); // TODO: date service
 
+        await this.dbRefUpdater.update(this.model.store.origUri, formModel.store);
+        await this.dbRefUpdater.update(this.model.counterparty.origUri, formModel.counterparty);
         await this.model.update();
 
+        // reload full invoice
         this.model = await this.invoiceService.get(this.model.uri);
-        await this.fetchSatelites();
-        console.log("get invoice");
+        await this.loadSatelites();
     }
 
     revert() {
