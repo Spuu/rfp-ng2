@@ -15,27 +15,22 @@ export class StoreService extends HalResourceService {
     }
 
     getEmpty(): Store {
-        const resource = createResource(this.getClient(), Store, this.url);
-        return resource;
+        return createResource(this.getClient(), Store, this.url);
     }
 
-    async getList(): Promise<Store[]> {
-        const resources = await this.getClient().fetchArray(this.url, Store);
-        return resources;
+    getList(): Promise<Store[]> {
+        return this.getClient().fetchArray(this.url, Store);
     }
 
-    async get(fullURL:string): Promise<Store> {
-        const resources = await this.getClient().fetch(fullURL, Store);
-        return resources;
+    get(fullURL:string): Promise<Store> {
+        return this.getClient().fetch(fullURL, Store);
     }
 
-    async post(resource: Store): Promise<Store> {
-        const createdResource = await resource.create();
-        return createdResource;
+    post(resource: Store): Promise<Store> {
+        return resource.create();
     }
 
-    async put(resource: Store): Promise<Store> {
-        const createdResource = await resource.update();
-        return createdResource;
+    put(resource: Store): Promise<Store> {
+        return resource.update();
     }
 }

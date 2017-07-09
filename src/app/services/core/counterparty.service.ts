@@ -15,27 +15,22 @@ export class CounterpartyService extends HalResourceService {
     }
 
     getEmpty(): Counterparty {
-        const resource = createResource(this.getClient(), Counterparty, this.url);
-        return resource;
+        return createResource(this.getClient(), Counterparty, this.url);
     }
 
-    async getList(): Promise<Counterparty[]> {
-        const resources = await this.getClient().fetchArray(this.url, Counterparty);
-        return resources;
+    getList(): Promise<Counterparty[]> {
+        return this.getClient().fetchArray(this.url, Counterparty);
     }
 
-    async get(fullURL:string): Promise<Counterparty> {
-        const resources = await this.getClient().fetch(fullURL, Counterparty);
-        return resources;
+    get(fullURL:string): Promise<Counterparty> {
+        return this.getClient().fetch(fullURL, Counterparty);
     }
 
-    async post(resource: Counterparty): Promise<Counterparty> {
-        const createdResource = await resource.create();
-        return createdResource;
+    post(resource: Counterparty): Promise<Counterparty> {
+        return resource.create();
     }
 
-    async put(resource: Counterparty): Promise<Counterparty> {
-        const createdResource = await resource.update();
-        return createdResource;
+    put(resource: Counterparty): Promise<Counterparty> {
+        return resource.update();
     }
 }

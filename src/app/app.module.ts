@@ -22,6 +22,7 @@ import {AuthGuard} from "./services/common/auth.guard";
 import {PageNotFoundComponent} from "./generic/page-not-found.component";
 import {HalSerializer} from "./services/hal-serializer.service";
 import {DbRefUpdaterService} from "./services/db-ref-updater.service";
+import {DateService} from "./services/common/date.service";
 
 @NgModule({
     declarations: [
@@ -49,7 +50,8 @@ import {DbRefUpdaterService} from "./services/db-ref-updater.service";
         Logger,
         HashService,
         HalResourceService,
-        DbRefUpdaterService
+        DbRefUpdaterService,
+        DateService
     ],
     bootstrap: [AppComponent]
 })

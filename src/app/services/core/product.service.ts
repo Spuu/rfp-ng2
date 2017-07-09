@@ -27,24 +27,20 @@ export class ProductService extends HalResourceService {
         return resource;
     }
 
-    async getList(productQueryParams?: ProductQueryParams): Promise<ProductArray> {
-        const resources = await this.getClient().fetch(this.buildUrl(productQueryParams), ProductArray);
-        return resources;
+    getList(productQueryParams?: ProductQueryParams): Promise<ProductArray> {
+        return this.getClient().fetch(this.buildUrl(productQueryParams), ProductArray);
     }
 
-    async get(fullURL:string): Promise<Product> {
-        const resources = await this.getClient().fetch(fullURL, Product);
-        return resources;
+    get(fullURL:string): Promise<Product> {
+        return this.getClient().fetch(fullURL, Product);
     }
 
-    async post(resource: Product): Promise<Product> {
-        const createdResource = await resource.create();
-        return createdResource;
+    post(resource: Product): Promise<Product> {
+        return resource.create();
     }
 
-    async put(resource: Product): Promise<Product> {
-        const createdResource = await resource.update();
-        return createdResource;
+    put(resource: Product): Promise<Product> {
+        return resource.update();
     }
 
     buildUrl(productQueryParams: ProductQueryParams): string {

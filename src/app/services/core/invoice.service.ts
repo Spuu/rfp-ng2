@@ -16,27 +16,22 @@ export class InvoiceService extends HalResourceService {
     }
 
     getEmpty(): Invoice {
-        const resource = createResource(this.getClient(), Invoice, this.url);
-        return resource;
+        return createResource(this.getClient(), Invoice, this.url);
     }
 
-    async getList(): Promise<InvoiceArray> {
-        const resources = await this.getClient().fetch(this.url, InvoiceArray);
-        return resources;
+    getList(): Promise<InvoiceArray> {
+        return this.getClient().fetch(this.url, InvoiceArray);
     }
 
-    async get(fullURL:string): Promise<Invoice> {
-        const resources = await this.getClient().fetch(fullURL, Invoice);
-        return resources;
+    get(fullURL:string): Promise<Invoice> {
+        return this.getClient().fetch(fullURL, Invoice);
     }
 
-    async post(resource: Invoice): Promise<Invoice> {
-        const createdResource = await resource.create();
-        return createdResource;
+    post(resource: Invoice): Promise<Invoice> {
+        return resource.create();
     }
 
-    async put(resource: Invoice): Promise<Invoice> {
-        const createdResource = await resource.update();
-        return createdResource;
+    put(resource: Invoice): Promise<Invoice> {
+        return resource.update();
     }
 }

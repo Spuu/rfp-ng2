@@ -8,9 +8,9 @@ import {Invoice, InvoiceType} from "../resources/invoice.resource";
 import {InvoiceService} from "../services/core/invoice.service";
 import {FormGroup, FormBuilder, Validators} from "@angular/forms";
 import {SelectItem} from "primeng/components/common/api";
-import * as moment from "moment-timezone";
 import {DbRefUpdaterService} from "../services/db-ref-updater.service";
 import {resetCache} from "hal-rest-client";
+import {DateService} from "../services/common/date.service";
 
 @Component({
     selector: 'invoice-form',
@@ -25,8 +25,6 @@ export class InvoiceFormComponent implements OnInit, OnChanges {
 
     invoiceType: SelectItem[];
 
-    DATE_FORMAT: string = 'DD.MM.YYYY';
-
     @Input() model: Invoice;
     @Output() invoiceSubmitted: EventEmitter<Invoice> = new EventEmitter<Invoice>();
 
@@ -34,6 +32,7 @@ export class InvoiceFormComponent implements OnInit, OnChanges {
                 private counterpartyService: CounterpartyService,
                 private storeService: StoreService,
                 private dbRefUpdater: DbRefUpdaterService,
+                private dateService: DateService,
                 private formBuilder: FormBuilder) {
         this.createForm();
         this.setupInvoiceType();
@@ -78,10 +77,10 @@ export class InvoiceFormComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges(): void {
-        let docDate = moment().format(this.DATE_FORMAT);
+        let docDate = this.dateService.getDateAsString();
 
         if (this.model.documentDate)
-            docDate = moment(this.model.documentDate).format(this.DATE_FORMAT);
+            docDate = this.dateService.getDateAsString(this.model.documentDate);
 
         this.invoiceForm.reset({
             name: this.model.name,
@@ -110,7 +109,7 @@ export class InvoiceFormComponent implements OnInit, OnChanges {
 
         this.model.name = formModel.name;
         this.model.type = formModel.type;
-        this.model.documentDate = moment.tz(formModel.documentDate, this.DATE_FORMAT, "UTC"); // TODO: date service
+        this.model.documentDate = this.dateService.getDateFromString(formModel.documentDate);
 
         await this.dbRefUpdater.update(this.model.store.origUri, formModel.store);
         await this.dbRefUpdater.update(this.model.counterparty.origUri, formModel.counterparty);
