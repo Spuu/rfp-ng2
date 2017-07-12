@@ -8,15 +8,20 @@ export class HalResourceService {
     private client: HalRestClient;
 
     constructor() {
-        this.client = this.prepareClient();
-    }
-
-    getClient() {
         let token = `Bearer ${localStorage.getItem('id_token')}`;
-        return this.client.addHeader('authorization', token);
+
+        this.client = createClient(
+            environment.apiUrl,
+            {
+                'headers': {
+                    'authorization': token,
+                    'Content-Type': 'application/hal+json'
+                }
+            }
+        );
     }
 
-    prepareClient(): HalRestClient {
-        return createClient(environment.apiUrl);
+    getClient(): HalRestClient {
+        return this.client;
     }
 }

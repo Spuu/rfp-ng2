@@ -4,7 +4,8 @@ import {Product} from "../product/product.resource";
 import {SellPosition} from "./sell-position";
 
 export class Position extends HalResource {
-    // private Document document;
+    @HalProperty()
+    document: Document;
 
     @HalProperty()
     index: number;

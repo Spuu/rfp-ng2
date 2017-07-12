@@ -1,11 +1,11 @@
 import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
 
-import {Position} from "./position";
 import {StoreService} from "../services/core/store.service";
 import {ProductService} from "../services/core/product.service";
 
 import * as _ from "lodash";
 import {Store} from "../resources/store.resource";
+import {Position} from "../resources/position/position.resource";
 
 enum Action {
     None = 0,
@@ -27,14 +27,14 @@ export class PositionComponent implements OnInit {
     stores:Store[];
 
     @Output()
-    onDelete = new EventEmitter();
+    onDelete = new EventEmitter<void>();
 
     @Output()
-    onClone = new EventEmitter();
+    onClone = new EventEmitter<void>();
 
     action:Action = Action.None;
 
-    constructor(private _storeService:StoreService, private _productService:ProductService) {
+    constructor(private storeService:StoreService, private productService:ProductService) {
     }
 
     ngOnInit() {
@@ -43,17 +43,10 @@ export class PositionComponent implements OnInit {
             return;
         }
 
-        // if (!this.stores) {
-        //     this._storeService.getList()
-        //         .subscribe(
-        //             s => this.stores = s.docs,
-        //             err => console.log(err)
-        //         );
-        // }
-
-        // if(this.position._sub_position) {
-        //     this.refreshSubproducts();
-        // }
+        if (_.isEmpty(this.stores)) {
+            console.log('No stores provided...');
+            return;
+        }
     }
 
     actionChange(type:number) {
@@ -61,11 +54,11 @@ export class PositionComponent implements OnInit {
     }
 
     delete() {
-        this.onDelete.emit(true);
+        this.onDelete.emit();
     }
 
     clone() {
-        this.onClone.emit(true);
+        this.onClone.emit();
     }
 
     addSubPosition() {
@@ -82,13 +75,6 @@ export class PositionComponent implements OnInit {
         //         },
         //         err => console.log(err)
         //     );
-    }
-
-    isSubbed():boolean {
-        // if(_.isEmpty(this.subProducts))
-        //     return false;
-        //
-        return true;
     }
 
     isActionSub():boolean {

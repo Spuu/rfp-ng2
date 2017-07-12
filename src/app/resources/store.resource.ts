@@ -1,7 +1,6 @@
-import {HalProperty} from "hal-rest-client";
-import {HalResourceExt} from "./common/HalResourceExt";
+import {HalProperty, HalResource} from "hal-rest-client";
 
-export class Store extends HalResourceExt {
+export class Store extends HalResource {
     @HalProperty()
     name: string;
 

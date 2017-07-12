@@ -11,44 +11,23 @@ import {Product} from "../resources/product/product.resource";
     templateUrl: './position-list.component.html'
 })
 export class PositionListComponent implements OnInit {
-    @Input()
-    invoiceId:string;
-    @Input()
-    storeId:string;
 
-    positions:Position[];
-    stores:Store[];
+    @Input()
+    positions: Position[];
 
-    constructor(private _positionService:PositionService,
-                private _storeService:StoreService) {
+    stores: Promise<Store[]>|null = null;
+
+    constructor(private positionService:PositionService,
+                private storeService:StoreService) {
     }
 
     ngOnInit() {
-        // if (!this.invoiceId || !this.storeId) {
-        //     console.log('Insufficient data provided...');
-        //     return;
-        // }
-        //
-        // if (!this.positions) {
-        //     this.positions = [];
-        //     this._positionService.getInvoice(this.invoiceId)
-        //         .subscribe(
-        //             p => this.positions = p,
-        //             err => console.log(err)
-        //         );
-        // }
-
-        // // load stores
-        // this._storeService.getList()
-        //     .subscribe(
-        //         s => this.stores = s.docs,
-        //         err => console.log(err)
-        //     );
+        this.stores = this.storeService.getList();
     }
 
     addPosition(product:Product) {
         let newPosition:Position = new Position(product);
-        newPosition.setInputs(this.invoiceId, this.storeId);
+       // newPosition.setInputs(this.invoiceId, this.storeId);
 
         // search corresponding position
         // this._positionService.search(selectedProduct._id, this.storeId)

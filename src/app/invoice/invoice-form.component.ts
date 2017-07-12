@@ -8,9 +8,10 @@ import {Invoice, InvoiceType} from "../resources/invoice.resource";
 import {InvoiceService} from "../services/core/invoice.service";
 import {FormGroup, FormBuilder, Validators} from "@angular/forms";
 import {SelectItem} from "primeng/components/common/api";
-import {DbRefUpdaterService} from "../services/db-ref-updater.service";
 import {resetCache} from "hal-rest-client";
 import {DateService} from "../services/common/date.service";
+
+import * as _ from "lodash";
 
 @Component({
     selector: 'invoice-form',
@@ -18,8 +19,8 @@ import {DateService} from "../services/common/date.service";
 })
 export class InvoiceFormComponent implements OnInit, OnChanges {
     invoiceForm: FormGroup;
-    stores: Promise<Store[]>|null = null;
-    counterparties: Promise<Counterparty[]>|null = null;
+    stores: Store[];
+    counterparties: Counterparty[];
 
     isStateful: boolean;
 
@@ -31,7 +32,6 @@ export class InvoiceFormComponent implements OnInit, OnChanges {
     constructor(private invoiceService: InvoiceService,
                 private counterpartyService: CounterpartyService,
                 private storeService: StoreService,
-                private dbRefUpdater: DbRefUpdaterService,
                 private dateService: DateService,
                 private formBuilder: FormBuilder) {
         this.createForm();
@@ -62,9 +62,6 @@ export class InvoiceFormComponent implements OnInit, OnChanges {
             this.model = this.invoiceService.getEmpty();
         }
 
-        this.stores = this.storeService.getList();
-        this.counterparties = this.counterpartyService.getList();
-
         this.loadSatelites().then(() => this.ngOnChanges())
     }
 
@@ -72,7 +69,9 @@ export class InvoiceFormComponent implements OnInit, OnChanges {
         resetCache();
         await Promise.all([
             this.model.store.fetch(),
-            this.model.counterparty.fetch()
+            this.model.counterparty.fetch(),
+            this.storeService.getList().then((data) => this.stores = data),
+            this.counterpartyService.getList().then((data) => this.counterparties = data)
         ]);
     }
 
@@ -89,6 +88,8 @@ export class InvoiceFormComponent implements OnInit, OnChanges {
             store: this.model.store.uri,
             counterparty: this.model.counterparty.uri,
         });
+
+        console.log(this.model);
     }
 
     async onSubmit() {
@@ -110,14 +111,11 @@ export class InvoiceFormComponent implements OnInit, OnChanges {
         this.model.name = formModel.name;
         this.model.type = formModel.type;
         this.model.documentDate = this.dateService.getDateFromString(formModel.documentDate);
-
-        await this.dbRefUpdater.update(this.model.store.origUri, formModel.store);
-        await this.dbRefUpdater.update(this.model.counterparty.origUri, formModel.counterparty);
+        this.model.store = _.find(this.stores, { uri: formModel.store});
+        this.model.counterparty = _.find(this.counterparties, { uri: formModel.counterparty });
+        this.model.categories = null;
+        this.model.positions = null;
         await this.model.update();
-
-        // reload full invoice
-        this.model = await this.invoiceService.get(this.model.uri);
-        await this.loadSatelites();
     }
 
     revert() {

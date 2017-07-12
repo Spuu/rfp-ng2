@@ -1,7 +1,6 @@
-import {HalProperty} from "hal-rest-client";
-import {HalResourceExt} from "./common/HalResourceExt";
+import {HalProperty, HalResource} from "hal-rest-client";
 
-export class Counterparty extends HalResourceExt {
+export class Counterparty extends HalResource {
     @HalProperty()
     name: string;
 

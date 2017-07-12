@@ -11,7 +11,6 @@ import {InvoiceService} from "../services/core/invoice.service";
 
 import {CalendarModule} from 'primeng/primeng';
 import {DropdownModule} from "primeng/components/dropdown/dropdown";
-import {DbRefUpdaterService} from "../services/db-ref-updater.service";
 
 @NgModule({
     imports: [
