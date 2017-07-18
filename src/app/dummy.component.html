@@ -11,6 +11,8 @@
             <p><strong>Updated At: </strong> {{auth.userProfile.updated_at}}</p>
         </div>
     </div>
+    <search-product (productSelected)="product=$event"></search-product>
+    <div *ngIf="product">{{ product.name }}</div>
 </div>
 <h4 *ngIf="!auth.authenticated()">You are not logged in, please click 'Log in' button to login</h4>
 <button (click)="gimmetest()">Weź kliknij</button>

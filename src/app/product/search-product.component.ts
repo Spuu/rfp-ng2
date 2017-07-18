@@ -1,8 +1,7 @@
 import {Component, Output, EventEmitter} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
 
 import {ProductService} from "../services/core/product.service";
+import {ProductQueryParams, ProductQueryParamsBuilder} from "../resources/product/product-query-params";
 import {Product} from "../resources/product/product.resource";
 
 @Component({
@@ -12,36 +11,21 @@ import {Product} from "../resources/product/product.resource";
 export class SearchProductComponent {
     @Output() productSelected = new EventEmitter();
 
-    public dataSource:Observable<Product[]>;
-    public asyncSelected:string;
-    public isLoading:boolean = false;
-    public noResults:boolean = false;
+    constructor(private productService:ProductService) {
+    }
 
-    private getAsyncSelected = function () {
-        return this.asyncSelected;
-    };
+    selectedProduct: Product;
 
-    constructor(private _productService:ProductService) {
-        this.dataSource = Observable.create((observer:any) => {
-            // this._productService.search(this.getAsyncSelected(), 5)
-            //     .subscribe(p => {
-            //         observer.next(p);
-            //     });
+    results: Product[];
+
+    search(event) {
+        this.productService.getList(ProductQueryParamsBuilder.prodBuilder().setQuery(event.query).build()).then(data => {
+            this.results = data.products;
         });
     }
 
-
-    public changeLoading(e:boolean):void {
-        this.isLoading = e;
-    }
-
-    public changeNoResults(e:boolean):void {
-        this.noResults = e;
-    }
-
-    public onSelect(e:any):void {
-        this.productSelected.emit(e.item);
-        this.asyncSelected = '';
+    select(value) {
+        this.productSelected.emit(value);
     }
 }
 

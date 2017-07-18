@@ -1,21 +1,8 @@
-<div class='container-fluid'>
-    <input [(ngModel)]="asyncSelected"
-           [typeahead]="dataSource"
-           [typeaheadAsync]="true"
-           [typeaheadMinLength]="3"
-           [typeaheadWaitMs]="100"
-           [typeaheadOptionsLimit]="5"
-           [typeaheadOptionField]="'display_name'"
-           (typeaheadLoading)="changeLoading($event)"
-           (typeaheadNoResults)="changeNoResults($event)"
-           (typeaheadOnSelect)="onSelect($event)"
-           placeholder="Search for products"
-           class="form-control">
-    <div *ngIf="isLoading">
-        <i class="glyphicon glyphicon-refresh ng-hide" style=""></i>
-    </div>
-    <div *ngIf="noResults" class="" style="">
-        <i class="glyphicon glyphicon-remove"></i> No Results Found
-    </div>
+<div class="container-fluid">
+    <p-autoComplete [(ngModel)]="selectedProduct" field="name" [suggestions]="results" delay=1000
+                    (completeMethod)="search($event)" (onSelect)="select($event)" emptyMessage="No items">
+        <ng-template let-selectedProduct pTemplate="item">
+            <div class="ui-helper-clearfix">{{ selectedProduct.ean }} {{ selectedProduct.name }}</div>
+        </ng-template>
+    </p-autoComplete>
 </div>
-
