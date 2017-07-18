@@ -27,7 +27,7 @@
     <div class="form-group">
         <label class="center-block">Kontrahent:
             <select class="form-control" formControlName="counterparty" required>
-                <option *ngFor="let c of counterparties" [value]="c.uri">
+                <option *ngFor="let c of counterparties | async" [value]="c.uri">
                     {{c.name}}
                 </option>
             </select>
@@ -37,7 +37,7 @@
     <div class="form-group">
         <label class="center-block">Sklep:
             <select class="form-control" formControlName="store" required>
-                <option *ngFor="let s of stores" [value]="s.uri">
+                <option *ngFor="let s of stores | async" [value]="s.uri">
                     {{s.name}}
                 </option>
             </select>

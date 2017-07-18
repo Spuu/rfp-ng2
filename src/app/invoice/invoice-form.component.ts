@@ -11,16 +11,14 @@ import {SelectItem} from "primeng/components/common/api";
 import {resetCache} from "hal-rest-client";
 import {DateService} from "../services/common/date.service";
 
-import * as _ from "lodash";
-
 @Component({
     selector: 'invoice-form',
     templateUrl: 'invoice-form.component.html'
 })
 export class InvoiceFormComponent implements OnInit, OnChanges {
     invoiceForm: FormGroup;
-    stores: Store[];
-    counterparties: Counterparty[];
+    stores: Promise<Store[]> | null = null;
+    counterparties: Promise<Counterparty[]> | null = null;
 
     isStateful: boolean;
 
@@ -62,6 +60,9 @@ export class InvoiceFormComponent implements OnInit, OnChanges {
             this.model = this.invoiceService.getEmpty();
         }
 
+        this.stores = this.storeService.getList();
+        this.counterparties = this.counterpartyService.getList();
+
         this.loadSatelites().then(() => this.ngOnChanges())
     }
 
@@ -69,9 +70,7 @@ export class InvoiceFormComponent implements OnInit, OnChanges {
         resetCache();
         await Promise.all([
             this.model.store.fetch(),
-            this.model.counterparty.fetch(),
-            this.storeService.getList().then((data) => this.stores = data),
-            this.counterpartyService.getList().then((data) => this.counterparties = data)
+            this.model.counterparty.fetch()
         ]);
     }
 
@@ -88,8 +87,6 @@ export class InvoiceFormComponent implements OnInit, OnChanges {
             store: this.model.store.uri,
             counterparty: this.model.counterparty.uri,
         });
-
-        console.log(this.model);
     }
 
     async onSubmit() {
@@ -111,8 +108,8 @@ export class InvoiceFormComponent implements OnInit, OnChanges {
         this.model.name = formModel.name;
         this.model.type = formModel.type;
         this.model.documentDate = this.dateService.getDateFromString(formModel.documentDate);
-        this.model.store = _.find(this.stores, { uri: formModel.store});
-        this.model.counterparty = _.find(this.counterparties, { uri: formModel.counterparty });
+        this.model.store.uri = formModel.store;
+        this.model.counterparty.uri = formModel.counterparty;
         this.model.categories = null;
         this.model.positions = null;
         await this.model.update();

@@ -1,9 +1,8 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Router, ActivatedRoute, Params} from '@angular/router';
-import {Invoice, InvoiceType} from "../resources/invoice.resource";
+import {Invoice} from "../resources/invoice.resource";
 import {InvoiceService} from "../services/core/invoice.service";
 import {HashService} from "../services/common/hash.service";
-import {FormBuilder, FormGroup, Validators, FormArray} from "@angular/forms";
 
 @Component({
     templateUrl: './invoice-detail-form.component.html'
@@ -25,7 +24,7 @@ export class InvoiceDetailFormComponent implements OnInit, OnDestroy {
         this.route.params
             .map((params: Params) => this.hashService.unhash(params['id']))
             .map(url => this.invoiceService.get(url))
-            .subscribe(invoice => invoice.then((data) => this.invoice = data));
+            .subscribe(invoice => invoice.then((data) => { this.invoice = data; console.log(data);} ));
     }
 
     ngOnDestroy() {
