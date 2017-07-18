@@ -1,7 +1,7 @@
 import {Component, Output, EventEmitter} from '@angular/core';
 
 import {ProductService} from "../services/core/product.service";
-import {ProductQueryParams, ProductQueryParamsBuilder} from "../resources/product/product-query-params";
+import {ProductQueryParamsBuilder} from "../resources/product/product-query-params";
 import {Product} from "../resources/product/product.resource";
 
 @Component({

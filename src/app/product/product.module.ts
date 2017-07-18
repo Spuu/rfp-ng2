@@ -10,8 +10,6 @@ import {ProductDetailRouterComponent} from "./product-detail-router.component";
 import {StoreModule} from "../store/store.module";
 import {ProductService} from "../services/core/product.service";
 
-import {TypeaheadModule} from 'ng2-bootstrap/ng2-bootstrap';
-
 import {AutoCompleteModule} from 'primeng/primeng';
 import {ButtonModule} from 'primeng/primeng';
 import {PanelModule} from 'primeng/primeng';
@@ -22,7 +20,6 @@ import {GenericModule} from "../generic/generic.module";
 
 @NgModule({
     imports: [
-        TypeaheadModule.forRoot(),
         CommonModule,
         StoreModule,
         FormsModule,
