@@ -1,8 +1,9 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
-import {Router, ActivatedRoute, Params} from '@angular/router';
 import {Invoice} from "../resources/invoice.resource";
 import {InvoiceService} from "../services/core/invoice.service";
 import {HashService} from "../services/common/hash.service";
+import {Component, OnDestroy, OnInit} from "@angular/core";
+import {Router, ActivatedRoute, Params, ParamMap} from "@angular/router";
+import 'rxjs/add/operator/switchMap';
 
 @Component({
     templateUrl: './invoice-detail-form.component.html'
@@ -21,10 +22,10 @@ export class InvoiceDetailFormComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.route.params
-            .map((params: Params) => this.hashService.unhash(params['id']))
-            .map(url => this.invoiceService.get(url))
-            .subscribe(invoice => invoice.then((data) => { this.invoice = data; console.log(data);} ));
+        this.route.paramMap
+            .switchMap((params: ParamMap) => this.hashService.unhash(params.get('id')))
+            .switchMap(url => this.invoiceService.get(url))
+            .subscribe(invoice => this.invoice = invoice);
     }
 
     ngOnDestroy() {

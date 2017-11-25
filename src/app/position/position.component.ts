@@ -6,15 +6,7 @@ import {ProductService} from "../services/core/product.service";
 import * as _ from "lodash";
 import {Store} from "../resources/store.resource";
 import {Position} from "../resources/position/position.resource";
-
-enum Action {
-    None = 0,
-    Clone,
-    Sub,
-    Edit,
-    Set_Father,
-    Set_Child
-}
+import {Product} from "../resources/product/product.resource";
 
 @Component({
     selector: 'position-component',
@@ -22,9 +14,9 @@ enum Action {
 })
 export class PositionComponent implements OnInit {
     @Input()
-    position:Position;
+    position: Position;
     @Input()
-    stores:Store[];
+    stores: Store[];
 
     @Output()
     onDelete = new EventEmitter<void>();
@@ -32,12 +24,10 @@ export class PositionComponent implements OnInit {
     @Output()
     onClone = new EventEmitter<void>();
 
-    action:Action = Action.None;
+    showSubPosition: boolean = false;
+    showEdit: boolean = false;
 
-    constructor(private storeService:StoreService, private productService:ProductService) {
-    }
-
-    ngOnInit() {
+    async ngOnInit() {
         if (!this.position) {
             console.log('No position provided...');
             return;
@@ -47,10 +37,8 @@ export class PositionComponent implements OnInit {
             console.log('No stores provided...');
             return;
         }
-    }
 
-    actionChange(type:number) {
-        this.action = type;
+        await this.position.product.fetch();
     }
 
     delete() {
@@ -62,12 +50,15 @@ export class PositionComponent implements OnInit {
     }
 
     addSubPosition() {
-        this.actionChange(Action.Sub);
+        this.showSubPosition = true;
         this.refreshSubproducts();
     }
 
-    refreshSubproducts() {
-        // this._productService.show_children(this.position._product._id)
+    async refreshSubproducts() {
+        this.position.product.children.map((child) => child.fetch());
+
+        //
+        // this.productService.show_children(this.position._product._id)
         //     .subscribe(
         //         c => {
         //             this.subProducts = c._children;
@@ -75,20 +66,6 @@ export class PositionComponent implements OnInit {
         //         },
         //         err => console.log(err)
         //     );
-    }
-
-    isActionSub():boolean {
-        if(this.action == Action.Sub)
-            return true;
-
-        return false;
-    }
-
-    showSubPosition():boolean {
-        // if(this.isActionSub() || this.position._sub_position)
-        //     return true;
-
-        return false;
     }
 }
 

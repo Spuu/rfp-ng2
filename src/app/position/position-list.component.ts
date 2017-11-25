@@ -2,9 +2,9 @@ import {Component, Input, OnInit} from '@angular/core';
 
 import {PositionService} from "../services/core/position.service";
 import {StoreService} from "../services/core/store.service";
-import {Position} from "./position";
 import {Store} from "../resources/store.resource";
 import {Product} from "../resources/product/product.resource";
+import {Position} from "../resources/position/position.resource";
 
 @Component({
     selector: 'position-list',
@@ -26,7 +26,7 @@ export class PositionListComponent implements OnInit {
     }
 
     addPosition(product:Product) {
-        let newPosition:Position = new Position(product);
+        let newPosition:Position = this.positionService.getEmpty();
        // newPosition.setInputs(this.invoiceId, this.storeId);
 
         // search corresponding position
@@ -71,7 +71,7 @@ export class PositionListComponent implements OnInit {
     save() {
         // filter out deleted position that were not save
         console.log(this.positions.length);
-        this.positions = this.positions.filter(p => !p.toDelete || !!p._id);
+        //this.positions = this.positions.filter(p => !p.toDelete || !!p._id);
         console.log(this.positions.length);
 
         // for (let i in this.positions) {
@@ -91,7 +91,7 @@ export class PositionListComponent implements OnInit {
 
         // filter out deleted positions
         console.log(this.positions.length);
-        this.positions = this.positions.filter(p => !p.toDelete);
+        //this.positions = this.positions.filter(p => !p.toDelete);
         console.log(this.positions.length);
 
         for (let i in this.positions) {
@@ -110,7 +110,7 @@ export class PositionListComponent implements OnInit {
     }
 
     delete(pos:Position) {
-        pos.toDelete = true;
+        //pos.toDelete = true;
     }
 
     clone(pos:Position) {

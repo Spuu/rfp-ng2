@@ -10,9 +10,7 @@
             <li (click)="addSubPosition()"><a ng-href="#">Sub</a></li>
             <li class="dropdown-header">Modify</li>
             <li (click)="clone()"><a ng-href="#">Clone</a></li>
-            <li (click)="actionChange(3)"><a ng-href="#">Edit product</a></li>
-            <li (click)="actionChange(4)"><a ng-href="#">Set Father</a></li>
-            <li (click)="actionChange(5)"><a ng-href="#">Set Child</a></li>
+            <li (click)="showEdit=true"><a ng-href="#">Edit product</a></li>
             <li class="dropdown-header">Remove</li>
             <li (click)="delete()"><a ng-href="#">Remove</a></li>
         </ul>
@@ -37,13 +35,7 @@
 <!--<div *ngIf="showSubPosition()">-->
     <!--<sub-position [products]="subProducts" [subPosition]="position._sub_position" ></sub-position>-->
 <!--</div>-->
-<div [ngSwitch]="action" class="row">
-    <product-details *ngSwitchCase="3" [(product)]="position._product" (onDelete)="delete()" (onSave)="actionChange(0)"
-                     (onCancel)="actionChange(0)"></product-details>
-
-    <product-family *ngSwitchCase="4" [child]="position._product"
-                    (onClose)="actionChange(0)"></product-family>
-
-    <product-family *ngSwitchCase="5" [father]="position._product"
-                    (onClose)="actionChange(0)"></product-family>
+<div *ngIf="showEdit" class="row">
+    <product-details [(product)]="position.product" (onDelete)="delete()" (onSave)="showEdit=false"
+                     (onCancel)="showEdit=false"></product-details>
 </div>
